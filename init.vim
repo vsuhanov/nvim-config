@@ -17,6 +17,7 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-commentary'
 Plug 'preservim/nerdtree'
 Plug 'vim-ctrlspace/vim-ctrlspace'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 Plug 'github/copilot.vim'
 " List ends here. Plugins become visible to Vim after this call.
