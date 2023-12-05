@@ -70,6 +70,7 @@ let g:airline#extensions#tabline#enabled = 1
 "
 execute 'source' fnamemodify(stdpath('config') . '/config/clang-format.vim', ':p')
 execute 'source' fnamemodify(stdpath('config') . '/config/purple-coc-config.vim', ':p')
+execute 'source' fnamemodify(stdpath('config') . '/config/purple-nerdtree-config.vim', ':p')
 " /Users/vitaly/.config/nvim/config/clang-format.vim
 
 :set tabstop=2
@@ -79,26 +80,6 @@ execute 'source' fnamemodify(stdpath('config') . '/config/purple-coc-config.vim'
 :set softtabstop=2
 :set shiftwidth=2
 :set splitright
-
-function! ToggleNERDTreeFind()
-    " Check if NERDTree is open and visible
-    if exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1
-        " Check if NERDTree window is active
-        if bufname("%") ==# t:NERDTreeBufName
-            " If NERDTree is active, close it
-            NERDTreeToggle
-        else
-            " If NERDTree is open but not active, run :NERDTreeFind
-            NERDTreeFind
-        endif
-    else
-        " If NERDTree is not visible, run :NERDTreeFind
-        NERDTreeFind
-    endif
-endfunction
-
-" Map the function to a key for easy access
-nnoremap <silent> <F2> :call ToggleNERDTreeFind()<CR>
 
 
 let mapleader = " " 
@@ -126,11 +107,6 @@ vmap <silent> <C-_> gc
 nnoremap <silent> <leader>ll :call FormatClang()<CR>
 nnoremap <silent> <leader>ll :call FormatClang()<CR>
 nnoremap <silent> <leader>vt :e %:h<CR>
-nnoremap <leader><leader>n :NERDTreeFocus<CR>
-nnoremap <leader><leader>t :call ToggleNERDTreeFind()<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
 nnoremap <leader>c :only<CR>
 
 autocmd FileType arduino setlocal commentstring=//\ %s
