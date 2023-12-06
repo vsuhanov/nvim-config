@@ -65,3 +65,13 @@ require('gitsigns').setup{
 --     arduino = "cpp" -- map arduino filetype to cpp parser
 --   }
 -- }
+--
+require("oil").setup({
+   columns = {
+    "icon",
+    "permissions",
+    "size",
+    "mtime",
+  },
+})
+

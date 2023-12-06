@@ -15,11 +15,11 @@ Plug 'vim-airline/vim-airline'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-commentary'
-Plug 'preservim/nerdtree'
+" Plug 'preservim/nerdtree'
 " Plug 'vim-ctrlspace/vim-ctrlspace'
 " let g:CtrlSpaceDefaultMappingKey = "<C-space> "
-Plug 'Xuyuanp/nerdtree-git-plugin'
-
+" Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'stevearc/oil.nvim'
 Plug 'github/copilot.vim'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -51,7 +51,6 @@ function! CheckBackspace() abort
 endfunction
 
 :command ReloadConfig :source ~/.config/nvim/init.vim
-:command Dir :e %:p:h
 
 " vim.api.nvim_echo({{'hello', 'Normal'}}, false, {})
 "
@@ -71,12 +70,13 @@ let g:airline#extensions#tabline#enabled = 1
 "
 execute 'source' fnamemodify(stdpath('config') . '/config/clang-format.vim', ':p')
 execute 'source' fnamemodify(stdpath('config') . '/config/purple-coc-config.vim', ':p')
-execute 'source' fnamemodify(stdpath('config') . '/config/purple-nerdtree-config.vim', ':p')
+" execute 'source' fnamemodify(stdpath('config') . '/config/purple-nerdtree-config.vim', ':p')
 execute 'source' fnamemodify(stdpath('config') . '/config/purple-telescope-config.vim', ':p')
 
-require('/home/pruple/.config/nvim/lua/windows-stuff.lua')
- 
+" lua require('/home/pruple/.config/nvim/lua/windows-stuff.lua')
+" lua require("oil").setup()
 
+:command Dir :e %:p:h
 " my hotkeys
 "
 " Use K to show documentation in preview window
