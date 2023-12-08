@@ -126,3 +126,6 @@ function! OutputSplitWindow(...)
   endif
 endfunction
 command! -nargs=+ -complete=command Output call OutputSplitWindow(<f-args>)
+
+command! -nargs=? Gc "execute w" | if "<args>" == "" | execute "Git commit" | else | execute "Git commit -m '".<q-args>."'" | endif
+command! -nargs=? Gf execute "Git add %" | execute "Gc ". <q-args>
