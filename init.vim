@@ -68,7 +68,7 @@ luafile ~/.config/nvim/lua/windows-stuff.lua
 let mapleader = " " 
 autocmd InsertLeave,TextChanged,FocusLost * silent! update
 
-let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#enabled = 1
 
 " add my custom configuration
 "
