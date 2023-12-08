@@ -21,6 +21,9 @@ Plug 'tpope/vim-commentary'
 " Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'stevearc/oil.nvim'
 Plug 'github/copilot.vim'
+Plug 'jiangmiao/auto-pairs' 
+Plug 'ThePrimeagen/harpoon', { 'branch' : 'harpoon2' }
+Plug 'doums/darcula'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -29,7 +32,8 @@ set encoding=utf-8
 set nobackup
 set nowritebackup
 set relativenumber
-
+set termguicolors
+colorscheme darcula
 " Having longer updatetime (default is 4000 ms = 4s) leads to noticeable
 " delays and poor user experience
 set updatetime=300
@@ -82,6 +86,7 @@ execute 'source' fnamemodify(stdpath('config') . '/config/purple-telescope-confi
 " Use K to show documentation in preview window
 nnoremap <silent> K :call ShowDocumentation()<CR>
 nmap <silent> <leader>d yyp
+vmap <silent> <leader>d y`>p
 nmap <silent> <leader>qb :bd<cr>
 nmap <silent> <leader>qq :bn<cr>:bd #<cr>
 nmap <silent> <leader>n :bn<cr>
@@ -102,3 +107,22 @@ augroup source_init
   autocmd!
   autocmd BufWritePost init.vim silent! source %
 augroup END
+
+function! OutputSplitWindow(...)
+  " this function output the result of the Ex command into a split scratch buffer
+  let cmd = join(a:000, ' ')
+  let temp_reg = @t
+  redir @t
+  silent! execute cmd
+  redir END
+  let output = copy(@t)
+  let @" = temp_reg
+  if empty(output)
+    echoerr "no output"
+  else
+    new
+    setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted
+    put! =output
+  endif
+endfunction
+command! -nargs=+ -complete=command Output call OutputSplitWindow(<f-args>)
