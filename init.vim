@@ -130,5 +130,3 @@ command! -nargs=+ -complete=command Output call OutputSplitWindow(<f-args>)
 command! -nargs=? Gc execute "w" | if "<args>" == "" | execute "Git commit" | else | execute "Git commit -m '".<q-args>."'" | endif
 command! -nargs=? Gf execute "Git add %" | execute "Gc ". <q-args>
 command! -nargs=? Gpu  if "<args>" != "" | execute "Gf ". <q-args> | endif | execute "Git push -u origin HEAD"
-
-
