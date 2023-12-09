@@ -137,3 +137,5 @@ nmap <C-S-Left> :vertical resize +2<CR>
 nmap <C-S-Right> :vertical resize -2<CR>
 nmap <C-S-Up> :resize +2<CR>
 nmap <C-S-Down> :resize -2<CR>
+
+tmap <esc><esc> <C-\><c-n>
