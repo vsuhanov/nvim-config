@@ -134,3 +134,10 @@ command! -nargs=? Gf execute "Git add %" | execute "Gc ". <q-args>
 command! -nargs=? Gpu  if "<args>" != "" | execute "Gf ". <q-args> | endif | execute "Git push -u origin HEAD"
 nmap j gj
 nmap k gk
+vmap j gj
+vmap k gk
+
+nmap <C-S-Left> :vertical resize +2<CR>
+nmap <C-S-Right> :vertical resize -2<CR>
+nmap <C-S-Up> :resize +2<CR>
+nmap <C-S-Down> :resize -2<CR>

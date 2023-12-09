@@ -16,5 +16,8 @@
       "filetypes":["arduino"],
       "args":["-cli", "/usr/local/bin/arduino-cli", "-clangd", "/usr/bin/clangd", "-cli-config", "/home/vitaly/arduino-config.yml"]
     }
-  }
+  },
+  "Lua.workspace.library": [
+    "/usr/local/Cellar/neovim/0.9.0/share/nvim/runtime",
+  ]
 }
