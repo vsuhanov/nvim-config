@@ -24,6 +24,7 @@ Plug 'github/copilot.vim'
 Plug 'jiangmiao/auto-pairs' 
 Plug 'ThePrimeagen/harpoon', { 'branch' : 'harpoon2' }
 Plug 'doums/darcula'
+Plug 'robitx/gp.nvim'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -127,6 +128,9 @@ function! OutputSplitWindow(...)
 endfunction
 command! -nargs=+ -complete=command Output call OutputSplitWindow(<f-args>)
 
+command! Ga execute "w" |  execute "Git add %"
 command! -nargs=? Gc execute "w" | if "<args>" == "" | execute "Git commit" | else | execute "Git commit -m '".<q-args>."'" | endif
 command! -nargs=? Gf execute "Git add %" | execute "Gc ". <q-args>
 command! -nargs=? Gpu  if "<args>" != "" | execute "Gf ". <q-args> | endif | execute "Git push -u origin HEAD"
+nmap j gj
+nmap k gk
