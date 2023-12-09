@@ -93,7 +93,7 @@ require("gp").setup({
   cmd_prefix = "Chat",
   agents = {
     {
-      name = "ChatGPT4Analytical",
+      name = "ChatGPT4",
       chat = true,
       command = false,
       -- string with model name or table with model name and parameters
