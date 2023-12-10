@@ -30,3 +30,16 @@ local function git_commit_current_file(opts)
   end
 end
 vim.api.nvim_create_user_command('Gf', git_commit_current_file, { nargs = "*" })
+
+local function git_push_or_commit_current_file_and_push(opts)
+  vim.cmd("w")
+
+  if opts.args ~= "" then
+    git_commit_current_file(opts)
+  end
+  vim.cmd("Git push -u origin HEAD")
+end
+
+vim.api.nvim_create_user_command('Gpu', git_push_or_commit_current_file_and_push, { nargs = "*" })
+
+vim.api.nvim_create_user_command('Dir', function() vim.cmd(":e %:p:h") end)
