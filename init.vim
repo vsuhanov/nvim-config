@@ -23,41 +23,10 @@ Plug 'doums/darcula'
 Plug 'robitx/gp.nvim'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
-
-set hidden
-set encoding=utf-8
-set nobackup
-set nowritebackup
-set relativenumber
-set termguicolors
-colorscheme darcula
+" todo move colorscheme to set.lua
 " Having longer updatetime (default is 4000 ms = 4s) leads to noticeable
 " delays and poor user experience
-set updatetime=50
 
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved
-set number
-set relativenumber
-set signcolumn=yes
-set tabstop=2
-set expandtab
-set listchars=tab:▷▷⋮
-set invlist
-set softtabstop=2
-set shiftwidth=2
-set splitright
-set smartindent
-set noswapfile
-set undofile
-set nohlsearch
-set undodir=~/.vim/undodir
-set colorcolumn=80
-
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 
 :command ReloadConfig :source ~/.config/nvim/init.vim
 
@@ -65,13 +34,11 @@ endfunction
 "
 " auto session config
 "
-
-luafile ~/.config/nvim/lua/purple-config.lua
-luafile ~/.config/nvim/lua/windows-stuff.lua
+luafile ~/.config/nvim/init-tmp.lua
+" luafile ~/.config/nvim/lua/windows-stuff.lua
 
 
 let mapleader = " " 
-autocmd InsertLeave,TextChanged,FocusLost * silent! update
 
 " let g:airline#extensions#tabline#enabled = 1
 
@@ -79,42 +46,9 @@ autocmd InsertLeave,TextChanged,FocusLost * silent! update
 "
 execute 'source' fnamemodify(stdpath('config') . '/config/clang-format.vim', ':p')
 execute 'source' fnamemodify(stdpath('config') . '/config/purple-coc-config.vim', ':p')
-" execute 'source' fnamemodify(stdpath('config') . '/config/purple-nerdtree-config.vim', ':p')
-execute 'source' fnamemodify(stdpath('config') . '/config/purple-telescope-config.vim', ':p')
-
-" lua require('/home/pruple/.config/nvim/lua/windows-stuff.lua')
-" lua require("oil").setup()
 
 :command Dir :e %:p:h
 " my hotkeys
-"
-" Use K to show documentation in preview window
-nnoremap <silent> K :call ShowDocumentation()<CR>
-nmap <silent> <leader>d yyp
-vmap <silent> <leader>d y`>p
-nmap <silent> <leader>qb :bd<cr>
-nmap <silent> <leader>qq :bn<cr>:bd #<cr>
-nmap <silent> <leader>n :bn<cr>
-nmap <silent> <leader>p :bp<cr>
-nmap <silent> <leader>; msA;<esc>`s
-" nmap <silent> <leader><leader>t :new | r!
-nmap <silent> <C-_> gc
-vmap <silent> <C-_> gc
-
-nnoremap <silent> <leader>ll :call FormatClang()<CR>
-nnoremap <silent> <leader>ll :call FormatClang()<CR>
-nnoremap <silent> <leader>vt :e %:h<CR>
-nnoremap <leader>c :only<CR>
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-nnoremap n nzzzv
-nnoremap N Nzzzv
-autocmd FileType arduino setlocal commentstring=//\ %s
-
-augroup source_init
-  autocmd!
-  autocmd BufWritePost init.vim silent! source %
-augroup END
 
 function! OutputSplitWindow(...)
   " this function output the result of the Ex command into a split scratch buffer
@@ -135,21 +69,7 @@ function! OutputSplitWindow(...)
 endfunction
 command! -nargs=+ -complete=command Output call OutputSplitWindow(<f-args>)
 
-command! Ga execute "w" |  execute "Git add %"
-command! -nargs=? Gc execute "w" | if "<args>" == "" | execute "Git commit" | else | execute "Git commit -m '".<q-args>."'" | endif
-command! -nargs=? Gf execute "Git add %" | execute "Gc ". <q-args>
-command! -nargs=? Gpu  if "<args>" != "" | execute "Gf ". <q-args> | endif | execute "Git push -u origin HEAD"
-nmap j gj
-nmap k gk
-vmap j gj
-vmap k gk
-
-nmap <C-S-Left> :vertical resize +2<CR>
-nmap <C-S-Right> :vertical resize -2<CR>
-nmap <C-S-Up> :resize +2<CR>
-nmap <C-S-Down> :resize -2<CR>
-
-tmap <esc><esc> <C-\><c-n>
+command! -nargs=* Gpu  if "<args>" != "" | execute "Gf ". <q-args> | endif | execute "Git push -u origin HEAD"
 
 " map <leader>uu mt:s/~~//g<CR>:s/-<space>✓<space>//<CR>:s/-<space>✗<space>//<CR>:s/-<space>☐<space>//<CR>^i-<space>☐<space><ESC>:noh<CR>`t
 map <leader>uu mt:s/\~\~//ge<CR>:s/-<space>✓<space>//e<CR>:s/-<space>✗<space>//e<CR>:s/-<space>☐<space>//e<CR>^i-<space>☐<space><ESC>:noh<CR>`t

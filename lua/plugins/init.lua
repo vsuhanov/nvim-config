@@ -1,0 +1,5 @@
+require('lua.plugins.gp')
+require('lua.plugins.auto-session')
+require('lua.plugins.harpoon')
+require('lua.plugins.oil')
+require('lua.plugins.treesitter')
