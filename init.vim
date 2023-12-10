@@ -49,7 +49,6 @@ set shiftwidth=2
 set splitright
 set smartindent
 set noswapfile
-set nobackup
 set undofile
 set nohlsearch
 set undodir=~/.vim/undodir
