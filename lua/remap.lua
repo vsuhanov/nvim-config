@@ -24,8 +24,8 @@ keymap("n", "j", "gj", opts)
 keymap("n", "k", "gk", opts)
 
 -- resize windows through CTRL+SHIFT+arrow keys
-keymap("n", "<C-S-Left>", ":vertical resize +2<cr>", opts)
-keymap("n", "<C-S-Right>", ":vertical resize -2<cr>", opts)
+keymap("n", "<C-S-Right>", ":vertical resize +2<cr>", opts)
+keymap("n", "<C-S-Left>", ":vertical resize -2<cr>", opts)
 keymap("n", "<C-S-Up>", ":resize +2<cr>", opts)
 keymap("n", "<C-S-Down>", ":resize -2<cr>", opts)
 
