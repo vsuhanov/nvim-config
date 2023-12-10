@@ -46,8 +46,6 @@ let mapleader = " "
 "
 execute 'source' fnamemodify(stdpath('config') . '/config/clang-format.vim', ':p')
 execute 'source' fnamemodify(stdpath('config') . '/config/purple-coc-config.vim', ':p')
-
-:command Dir :e %:p:h
 " my hotkeys
 
 function! OutputSplitWindow(...)
