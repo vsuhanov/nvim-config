@@ -106,7 +106,10 @@ nnoremap <silent> <leader>ll :call FormatClang()<CR>
 nnoremap <silent> <leader>ll :call FormatClang()<CR>
 nnoremap <silent> <leader>vt :e %:h<CR>
 nnoremap <leader>c :only<CR>
-
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+nnoremap n nzzzv
+nnoremap N Nzzzv
 autocmd FileType arduino setlocal commentstring=//\ %s
 
 augroup source_init
