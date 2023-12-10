@@ -47,12 +47,12 @@ set invlist
 set softtabstop=2
 set shiftwidth=2
 set splitright
-set smartindent=true
-set swapfile=false
-set backup=false
+set smartindent
+set noswapfile
+set nobackup
+set undofile
+set nohlsearch
 set undodir=~/.vim/undodir
-set undofile=true
-set hlssearch=false
 set colorcolumn=80
 
 function! CheckBackspace() abort
