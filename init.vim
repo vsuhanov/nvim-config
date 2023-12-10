@@ -27,26 +27,14 @@ call plug#end()
 " Having longer updatetime (default is 4000 ms = 4s) leads to noticeable
 " delays and poor user experience
 
-
-:command ReloadConfig :source ~/.config/nvim/init.vim
-
-" vim.api.nvim_echo({{'hello', 'Normal'}}, false, {})
-"
-" auto session config
-"
 luafile ~/.config/nvim/init-tmp.lua
-" luafile ~/.config/nvim/lua/windows-stuff.lua
 
 
 let mapleader = " " 
-
-" let g:airline#extensions#tabline#enabled = 1
-
 " add my custom configuration
 "
 execute 'source' fnamemodify(stdpath('config') . '/config/clang-format.vim', ':p')
 execute 'source' fnamemodify(stdpath('config') . '/config/purple-coc-config.vim', ':p')
-" my hotkeys
 
 function! OutputSplitWindow(...)
   " this function output the result of the Ex command into a split scratch buffer
@@ -67,7 +55,6 @@ function! OutputSplitWindow(...)
 endfunction
 command! -nargs=+ -complete=command Output call OutputSplitWindow(<f-args>)
 
-command! -nargs=* Gpu  if "<args>" != "" | execute "Gf ". <q-args> | endif | execute "Git push -u origin HEAD"
 
 " map <leader>uu mt:s/~~//g<CR>:s/-<space>✓<space>//<CR>:s/-<space>✗<space>//<CR>:s/-<space>☐<space>//<CR>^i-<space>☐<space><ESC>:noh<CR>`t
 map <leader>uu mt:s/\~\~//ge<CR>:s/-<space>✓<space>//e<CR>:s/-<space>✗<space>//e<CR>:s/-<space>☐<space>//e<CR>^i-<space>☐<space><ESC>:noh<CR>`t
