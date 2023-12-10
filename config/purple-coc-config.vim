@@ -1,3 +1,7 @@
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 " Use tab for trigger completion with characters ahead and navigate
 " NOTE: There's always complete item selected by default, you may want to enable
 " no select by `"suggest.noselect": true` in your configuration file
@@ -42,7 +46,7 @@ function! ShowDocumentation()
 endfunction
 
 " Highlight the symbol and its references when holding the cursor
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming
 nmap <leader>rn <Plug>(coc-rename)
@@ -51,13 +55,13 @@ nmap <leader>rn <Plug>(coc-rename)
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s)
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+" augroup mygroup
+"   autocmd!
+"   " Setup formatexpr specified filetype(s)
+"   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+"   " Update signature help on jump placeholder
+"   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+" augroup end
 
 " Applying code actions to the selected code block
 " Example: `<leader>aap` for current paragraph
@@ -81,14 +85,14 @@ nmap <leader>cl  <Plug>(coc-codelens-action)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
+" xmap if <Plug>(coc-funcobj-i)
+" omap if <Plug>(coc-funcobj-i)
+" xmap af <Plug>(coc-funcobj-a)
+" omap af <Plug>(coc-funcobj-a)
+" xmap ic <Plug>(coc-classobj-i)
+" omap ic <Plug>(coc-classobj-i)
+" xmap ac <Plug>(coc-classobj-a)
+" omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> to scroll float windows/popups
 if has('nvim-0.4.0') || has('patch-8.2.0750')
@@ -117,7 +121,7 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 " Add (Neo)Vim's native statusline support
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " " Show all diagnostics
@@ -142,29 +146,29 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Use <C-l> for trigger snippet expand.
 "
-imap <C-l> <Plug>(coc-snippets-expand)
+" imap <C-l> <Plug>(coc-snippets-expand)
 
 " Use <C-j> for select text for visual placeholder of snippet.
 "
-vmap <C-j> <Plug>(coc-snippets-select)
+" vmap <C-j> <Plug>(coc-snippets-select)
 
 " Use <C-j> for jump to next placeholder, it's default of coc.nvim
 "
 
-let g:coc_snippet_next = '<c-j>'
+" let g:coc_snippet_next = '<c-j>'
 
 " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
 "
-let g:coc_snippet_prev = '<c-k>'
+" let g:coc_snippet_prev = '<c-k>'
 
 
 " Use <C-j> for both expand and jump (make expand higher priority.)
 "
-imap <C-j> <Plug>(coc-snippets-expand-jump)
+" imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 " Use <leader>x for convert visual selected code to snippet
 "
-xmap <leader>x  <Plug>(coc-convert-snippet)
+" xmap <leader>x  <Plug>(coc-convert-snippet)
 
 
 nmap <silent> <leader>gd <Plug>(coc-definition)
