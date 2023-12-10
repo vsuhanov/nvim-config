@@ -140,6 +140,7 @@ nmap <C-S-Down> :resize -2<CR>
 
 tmap <esc><esc> <C-\><c-n>
 
-map <leader>uu mt:s/\\~\\~//g<CR>:s/-<space>✓<space>//<CR>:s/-<space>✗<space>//<CR>:s/-<space>☐<space>//<CR>^i-<space>☐<space><ESC>:noh<CR>`t
-map <leader>ud mt:s/-<space>☐<space>/-<space>✓<space>\\~\\~/<CR>g_a~~<ESC>:noh<CR>`tj
-map <leader>uc mt:s/-<space>☐<space>/-<space>✗<space>\\~\\~/<CR>g_a~~<ESC>:noh<CR>`tj
+" map <leader>uu mt:s/~~//g<CR>:s/-<space>✓<space>//<CR>:s/-<space>✗<space>//<CR>:s/-<space>☐<space>//<CR>^i-<space>☐<space><ESC>:noh<CR>`t
+map <leader>uu mt:s/\~\~//ge<CR>:s/-<space>✓<space>//e<CR>:s/-<space>✗<space>//e<CR>:s/-<space>☐<space>//e<CR>^i-<space>☐<space><ESC>:noh<CR>`t
+map <leader>ud mt:s/-<space>☐<space>/-<space>✓<space>\~\~/e<CR>g_a~~<ESC>:noh<CR>`tj
+map <leader>uc mt:s/-<space>☐<space>/-<space>✗<space>\~\~/e<CR>g_a~~<ESC>:noh<CR>`tj
