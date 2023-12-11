@@ -21,6 +21,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'ThePrimeagen/harpoon', { 'branch' : 'harpoon2' }
 Plug 'doums/darcula'
 Plug 'robitx/gp.nvim'
+Plug 'mattn/emmet-vim'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 " todo move colorscheme to set.lua

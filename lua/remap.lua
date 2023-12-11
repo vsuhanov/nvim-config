@@ -5,7 +5,8 @@ vim.g.mapleader=' '
 
 -- Normal mode mappings
 -- keymap("n", "K", vim.cmd.ShowDocumentation, opts)
-keymap("n", "<leader>d", "yyp", opts)
+keymap("n", "<leader>d", '"tyy"tp', opts)
+keymap("v", "<leader>d", '"ty`>"tp', opts)
 -- keymap("n", "<leader>qb", ":bd<cr>", opts)
 -- keymap("n", "<leader>qq", ":bn<cr>:bd #<cr>", opts)
 -- keymap("n", "<leader>n", ":bn<cr>", opts)
@@ -52,3 +53,7 @@ keymap("n", "<leader>hu", function() harpoon:list():select(1) end)
 keymap("n", "<leader>hi", function() harpoon:list():select(2) end)
 keymap("n", "<leader>ho", function() harpoon:list():select(3) end)
 keymap("n", "<leader>hp", function() harpoon:list():select(4) end)
+
+-- more convenient emmet
+keymap("i", "<C-i>", "<Nop>")
+
