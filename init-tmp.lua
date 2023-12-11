@@ -1,7 +1,7 @@
-require('lua.remap')
-require('lua.commands')
-require('lua.set')
-require('lua.purple-config')
-require('lua.windows-stuff')
-require('lua.plugins.init')
+require('remap')
+require('commands')
+require('set')
+require('purple-config')
+require('windows-stuff')
+require('plugins.init')
 

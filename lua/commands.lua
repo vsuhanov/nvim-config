@@ -43,8 +43,8 @@ end
 vim.api.nvim_create_user_command('Gpu', git_push_or_commit_current_file_and_push, { nargs = "*" })
 
 -- open directory of the current file
-vim.api.nvim_create_user_command('Dir', function() vim.cmd(":e %:p:h") end)
+vim.api.nvim_create_user_command('Dir', function() vim.cmd(":e %:p:h") end, {})
 
 -- reload the config
 vim.api.nvim_create_user_command('ReloadConfig',
-  function() vim.cmd(":source " .. os.getenv("HOME") .. "/config/init.vim") end)
+  function() vim.cmd(":source " .. os.getenv("HOME") .. "/config/init.vim") end, {})
