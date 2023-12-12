@@ -1,3 +1,4 @@
+require('initvim')
 require('plugins')
 require('remap')
 require('commands')
