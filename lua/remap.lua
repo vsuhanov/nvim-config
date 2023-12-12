@@ -20,6 +20,9 @@ keymap("n", "<leader>vt", ":e %:h<cr>", opts)
 keymap("n", "<leader>c", ":only<cr>", opts)
 keymap("n", "n", "nzzzv", opts)
 keymap("n", "N", "Nzzzv", opts)
+keymap("v", "J", ":m '>+1<CR>gv=gv", opts)
+keymap("v", "K", ":m '<-2<CR>gv=gv", opts)
+
 -- navigate to visual like with j,k instead of real line
 keymap("n", "j", "gj", opts)
 keymap("n", "k", "gk", opts)
@@ -53,7 +56,3 @@ keymap("n", "<leader>hu", function() harpoon:list():select(1) end)
 keymap("n", "<leader>hi", function() harpoon:list():select(2) end)
 keymap("n", "<leader>ho", function() harpoon:list():select(3) end)
 keymap("n", "<leader>hp", function() harpoon:list():select(4) end)
-
--- more convenient emmet
-keymap("i", "<C-i>", "<Nop>")
-
