@@ -53,8 +53,17 @@ keymap('n', '<leader>fb', ':Telescope buffers<CR>', opts)
 keymap('n', '<leader>hh', ':Telescope treesitter<CR>', opts)
 keymap("n", "<leader>aa", function() harpoon:list():append() end)
 keymap("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+keymap("n", "<leader>ee", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
 keymap("n", "<leader>hu", function() harpoon:list():select(1) end)
 keymap("n", "<leader>hi", function() harpoon:list():select(2) end)
 keymap("n", "<leader>ho", function() harpoon:list():select(3) end)
 keymap("n", "<leader>hp", function() harpoon:list():select(4) end)
+
+-- CoC mappings
+
+keymap("n", "<leader>gd", "<Plug>(coc-definition)")
+keymap("n", "<leader>b", "<Plug>(coc-type-definition)")
+keymap("n", "<leader>gy", "<Plug>(coc-implementation)")
+keymap("n", "<leader>gr", "<Plug>(coc-references)")
+keymap("n", "<leader>ge", "<Plug>(coc-diagnostic-next)")

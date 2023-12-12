@@ -31,6 +31,7 @@ require("lazy").setup({
   "doums/darcula",
   "robitx/gp.nvim",
   "mattn/emmet-vim",
+  "tpope/vim-surround",
 })
 require('plugins.gp')
 require('plugins.auto-session')

@@ -65,8 +65,8 @@ nmap <leader>f  <Plug>(coc-format-selected)
 
 " Applying code actions to the selected code block
 " Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+xmap <leader>aq  <Plug>(coc-codeaction-selected)
+nmap <leader>aq <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying code actions at the cursor position
 nmap <leader>ac  <Plug>(coc-codeaction-cursor)
@@ -106,8 +106,8 @@ endif
 
 " Use CTRL-S for selections ranges
 " Requires 'textDocument/selectionRange' support of language server
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
+" nmap <silent> <C-s> <Plug>(coc-range-select)
+" xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer
 command! -nargs=0 Format :call CocActionAsync('format')
@@ -171,8 +171,8 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 " xmap <leader>x  <Plug>(coc-convert-snippet)
 
 
-nmap <silent> <leader>gd <Plug>(coc-definition)
-nmap <silent> <leader>b <Plug>(coc-type-definition)
-nmap <silent> <leader>gy <Plug>(coc-implementation)
-nmap <silent> <leader>gr <Plug>(coc-references)
-nmap <silent> <leader>ge <Plug>(coc-diagnostic-next)
+" nmap <silent> <leader>gd <Plug>(coc-definition)
+" nmap <silent> <leader>b <Plug>(coc-type-definition)
+" nmap <silent> <leader>gy <Plug>(coc-implementation)
+" nmap <silent> <leader>gr <Plug>(coc-references)
+" nmap <silent> <leader>ge <Plug>(coc-diagnostic-next)
