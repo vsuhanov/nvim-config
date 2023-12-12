@@ -32,6 +32,8 @@ keymap("n", "<C-S-Right>", ":vertical resize +2<cr>", opts)
 keymap("n", "<C-S-Left>", ":vertical resize -2<cr>", opts)
 keymap("n", "<C-S-Up>", ":resize +2<cr>", opts)
 keymap("n", "<C-S-Down>", ":resize -2<cr>", opts)
+keymap("n", "<leader>cn", ":cn<cr>", opts)
+keymap("n", "<leader>cp", ":cp<cr>", opts)
 
 -- -- Visual mode mappings
 -- keymap("v", "<leader>d", "y`>p", opts)
