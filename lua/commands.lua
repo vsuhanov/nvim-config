@@ -32,7 +32,9 @@ end
 vim.api.nvim_create_user_command('Gf', git_commit_current_file, { nargs = "*" })
 
 local function git_push_or_commit_current_file_and_push(opts)
-  vim.cmd("w")
+  if(vim.bo.modifiable) then
+    vim.cmd("w")
+  end
 
   if opts.args ~= "" then
     git_commit_current_file(opts)

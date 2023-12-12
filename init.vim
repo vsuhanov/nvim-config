@@ -1,29 +1,29 @@
 set clipboard+=unnamedplus
 " Plugins will be downloaded under the specified directory.
-call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
+" call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 
-" Declare the list of plugins.
-Plug 'tpope/vim-sensible'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' }
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'tpope/vim-fugitive'
-Plug 'rmagatti/auto-session'
-Plug 'mattn/emmet-vim'
-Plug 'vim-airline/vim-airline'
-Plug 'rafamadriz/friendly-snippets'
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'tpope/vim-commentary'
-Plug 'stevearc/oil.nvim'
-Plug 'github/copilot.vim'
-Plug 'jiangmiao/auto-pairs' 
-Plug 'ThePrimeagen/harpoon', { 'branch' : 'harpoon2' }
-Plug 'doums/darcula'
-Plug 'robitx/gp.nvim'
-Plug 'mattn/emmet-vim'
-" List ends here. Plugins become visible to Vim after this call.
-call plug#end()
+" " Declare the list of plugins.
+" Plug 'tpope/vim-sensible'
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' }
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'tpope/vim-fugitive'
+" Plug 'rmagatti/auto-session'
+" Plug 'mattn/emmet-vim'
+" Plug 'vim-airline/vim-airline'
+" Plug 'rafamadriz/friendly-snippets'
+" Plug 'lewis6991/gitsigns.nvim'
+" Plug 'tpope/vim-commentary'
+" Plug 'stevearc/oil.nvim'
+" Plug 'github/copilot.vim'
+" Plug 'jiangmiao/auto-pairs' 
+" Plug 'ThePrimeagen/harpoon', { 'branch' : 'harpoon2' }
+" Plug 'doums/darcula'
+" Plug 'robitx/gp.nvim'
+" Plug 'mattn/emmet-vim'
+" " List ends here. Plugins become visible to Vim after this call.
+" call plug#end()
 " todo move colorscheme to set.lua
 " Having longer updatetime (default is 4000 ms = 4s) leads to noticeable
 " delays and poor user experience
