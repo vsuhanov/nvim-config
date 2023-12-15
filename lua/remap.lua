@@ -42,6 +42,8 @@ keymap("n", "<leader>cp", ":cp<cr>", opts)
 keymap("n", "<C-_>", "gc", opts)
 keymap("v", "<C-_>", "gc", opts)
 
+-- paste yanked text, I will use idiomatic 0 register
+keymap({"n", "v"}, "<leader>p", '"0p', opts)
 -- CoC mappings
 --
 --
