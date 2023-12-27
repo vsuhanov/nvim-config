@@ -28,4 +28,4 @@ vim.opt.updatetime = 300
 
 vim.opt.colorcolumn = "80"
 
-vim.cmd("colorscheme darcula")
+vim.cmd("colorscheme rose-pine")

@@ -32,6 +32,7 @@ require("lazy").setup({
   "robitx/gp.nvim",
   "mattn/emmet-vim",
   "tpope/vim-surround",
+  { 'rose-pine/neovim', name = 'rose-pine' }
 })
 require('plugins.gp')
 require('plugins.auto-session')
