@@ -3,19 +3,9 @@ local opts = { silent = true }
 
 vim.g.mapleader=' '
 
--- Normal mode mappings
--- keymap("n", "K", vim.cmd.ShowDocumentation, opts)
 keymap("n", "<leader>d", '"tyy"tp', opts)
 keymap("v", "<leader>d", '"ty`>"tp', opts)
--- keymap("n", "<leader>qb", ":bd<cr>", opts)
--- keymap("n", "<leader>qq", ":bn<cr>:bd #<cr>", opts)
--- keymap("n", "<leader>n", ":bn<cr>", opts)
--- keymap("n", "<leader>p", ":bp<cr>", opts)
 keymap("n", "<leader>;", "msA;<esc>`s", opts)
--- -- keymap("n", "<leader><leader>t", ":new | r!", opts)  -- This line is commented out because it is incomplete
--- todo need to figure out a way to call my user command
--- keymap("n", "<leader>ll", vim.cmd.FormatClang, opts)
---
 keymap("n", "<leader>vt", ":e %:h<cr>", opts)
 keymap("n", "<leader>c", ":only<cr>", opts)
 keymap("n", "n", "nzzzv", opts)
@@ -36,17 +26,13 @@ keymap("n", "<leader>cn", ":cn<cr>", opts)
 keymap("n", "<leader>cp", ":cp<cr>", opts)
 
 -- -- Visual mode mappings
--- keymap("v", "<leader>d", "y`>p", opts)
--- keymap("v", "<leader>qq", nil, opts)
--- comment on ctrl + /
 keymap("n", "<C-_>", "gc", opts)
 keymap("v", "<C-_>", "gc", opts)
 
 -- paste yanked text, I will use idiomatic 0 register
 keymap({"n", "v"}, "<leader>p", '"0p', opts)
 -- CoC mappings
---
---
+
 -- Telescope mappings
 local harpoon = require("harpoon")
 keymap('n', '<leader>wo', ':Telescope find_files<CR>', opts)
