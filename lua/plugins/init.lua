@@ -32,7 +32,8 @@ require("lazy").setup({
   "robitx/gp.nvim",
   "mattn/emmet-vim",
   "tpope/vim-surround",
-  { 'rose-pine/neovim', name = 'rose-pine' }
+  { 'rose-pine/neovim', name = 'rose-pine' },
+  "ggandor/leap.nvim"
 })
 require('plugins.gp')
 require('plugins.auto-session')
@@ -40,3 +41,4 @@ require('plugins.harpoon')
 require('plugins.oil')
 require('plugins.treesitter')
 require('plugins.gitsigns')
+require('plugins.leap')
