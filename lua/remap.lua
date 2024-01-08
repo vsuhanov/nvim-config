@@ -55,3 +55,6 @@ keymap("n", "<leader>b", "<Plug>(coc-type-definition)")
 keymap("n", "<leader>gy", "<Plug>(coc-implementation)")
 keymap("n", "<leader>gr", "<Plug>(coc-references)")
 keymap("n", "<leader>ge", "<Plug>(coc-diagnostic-next)")
+
+keymap("t", "<C-esc>", "<C-\\><C-n>")
+keymap("t", "<esc><esc>", "<C-\\><C-n>")
