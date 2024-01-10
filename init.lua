@@ -5,4 +5,3 @@ require('commands')
 require('set')
 require('purple-config')
 require('windows-stuff')
-
