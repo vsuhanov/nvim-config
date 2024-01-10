@@ -33,7 +33,8 @@ require("lazy").setup({
   "mattn/emmet-vim",
   "tpope/vim-surround",
   { 'rose-pine/neovim', name = 'rose-pine' },
-  "ggandor/leap.nvim"
+  "ggandor/leap.nvim",
+  "mbbill/undotree"
 })
 require('plugins.gp')
 require('plugins.auto-session')
