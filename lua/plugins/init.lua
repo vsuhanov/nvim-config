@@ -25,7 +25,7 @@ require("lazy").setup({
   "lewis6991/gitsigns.nvim",
   "tpope/vim-commentary",
   "stevearc/oil.nvim",
-  "github/copilot.vim",
+  -- "github/copilot.vim",
   "jiangmiao/auto-pairs",
   { "ThePrimeagen/harpoon", branch = 'harpoon2' },
   "doums/darcula",
@@ -35,6 +35,7 @@ require("lazy").setup({
   { 'rose-pine/neovim', name = 'rose-pine' },
   "ggandor/leap.nvim",
   "mbbill/undotree",
+  "nvim-treesitter/playground",
   {
 	  'VonHeikemen/lsp-zero.nvim',
 	  branch = 'v1.x',

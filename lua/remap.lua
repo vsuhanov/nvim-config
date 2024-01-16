@@ -58,3 +58,5 @@ keymap("n", "<leader>ge", "<Plug>(coc-diagnostic-next)")
 
 keymap("t", "<C-esc>", "<C-\\><C-n>")
 keymap("t", "<esc><esc>", "<C-\\><C-n>")
+
+keymap("n", "<super>ll", ":LspZeroFormat")

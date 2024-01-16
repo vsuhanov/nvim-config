@@ -1,21 +1,7 @@
 vim.g.mapleader = ' '
 
-
-require('gitsigns').setup {
-  on_attach = function(bufnr)
-  end
-}
-
--- require'nvim-treesitter.configs'.setup {
---   ensure_installed = "cpp", -- make sure C++ parser is installed
---   highlight = {
---     enable = true, -- enable highlighting
---   },
---   filetype_to_parser = {
---     arduino = "cpp" -- map arduino filetype to cpp parser
---   }
--- }
---
-
-
-
+vim.cmd([[
+  highlight @punctuation.bracket ctermfg=white guifg=#8c8b8b
+  highlight link @punctuation.delimiter @keyword
+  highlight @comment guifg=#ff9900
+]])
