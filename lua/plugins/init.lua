@@ -15,7 +15,10 @@ require("lazy").setup({
   "tpope/vim-sensible",
   { "nvim-treesitter/nvim-treesitter", cmd = 'TSUpdate' },
   "nvim-lua/plenary.nvim",
-  { "nvim-telescope/telescope.nvim",   tag = '0.1.4' },
+  {
+    "nvim-telescope/telescope.nvim",
+    tag = '0.1.4',
+  },
   -- { "neoclide/coc.nvim",               branch = 'release' },
   "tpope/vim-fugitive",
   "rmagatti/auto-session",
@@ -27,7 +30,7 @@ require("lazy").setup({
   "stevearc/oil.nvim",
   -- "github/copilot.vim",
   "jiangmiao/auto-pairs",
-  { "ThePrimeagen/harpoon", branch = 'harpoon2' },
+  { "ThePrimeagen/harpoon",            branch = 'harpoon2' },
   "doums/darcula",
   "robitx/gp.nvim",
   "mattn/emmet-vim",
@@ -37,27 +40,33 @@ require("lazy").setup({
   "mbbill/undotree",
   "nvim-treesitter/playground",
   {
-	  'VonHeikemen/lsp-zero.nvim',
-	  branch = 'v1.x',
-	  dependencies = {
-		  -- LSP Support
-		  {'neovim/nvim-lspconfig'},
-		  {'williamboman/mason.nvim'},
-		  {'williamboman/mason-lspconfig.nvim'},
+    'VonHeikemen/lsp-zero.nvim',
+    branch = 'v1.x',
+    dependencies = {
+      -- LSP Support
+      { 'neovim/nvim-lspconfig' },
+      { 'williamboman/mason.nvim' },
+      { 'williamboman/mason-lspconfig.nvim' },
 
-		  -- Autocompletion
-		  {'hrsh7th/nvim-cmp'},
-		  {'hrsh7th/cmp-buffer'},
-		  {'hrsh7th/cmp-path'},
-		  {'saadparwaiz1/cmp_luasnip'},
-		  {'hrsh7th/cmp-nvim-lsp'},
-		  {'hrsh7th/cmp-nvim-lua'},
+      -- Autocompletion
+      { 'hrsh7th/nvim-cmp' },
+      { 'hrsh7th/cmp-buffer' },
+      { 'hrsh7th/cmp-path' },
+      { 'saadparwaiz1/cmp_luasnip' },
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'hrsh7th/cmp-nvim-lua' },
 
-		  -- Snippets
-		  {'L3MON4D3/LuaSnip'},
-		  {'rafamadriz/friendly-snippets'},
-	  }
-  }
+      -- Snippets
+      { 'L3MON4D3/LuaSnip' },
+      { 'rafamadriz/friendly-snippets' },
+    }
+  },
+  {
+    -- dir = '/Users/vitaly/projects/quick-definition.nvim'
+    'vsuhanov/quick-definition.nvim'
+  },
+  'vsuhanov/toggle-file.nvim',
+  'mfussenegger/nvim-jdtls',
 })
 require('plugins.gp')
 require('plugins.auto-session')
@@ -68,3 +77,5 @@ require('plugins.gitsigns')
 require('plugins.leap')
 require('plugins.mason')
 require('plugins.lsp-zero')
+require('plugins.quick-definition')
+require('plugins.nvim-jdtls')
