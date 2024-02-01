@@ -6,6 +6,8 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
+-- enable autoindent: when entering new line it should be at correct indentation level
+vim.opt.autoindent = true
 vim.opt.smartindent = true
 
 vim.opt.wrap = true

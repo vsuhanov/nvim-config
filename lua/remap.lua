@@ -31,30 +31,40 @@ keymap("v", "<C-_>", "gc", opts)
 
 -- paste yanked text, I will use idiomatic 0 register
 keymap({"n", "v"}, "<leader>p", '"0p', opts)
--- CoC mappings
 
 -- Telescope mappings
-local harpoon = require("harpoon")
 keymap('n', '<leader>wo', ':Telescope find_files<CR>', opts)
 keymap('n', '<leader>ff', ':Telescope live_grep<CR>', opts)
 keymap('n', '<leader>fb', ':Telescope buffers<CR>', opts)
 keymap('n', '<leader>hh', ':Telescope treesitter<CR>', opts)
+-- harpoon mappings
+local harpoon = require("harpoon")
 keymap("n", "<leader>aa", function() harpoon:list():append() end)
 keymap("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 keymap("n", "<leader>ee", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-
 keymap("n", "<leader>hu", function() harpoon:list():select(1) end)
 keymap("n", "<leader>hi", function() harpoon:list():select(2) end)
 keymap("n", "<leader>ho", function() harpoon:list():select(3) end)
 keymap("n", "<leader>hp", function() harpoon:list():select(4) end)
 
--- CoC mappings
-
-keymap("n", "<leader>gd", "<Plug>(coc-definition)")
-keymap("n", "<leader>b", "<Plug>(coc-type-definition)")
-keymap("n", "<leader>gy", "<Plug>(coc-implementation)")
-keymap("n", "<leader>gr", "<Plug>(coc-references)")
-keymap("n", "<leader>ge", "<Plug>(coc-diagnostic-next)")
-
 keymap("t", "<C-esc>", "<C-\\><C-n>")
 keymap("t", "<esc><esc>", "<C-\\><C-n>")
+
+keymap("n", "<leader>ll", ":LspZeroFormat<CR>", opts)
+
+
+keymap("n", "<leader>ll", ":LspZeroFormat<CR>", opts)
+keymap("n", "<leader>gpt", ":ChatChatToggle<CR>", opts)
+
+-- keymap("n", "<leader>;;", ":source /Users/vitaly/.config/nvim/init.lua")
+
+local toggle_file = require("toggle-file")
+vim.keymap.set("n", "<leader>1", function() toggle_file.toggle_file_window("~/Daily Notes.md") end, opts)
+vim.keymap.set("n", "<leader>2", function() toggle_file.toggle_file_window("./TODO.md") end, opts)
+
+-- quick definition hotkeys
+local quick_definition = require("quick-definition")
+vim.keymap.set("n", "K", function() quick_definition.quick_definition() end, opts)
+vim.keymap.set("n", "<2-LeftMouse>", function() quick_definition.quick_definition() end, opts)
+vim.keymap.set("n", "<MiddleMouse>", function() vim.lsp.buf.definition() end, opts)
+
