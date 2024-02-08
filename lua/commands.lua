@@ -50,3 +50,4 @@ vim.api.nvim_create_user_command('Dir', function() vim.cmd(":e %:p:h") end, {})
 -- reload the config
 vim.api.nvim_create_user_command('ReloadConfig',
   function() vim.cmd(":source " .. os.getenv("HOME") .. "/.config/nvim/init.lua") end, {})
+-- test push 
