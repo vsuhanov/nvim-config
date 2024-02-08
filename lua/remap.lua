@@ -29,9 +29,6 @@ keymap("n", "<leader>cp", ":cp<cr>", opts)
 keymap("n", "<C-_>", "gc", opts)
 keymap("v", "<C-_>", "gc", opts)
 
--- paste yanked text, I will use idiomatic 0 register
-keymap({"n", "v"}, "<leader>p", '"0p', opts)
-
 -- Telescope mappings
 keymap('n', '<leader>wo', ':Telescope find_files<CR>', opts)
 keymap('n', '<leader>ff', ':Telescope live_grep<CR>', opts)
@@ -67,4 +64,18 @@ local quick_definition = require("quick-definition")
 vim.keymap.set("n", "K", function() quick_definition.quick_definition() end, opts)
 vim.keymap.set("n", "<2-LeftMouse>", function() quick_definition.quick_definition() end, opts)
 vim.keymap.set("n", "<MiddleMouse>", function() vim.lsp.buf.definition() end, opts)
+
+-- copy to system clipboard. Normal mode will copy latest selection
+vim.keymap.set("n", "<leader>y", 'mt`<v`>"+y`t')
+vim.keymap.set("v", "<leader>y", '"+y')
+vim.keymap.set("n", "<leader>p", '"+p')
+vim.keymap.set("n", "<leader>P", '"+P')
+vim.keymap.set("v", "<leader>p", '"+p')
+vim.keymap.set("v", "<leader>P", '"+P')
+--navigate commands
+vim.keymap.set("c", "<C-K>", '<Up>')
+vim.keymap.set("c", "<C-J>", '<Down>')
+vim.keymap.set("c", "<C-H>", '<Left>')
+vim.keymap.set("c", "<C-L>", '<Right>')
+
 
