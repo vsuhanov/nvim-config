@@ -62,11 +62,17 @@ require("lazy").setup({
     }
   },
   {
-    -- dir = '/Users/vitaly/projects/quick-definition.nvim'
-    'vsuhanov/quick-definition.nvim'
+    dir = '/Users/vitaly/projects/quick-definition.nvim'
+    -- 'vsuhanov/quick-definition.nvim'
   },
   'vsuhanov/toggle-file.nvim',
   'mfussenegger/nvim-jdtls',
+  'mustache/vim-mustache-handlebars',
+  'OrangeT/vim-csharp',
+  {
+    'vsuhanov/omnisharp-extended-lsp.nvim',
+    -- dir = '/Users/vitaly/projects/omnisharp-extended-lsp.nvim'
+  },
 })
 require('plugins.gp')
 require('plugins.auto-session')
