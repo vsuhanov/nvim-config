@@ -62,8 +62,8 @@ require("lazy").setup({
     }
   },
   {
-    dir = '/Users/vitaly/projects/quick-definition.nvim'
-    -- 'vsuhanov/quick-definition.nvim'
+    -- dir = '/Users/vitaly/projects/quick-definition.nvim'
+    'vsuhanov/quick-definition.nvim'
   },
   'vsuhanov/toggle-file.nvim',
   'mfussenegger/nvim-jdtls',
