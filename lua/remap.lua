@@ -1,7 +1,7 @@
 local keymap = vim.keymap.set
 local opts = { silent = true }
 
-vim.g.mapleader=' '
+vim.g.mapleader = ' '
 
 keymap("n", "<leader>d", '"tyy"tp', opts)
 keymap("v", "<leader>d", '"ty`>"tp', opts)
@@ -48,7 +48,7 @@ keymap("n", "<leader>hp", function() harpoon:list():select(4) end)
 keymap("t", "<C-esc>", "<C-\\><C-n>")
 keymap("t", "<esc><esc>", "<C-\\><C-n>")
 
-keymap("n", "<leader>ll", ":LspZeroFormat<CR>", opts)
+keymap("n", "<leader>ll", function() vim.lsp.buf.format({ async = true }) end, opts)
 
 
 keymap("n", "<leader>ll", ":LspZeroFormat<CR>", opts)
@@ -78,5 +78,3 @@ vim.keymap.set("c", "<C-K>", '<Up>')
 vim.keymap.set("c", "<C-J>", '<Down>')
 vim.keymap.set("c", "<C-H>", '<Left>')
 vim.keymap.set("c", "<C-L>", '<Right>')
-
-
