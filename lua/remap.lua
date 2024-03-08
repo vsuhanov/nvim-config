@@ -78,3 +78,5 @@ vim.keymap.set("c", "<C-K>", '<Up>')
 vim.keymap.set("c", "<C-J>", '<Down>')
 vim.keymap.set("c", "<C-H>", '<Left>')
 vim.keymap.set("c", "<C-L>", '<Right>')
+-- manipulate windows
+vim.keymap.set("n", "<leader>w", "<C-w>")
