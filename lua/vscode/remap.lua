@@ -4,12 +4,18 @@ local vscode = require('vscode-neovim')
 
 vim.g.mapleader = ' '
 
+keymap({"v"}, "p", '"_dP', opts)
+
 keymap("n", "<leader>d", function() vscode.call('editor.action.duplicateSelection') end, opts)
 keymap("v", "<leader>d", '"ty`>"tp', opts)
 keymap("n", "<leader>;", "msA;<esc>`s", opts)
 keymap("n", "<leader>vt", ":e %:h<cr>", opts)
 keymap("n", "-", function() vscode.call("workbench.files.action.showActiveFileInExplorer") end, opts)
 keymap("n", "<leader>c", function()
+  vscode.call("workbench.action.closeSidebar")
+  vscode.call("workbench.action.closePanel")
+end, opts)
+keymap("n", "<leader>m", function()
   vscode.call("workbench.action.closeSidebar")
   vscode.call("workbench.action.closePanel")
   vscode.call("workbench.action.toggleMaximizeEditorGroup")
@@ -20,10 +26,12 @@ keymap("v", "J", ":m '>+1<CR>gv=gv", opts)
 keymap("v", "K", ":m '<-2<CR>gv=gv", opts)
 keymap("v", "v", function() vscode.call("editor.action.smartSelect.expand") end, opts)
 keymap("v", "V", function() vscode.call("editor.action.smartSelect.shrink") end, opts)
+keymap("n", "j", function() vscode.call("cursorDown") end, opts)
+keymap("n", "k", function() vscode.call("cursorUp") end, opts)
 
 -- navigate to visual like with j,k instead of real line
-keymap("n", "j", "gj", opts)
-keymap("n", "k", "gk", opts)
+-- keymap("n", "j", "gj", opts)
+-- keymap("n", "k", "gk", opts)
 
 -- resize windows through CTRL+SHIFT+arrow keys
 keymap("n", "<C-S-Right>", ":vertical resize +2<cr>", opts)
@@ -61,6 +69,7 @@ keymap('n', '<leader>b', function() vscode.call('editor.action.revealDefinition'
 keymap("n", "<leader>ll", function() vscode.call('editor.action.formatDocument') end, opts)
 keymap("n", "<leader>rr", function() vscode.call('editor.action.rename') end, opts)
 keymap("n", "<leader>tc", function() vscode.call('testing.runAtCursor') end, opts)
+keymap("n", "<leader>hh", function() vscode.call('breadcrumbs.focusAndSelect') end, opts)
 keymap("v", "<leader>rv", function()
   vscode.call('editor.action.codeAction', {
     args = {
@@ -112,4 +121,6 @@ vim.keymap.set("c", "<C-H>", '<Left>')
 vim.keymap.set("c", "<C-L>", '<Right>')
 -- manipulate windows
 vim.keymap.set("n", "<leader>w", "<C-w>")
-vim.keymap.set("n", "<leader>ge", function() vscode.call("editor.action.marker.nextInFiles") end, opts)
+vim.keymap.set("n", "<leader>ge", function() vscode.call("editor.action.marker.next") end, opts)
+vim.keymap.set("n", "<leader>rf", function() vscode.call("rename-current-file.renameCurrentFile") end, opts)
+vim.keymap.set("v", "<leader>gf", function() vscode.call("seito-openfile.openFileFromText") end, opts)
