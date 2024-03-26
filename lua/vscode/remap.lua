@@ -77,6 +77,20 @@ keymap("v", "<leader>rv", function()
     }
   })
 end, opts)
+keymap({"v", "n"}, "<leader>1", function()
+  vscode.call('toggle-file.toggleFile', {
+    args = {
+      fileName = '/Users/vitaly/TODO'
+    }
+  })
+end, opts)
+keymap({"v", "n"}, "<leader>2", function()
+  vscode.call('toggle-file.toggleFile', {
+    args = {
+      fileName = 'TODO'
+    }
+  })
+end, opts)
 
 
 -- keymap("n", "<leader>ll", ":LspZeroFormat<CR>", opts)
@@ -120,6 +134,7 @@ vim.keymap.set("c", "<C-J>", '<Down>')
 vim.keymap.set("c", "<C-H>", '<Left>')
 vim.keymap.set("c", "<C-L>", '<Right>')
 -- manipulate windows
+-- vim.keymap.set({"n", "v"}, "<leader>1", function() vscode.call("toggle-file.toggleFile") end, opts)
 vim.keymap.set("n", "<leader>w", "<C-w>")
 vim.keymap.set("n", "<leader>ge", function() vscode.call("editor.action.marker.next") end, opts)
 vim.keymap.set("n", "<leader>rf", function() vscode.call("rename-current-file.renameCurrentFile") end, opts)
