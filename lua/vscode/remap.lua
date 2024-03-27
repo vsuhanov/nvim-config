@@ -80,7 +80,7 @@ end, opts)
 keymap({"v", "n"}, "<leader>1", function()
   vscode.call('toggle-file.toggleFile', {
     args = {
-      fileName = '/Users/vitaly/TODO'
+      fileName = '~/TODO'
     }
   })
 end, opts)
