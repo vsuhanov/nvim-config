@@ -70,6 +70,7 @@ keymap("n", "<leader>ll", function() vscode.call('editor.action.formatDocument')
 keymap("n", "<leader>rr", function() vscode.call('editor.action.rename') end, opts)
 keymap("n", "<leader>tc", function() vscode.call('testing.runAtCursor') end, opts)
 keymap("n", "<leader>hh", function() vscode.call('breadcrumbs.focusAndSelect') end, opts)
+keymap("n", "<leader>jj", function() vscode.call('workbench.action.showEditorsInActiveGroup') end, opts)
 keymap("v", "<leader>rv", function()
   vscode.call('editor.action.codeAction', {
     args = {

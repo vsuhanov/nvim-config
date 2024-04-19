@@ -1,5 +1,4 @@
 if vim.g.vscode then
-  print(1243)
   -- VSCode extension
   require('vscode.initvim')
   require('vscode.plugins')
