@@ -91,4 +91,4 @@ require("lazy").setup({
 -- require('vscode.plugins.quick-definition')
 -- require('vscode.plugins.nvim-jdtls')
 
-  require('vscode.plugins.vscode-multi-cursor')
+  require('vscode_suhanov.plugins.vscode-multi-cursor')

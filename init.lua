@@ -1,16 +1,16 @@
 if vim.g.vscode then
   -- VSCode extension
-  require('vscode.initvim')
-  require('vscode.plugins')
-  require('vscode.remap')
-  require('vscode.commands')
-  require('vscode.set')
-  require('vscode.purple-config')
-  require('vscode.windows-stuff')
+  require('vscode_suhanov.initvim')
+  require('vscode_suhanov.plugins')
+  require('vscode_suhanov.remap')
+  require('vscode_suhanov.commands')
+  require('vscode_suhanov.set')
+  require('vscode_suhanov.purple-config')
+  require('vscode_suhanov.windows-stuff')
 
   -- ignore errors: local-config may not exist
   pcall(function()
-    require("vscode.local-config")
+    require("vscode_suhanov.local-config")
   end)
 else
   require('initvim')
