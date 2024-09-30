@@ -73,11 +73,11 @@ require("lazy").setup({
   --   'vsuhanov/omnisharp-extended-lsp.nvim',
   --   -- dir = '/Users/vitaly/projects/omnisharp-extended-lsp.nvim'
   -- },
-  {
-  'vscode-neovim/vscode-multi-cursor.nvim',
-  cond = not not vim.g.vscode,
-  opts = {},
-}
+--   {
+--   'vscode-neovim/vscode-multi-cursor.nvim',
+--   cond = not not vim.g.vscode,
+--   opts = {},
+-- }
 })
 -- require('vscode.plugins.gp')
 -- require('vscode.plugins.auto-session')
@@ -91,4 +91,4 @@ require("lazy").setup({
 -- require('vscode.plugins.quick-definition')
 -- require('vscode.plugins.nvim-jdtls')
 
-  require('vscode_suhanov.plugins.vscode-multi-cursor')
+  -- require('vscode_suhanov.plugins.vscode-multi-cursor')
