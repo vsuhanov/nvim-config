@@ -36,7 +36,7 @@ require("lazy").setup({
   "mattn/emmet-vim",
   "tpope/vim-surround",
   { 'rose-pine/neovim', name = 'rose-pine' },
-  "ggandor/leap.nvim",
+  -- "ggandor/leap.nvim",
   "mbbill/undotree",
   "nvim-treesitter/playground",
   {
