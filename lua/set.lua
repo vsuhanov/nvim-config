@@ -1,3 +1,4 @@
+
 vim.opt.clipboard:append("unnamedplus")
 vim.opt.nu = true
 vim.opt.relativenumber = false
@@ -33,4 +34,4 @@ vim.opt.colorcolumn = "80"
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
-vim.cmd("colorscheme rose-pine")
+vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

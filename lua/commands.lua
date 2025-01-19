@@ -32,7 +32,7 @@ end
 vim.api.nvim_create_user_command('Gf', git_commit_current_file, { nargs = "*" })
 
 local function git_push_or_commit_current_file_and_push(opts)
-  if(vim.bo.modifiable) then
+  if (vim.bo.modifiable) then
     vim.cmd("w")
   end
 
@@ -50,4 +50,15 @@ vim.api.nvim_create_user_command('Dir', function() vim.cmd(":e %:p:h") end, {})
 -- reload the config
 vim.api.nvim_create_user_command('ReloadConfig',
   function() vim.cmd(":source " .. os.getenv("HOME") .. "/.config/nvim/init.lua") end, {})
--- test push 
+-- test push
+
+
+vim.api.nvim_create_user_command(
+  'CopyBufferPath',
+  function()
+    local path = vim.fn.expand('%:p')
+    vim.fn.setreg('+', path)
+    print('Copied: ' .. path)
+  end,
+  {}
+)

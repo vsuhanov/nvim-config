@@ -14,10 +14,11 @@ if vim.g.vscode then
   end)
 else
   require('initvim')
+  require('set')
   require('plugins')
   require('remap')
   require('commands')
-  require('set')
+  require('set-afterplugins')
   require('purple-config')
   require('windows-stuff')
 
