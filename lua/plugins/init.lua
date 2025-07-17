@@ -21,7 +21,7 @@ require("lazy").setup({
   },
   -- { "neoclide/coc.nvim",               branch = 'release' },
   "tpope/vim-fugitive",
-  "rmagatti/auto-session",
+  -- "rmagatti/auto-session",
   "mattn/emmet-vim",
   "vim-airline/vim-airline",
   "rafamadriz/friendly-snippets",
@@ -73,9 +73,12 @@ require("lazy").setup({
     'vsuhanov/omnisharp-extended-lsp.nvim',
     -- dir = '/Users/vitaly/projects/omnisharp-extended-lsp.nvim'
   },
+  'mfussenegger/nvim-dap',
+  'leoluz/nvim-dap-go',
+  'sindrets/diffview.nvim'
 })
 require('plugins.gp')
-require('plugins.auto-session')
+-- require('plugins.auto-session')
 require('plugins.harpoon')
 require('plugins.oil')
 require('plugins.treesitter')
@@ -85,4 +88,5 @@ require('plugins.mason')
 require('plugins.lsp-zero')
 require('plugins.quick-definition')
 require('plugins.nvim-jdtls')
-
+require('plugins.nvim-dap')
+require('plugins.nvim-dap-go')
