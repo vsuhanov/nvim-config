@@ -7,7 +7,16 @@ keymap("n", "<leader>d", '"tyy"tp', opts)
 keymap("v", "<leader>d", '"ty`>"tp', opts)
 keymap("n", "<leader>;", "msA;<esc>`s", opts)
 keymap("n", "<leader>vt", ":e %:h<cr>", opts)
-keymap("n", "-", ":e %:h<cr>", opts)
+-- keymap("n", "-", ":e %:h<cr>", opts)
+local function safe_open_oil()
+  local ok, err = pcall(vim.cmd, 'e ' .. vim.fn.expand('%:h'))
+  if not ok then
+    vim.cmd('e .')
+  end
+end
+
+keymap("n", "-", safe_open_oil, opts)
+-- keymap("n", "-", ":silent! e %:h | if v:shell_error | echo 'Directory navigation failed' | endif<cr>", opts)
 keymap("n", "<leader>c", ":only<cr>", opts)
 keymap("n", "n", "nzzzv", opts)
 keymap("n", "N", "Nzzzv", opts)

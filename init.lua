@@ -21,6 +21,7 @@ else
   require('set-afterplugins')
   require('purple-config')
   require('windows-stuff')
+  require('autofilereload')
 
   -- ignore errors: local-config may not exist
   pcall(function()

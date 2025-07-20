@@ -7,3 +7,4 @@ ttps://github.com/nvim-telescope/telescope-fzf-native.nvim?tab=readme-ov-file
 - ☐ investigate options to complete words from all "open" buffers, even if it is hidden
 - ☐ add a keymap to insert ',' at the end of the line
 - ☐ add a command to amend the wording of the latest commit
+
