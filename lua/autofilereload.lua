@@ -1,5 +1,5 @@
 -- Autosave on text changes (very frequent)
-vim.api.nvim_create_autocmd({"TextChanged", "TextChangedI"}, {
+vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
   callback = function()
     if vim.bo.modified and vim.bo.buftype == "" and vim.fn.expand("%") ~= "" then
       vim.cmd("silent! update")
@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd({"TextChanged", "TextChangedI"}, {
 })
 
 -- Optional: Also save on cursor hold (backup trigger)
-vim.opt.updatetime = 1000  -- 1 second
+vim.opt.updatetime = 1000 -- 1 second
 vim.api.nvim_create_autocmd("CursorHold", {
   callback = function()
     if vim.bo.modified and vim.bo.buftype == "" and vim.fn.expand("%") ~= "" then
@@ -20,16 +20,19 @@ vim.api.nvim_create_autocmd("CursorHold", {
 -- Auto-reload files when changed externally
 vim.opt.autoread = true
 
+local function safe_checktime()
+  local bt = vim.bo.buftype
+  if bt == "" or bt == "acwrite" then
+    pcall(vim.cmd, "checktime")
+  end
+end
+
 -- Check for external changes frequently
-vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
-  callback = function()
-    vim.cmd("checktime")
-  end,
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+  callback = safe_checktime
 })
 
 -- Also check when entering a buffer
 vim.api.nvim_create_autocmd("BufEnter", {
-  callback = function()
-    vim.cmd("checktime")
-  end,
+  callback = safe_checktime
 })
