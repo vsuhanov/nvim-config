@@ -146,3 +146,17 @@ vim.keymap.set({"n", "v"}, "<leader>tb", function() vscode.call("editor.debug.ac
 vim.keymap.set({"n", "v"}, "<leader>tt", function() vscode.call("workbench.action.tasks.reRunTask") end, opts)
 vim.keymap.set({"n"}, "<leader><leader>", function() vscode.call("workbench.action.focusNextGroup") end, opts)
 vim.keymap.set("v", "<leader>gf", function() vscode.call("seito-openfile.openFileFromText") end, opts)
+
+
+local groupName = "MarkdownMappings"
+vim.api.nvim_create_augroup(groupName, { clear = true })
+
+-- Create the autocommand within the group for the "FileType" event
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "markdown",  -- Match markdown filetype
+    group = groupName,
+    callback = function()
+        -- Use setlocal to define key mappings that are local to the markdown buffers
+        vim.keymap.set('n', '<leader>y', function() vscode.call('rename-current-file.renameCurrentFile') end, { noremap = true, silent = true })
+    end
+})

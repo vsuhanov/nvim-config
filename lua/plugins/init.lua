@@ -5,8 +5,7 @@ if not vim.loop.fs_stat(lazypath) then
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
+    "--branch=stable", -- latest stable release lazypath,
   })
 end
 vim.opt.rtp:prepend(lazypath)
@@ -75,7 +74,9 @@ require("lazy").setup({
   },
   'mfussenegger/nvim-dap',
   'leoluz/nvim-dap-go',
-  'sindrets/diffview.nvim'
+  'sindrets/diffview.nvim',
+  'nvim-tree/nvim-tree.lua',
+  'nvim-tree/nvim-web-devicons'
 })
 require('plugins.gp')
 -- require('plugins.auto-session')
@@ -90,3 +91,4 @@ require('plugins.quick-definition')
 require('plugins.nvim-jdtls')
 require('plugins.nvim-dap')
 require('plugins.nvim-dap-go')
+require('plugins.nvim-tree')
