@@ -1,4 +1,3 @@
-
 vim.opt.clipboard:append("unnamedplus")
 vim.opt.nu = true
 vim.opt.relativenumber = false
