@@ -30,7 +30,7 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 300
 
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = ""
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
@@ -39,3 +39,5 @@ vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,te
 vim.opt.timeoutlen = 500
 vim.opt.ttimeout = true
 vim.opt.ttimeoutlen = 300
+
+

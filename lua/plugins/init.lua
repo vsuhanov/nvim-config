@@ -20,75 +20,79 @@ require("lazy").setup({
   },
   -- { "neoclide/coc.nvim",               branch = 'release' },
   "tpope/vim-fugitive",
-  -- "rmagatti/auto-session",
+  "rmagatti/auto-session",
   "mattn/emmet-vim",
-  "vim-airline/vim-airline",
-  "rafamadriz/friendly-snippets",
+  -- "vim-airline/vim-airline",
+  -- "vim-airline/vim-airline-themes",
+  'itchyny/lightline.vim',
+  -- "rafamadriz/friendly-snippets",
   "lewis6991/gitsigns.nvim",
   "tpope/vim-commentary",
-  "stevearc/oil.nvim",
+  -- "stevearc/oil.nvim",
   -- "github/copilot.vim",
   "jiangmiao/auto-pairs",
   { "ThePrimeagen/harpoon",            branch = 'harpoon2' },
-  "doums/darcula",
-  "robitx/gp.nvim",
+  -- "doums/darcula",
+  -- "robitx/gp.nvim",
   "mattn/emmet-vim",
   "tpope/vim-surround",
-  { 'rose-pine/neovim', name = 'rose-pine' },
+  { 'rose-pine/neovim',  name = 'rose-pine' },
+  { "EdenEast/nightfox.nvim" },
   -- "ggandor/leap.nvim",
   "mbbill/undotree",
-  "nvim-treesitter/playground",
-  {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v1.x',
-    dependencies = {
-      -- LSP Support
-      { 'neovim/nvim-lspconfig' },
-      { 'williamboman/mason.nvim' },
-      { 'williamboman/mason-lspconfig.nvim' },
-
-      -- Autocompletion
-      { 'hrsh7th/nvim-cmp' },
-      { 'hrsh7th/cmp-buffer' },
-      { 'hrsh7th/cmp-path' },
-      { 'saadparwaiz1/cmp_luasnip' },
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'hrsh7th/cmp-nvim-lua' },
-
-      -- Snippets
-      { 'L3MON4D3/LuaSnip' },
-      { 'rafamadriz/friendly-snippets' },
-    }
-  },
+  -- "nvim-treesitter/playground",
+  -- { "neoclide/coc.nvim", branch = "release" },
+  -- {
+  --   'VonHeikemen/lsp-zero.nvim',
+  --   branch = 'v1.x',
+  --   dependencies = {
+  --     -- LSP Support
+  --     { 'neovim/nvim-lspconfig' },
+  --     { 'williamboman/mason.nvim' },
+  --     { 'williamboman/mason-lspconfig.nvim' },
+  --
+  --     -- Autocompletion
+  --     { 'hrsh7th/nvim-cmp' },
+  --     { 'hrsh7th/cmp-buffer' },
+  --     { 'hrsh7th/cmp-path' },
+  --     { 'saadparwaiz1/cmp_luasnip' },
+  --     { 'hrsh7th/cmp-nvim-lsp' },
+  --     { 'hrsh7th/cmp-nvim-lua' },
+  --
+  --     -- Snippets
+  --     { 'L3MON4D3/LuaSnip' },
+  --     { 'rafamadriz/friendly-snippets' },
+  --   }
+  -- },
   {
     -- dir = '/Users/vitaly/projects/quick-definition.nvim'
     'vsuhanov/quick-definition.nvim'
   },
   'vsuhanov/toggle-file.nvim',
-  'mfussenegger/nvim-jdtls',
+  -- 'mfussenegger/nvim-jdtls',
   'mustache/vim-mustache-handlebars',
-  'OrangeT/vim-csharp',
-  {
-    'vsuhanov/omnisharp-extended-lsp.nvim',
+  -- 'OrangeT/vim-csharp',
+  -- {
+  --   'vsuhanov/omnisharp-extended-lsp.nvim',
     -- dir = '/Users/vitaly/projects/omnisharp-extended-lsp.nvim'
-  },
-  'mfussenegger/nvim-dap',
-  'leoluz/nvim-dap-go',
+  -- },
+  -- 'mfussenegger/nvim-dap',
+  -- 'leoluz/nvim-dap-go',
   'sindrets/diffview.nvim',
   'nvim-tree/nvim-tree.lua',
   'nvim-tree/nvim-web-devicons'
 })
-require('plugins.gp')
--- require('plugins.auto-session')
+-- require('plugins.gp')
+require('plugins.auto-session')
 require('plugins.harpoon')
-require('plugins.oil')
+-- require('plugins.oil')
 require('plugins.treesitter')
 require('plugins.gitsigns')
-require('plugins.leap')
-require('plugins.mason')
-require('plugins.lsp-zero')
+-- require('plugins.leap')
+-- require('plugins.mason')
+-- require('plugins.lsp-zero')
 require('plugins.quick-definition')
-require('plugins.nvim-jdtls')
-require('plugins.nvim-dap')
-require('plugins.nvim-dap-go')
+-- require('plugins.nvim-jdtls')
+-- require('plugins.nvim-dap')
+-- require('plugins.nvim-dap-go')
 require('plugins.nvim-tree')

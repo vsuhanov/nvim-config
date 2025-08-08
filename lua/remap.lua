@@ -8,14 +8,16 @@ keymap("v", "<leader>d", '"ty`>"tp', opts)
 keymap("n", "<leader>;", "msA;<esc>`s", opts)
 keymap("n", "<leader>vt", ":e %:h<cr>", opts)
 -- keymap("n", "-", ":e %:h<cr>", opts)
-local function safe_open_oil()
-  local ok, err = pcall(vim.cmd, 'e ' .. vim.fn.expand('%:h'))
-  if not ok then
-    vim.cmd('e .')
-  end
-end
+-- local function safe_open_oil()
+--   local ok, err = pcall(vim.cmd, 'e ' .. vim.fn.expand('%:h'))
+--   if not ok then
+--     vim.cmd('e .')
+--   end
+-- end
+--
+-- keymap("n", "-", safe_open_oil, opts)
+keymap("n", "-", ":NvimTreeFindFileToggle<CR>", opts)
 
-keymap("n", "-", safe_open_oil, opts)
 -- keymap("n", "-", ":silent! e %:h | if v:shell_error | echo 'Directory navigation failed' | endif<cr>", opts)
 keymap("n", "<leader>c", ":only<cr>", opts)
 keymap("n", "n", "nzzzv", opts)
@@ -57,10 +59,10 @@ keymap("n", "<leader>hp", function() harpoon:list():select(4) end)
 keymap("t", "<C-esc>", "<C-\\><C-n>")
 keymap("t", "<esc><esc>", "<C-\\><C-n>")
 
-keymap("n", "<leader>ll", function() vim.lsp.buf.format({ async = true }) end, opts)
-
-
-keymap("n", "<leader>ll", ":LspZeroFormat<CR>", opts)
+-- keymap("n", "<leader>ll", function() vim.lsp.buf.format({ async = true }) end, opts)
+--
+--
+-- keymap("n", "<leader>ll", ":LspZeroFormat<CR>", opts)
 keymap("n", "<leader>gpt", ":ChatChatToggle<CR>", opts)
 
 -- keymap("n", "<leader>;;", ":source /Users/vitaly/.config/nvim/init.lua")
@@ -89,3 +91,28 @@ vim.keymap.set("c", "<C-H>", '<Left>')
 vim.keymap.set("c", "<C-L>", '<Right>')
 -- manipulate windows
 vim.keymap.set("n", "<leader>w", "<C-w>")
+
+
+-- vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+-- vim.keymap.set("n", "<leader>b", "<Plug>(coc-definition)", opts)
+-- -- vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
+-- vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+-- vim.keymap.set("n", "<leader>ge", function() vim.diagnostic.goto_next() end, opts)
+-- vim.keymap.set("n", "<leader>gee", function() vim.diagnostic.goto_next() end, opts)
+-- vim.keymap.set("n", "<leader>gep", function() vim.diagnostic.goto_prev() end, opts)
+-- vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
+-- vim.keymap.set("n", "<leader>fu", function() vim.lsp.buf.references() end, opts)
+-- vim.keymap.set("n", "<leader>rv", function() vim.lsp.buf.rename() end, opts)
+-- vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+-- vim.keymap.set("n", "gd", function() vim.fn.CocAction('jumpDefinition') end, opts)
+vim.keymap.set("n", "<leader>b", function() vim.fn.CocAction('jumpDefinition') end, opts)
+vim.keymap.set("n", "<leader>vd", function() vim.fn.CocActionAsync('doHover') end, opts)
+vim.keymap.set("n", "<leader>ge", function() vim.fn.CocAction('diagnosticNext') end, opts)
+vim.keymap.set("n", "<leader>gee", function() vim.fn.CocAction('diagnosticNext') end, opts)
+vim.keymap.set("n", "<leader>gep", function() vim.fn.CocAction('diagnosticPrevious') end, opts)
+vim.keymap.set("n", "<leader>vca", function() vim.fn.CocAction('codeAction') end, opts)
+vim.keymap.set("n", "<leader>fu", function() vim.fn.CocAction('jumpReferences') end, opts)
+vim.keymap.set("n", "<leader>rv", function() vim.fn.CocAction('rename') end, opts)
+vim.keymap.set("n", "<leader>ll", function() vim.cmd("CocCommand editor.action.formatDocument") end, opts)
+-- vim.keymap.set("i", "<C-h>", function() vim.fn.CocActionAsync('showSignatureHelp') end, opts)
+
