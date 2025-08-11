@@ -37,6 +37,11 @@ require("lazy").setup({
   },
   "yorickpeterse/nvim-window",
   "f-person/auto-dark-mode.nvim",
+  {
+    "LintaoAmons/scratch.nvim",
+    event = "VeryLazy",
+  },
+  "folke/snacks.nvim",
   -- "neovim/nvim-lspconfig",
   -- 'mfussenegger/nvim-jdtls',
   -- 'mustache/vim-mustache-handlebars',
@@ -112,3 +117,5 @@ require("plugins.vuffers")
 require("plugins.nvim-window")
 require("plugins.lualine")
 require("plugins.auto-dark-mode")
+require("plugins.scratch")
+require("plugins.snacks")

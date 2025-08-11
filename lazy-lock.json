@@ -1,7 +1,6 @@
 {
   "auto-dark-mode.nvim": { "branch": "master", "commit": "e300259ec777a40b4b9e3c8e6ade203e78d15881" },
   "auto-session": { "branch": "main", "commit": "021b64ed7d4ac68a37be3ad28d8e1cba5bec582c" },
-  "conform.nvim": { "branch": "master", "commit": "973f3cb73887d510321653044791d7937c7ec0fa" },
   "gitsigns.nvim": { "branch": "main", "commit": "817bd848fffe82e697b4da656e3f2834cd0665c5" },
   "harpoon": { "branch": "harpoon2", "commit": "a84ab829eaf3678b586609888ef52f7779102263" },
   "lazy.nvim": { "branch": "main", "commit": "d8f26efd456190241afd1b0f5235fe6fdba13d4a" },
@@ -14,6 +13,8 @@
   "nvim-window": { "branch": "main", "commit": "9b074c19f48f46f1536879f6e2ef8e8e95433cf9" },
   "plenary.nvim": { "branch": "master", "commit": "3707cdb1e43f5cea73afb6037e6494e7ce847a66" },
   "quick-definition.nvim": { "branch": "main", "commit": "1927271945dcaaff70ebed18a3a1f6a2dc4abe50" },
+  "scratch.nvim": { "branch": "main", "commit": "0e3ee1fe64023efe9459a361401a48017d34349e" },
+  "snacks.nvim": { "branch": "main", "commit": "bc0630e43be5699bb94dadc302c0d21615421d93" },
   "telescope.nvim": { "branch": "master", "commit": "7011eaae0ac1afe036e30c95cf80200b8dc3f21a" },
   "toggle-file.nvim": { "branch": "main", "commit": "db579dfca78dad4e150c78880dcbb68ddc0b5cfa" },
   "vim-commentary": { "branch": "master", "commit": "64a654ef4a20db1727938338310209b6a63f60c9" },
