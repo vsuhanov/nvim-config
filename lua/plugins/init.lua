@@ -22,7 +22,7 @@ require("lazy").setup({
     tag = "0.1.4",
   },
   -- { "neoclide/coc.nvim",               branch = 'release' },
-  -- "rmagatti/auto-session",
+  "rmagatti/auto-session",
   -- "mattn/emmet-vim",
   -- "vim-airline/vim-airline",
   -- "vim-airline/vim-airline-themes",
@@ -95,7 +95,7 @@ require("lazy").setup({
   -- "neovim/nvim-lspconfig",
 })
 -- require('plugins.gp')
--- require('plugins.auto-session')
+require('plugins.auto-session')
 require("plugins.harpoon")
 -- require('plugins.oil')
 require("plugins.treesitter")

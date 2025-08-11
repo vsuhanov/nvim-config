@@ -57,10 +57,15 @@ vuffers.setup({
 local opts = { silent = true }
 vim.keymap.set("n", "<leader>j", function() vuffers.go_to_buffer_by_count({ direction = 'next' }) end, opts)
 vim.keymap.set("n", "<leader>k", function() vuffers.go_to_buffer_by_count({ direction = 'prev' }) end, opts)
-vim.keymap.set("n", "<leader>", function() vuffers.toggle() end, opts)
+-- vim.keymap.set("n", "<leader>", function() vuffers.toggle() end, opts)
 
 vim.api.nvim_create_user_command('Tabs', function()
   vuffers.toggle()
 end, {})
 
 -- vuffers.open()
+vim.api.nvim_create_autocmd("SessionLoadPost", {
+	callback = function()
+		require("vuffers").on_session_loaded()
+	end,
+})

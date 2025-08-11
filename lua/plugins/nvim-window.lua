@@ -7,3 +7,5 @@ nvimWindow.setup({
 })
 vim.keymap.set("n", "<leader>wj", function() nvimWindow.pick() end,
   { desc = "nvim-window: Jump to window", silent = true })
+vim.keymap.set("t", "<leader>wj", function() nvimWindow.pick() end,
+  { desc = "nvim-window: Jump to window", silent = true })

@@ -139,7 +139,7 @@ vim.keymap.set("c", "<C-H>", '<Left>')
 vim.keymap.set("c", "<C-L>", '<Right>')
 -- manipulate windows
 -- vim.keymap.set({"n", "v"}, "<leader>1", function() vscode.call("toggle-file.toggleFile") end, opts)
-vim.keymap.set("n", "<leader>w", "<C-w>")
+-- vim.keymap.set("n", "<leader>w", "<C-w>")
 vim.keymap.set("n", "<leader>ge", function() vscode.call("editor.action.marker.next") end, opts)
 vim.keymap.set("n", "<leader>rf", function() vscode.call("rename-current-file.renameCurrentFile") end, opts)
 vim.keymap.set({"n", "v"}, "<leader>tb", function() vscode.call("editor.debug.action.toggleBreakpoint") end, opts)
