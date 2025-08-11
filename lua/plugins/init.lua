@@ -17,34 +17,53 @@ require("lazy").setup({
   "tpope/vim-surround",
   { "nvim-treesitter/nvim-treesitter", cmd = "TSUpdate" },
   "nvim-lua/plenary.nvim",
-  {
-    "nvim-telescope/telescope.nvim",
-    tag = "0.1.4",
-  },
-  -- { "neoclide/coc.nvim",               branch = 'release' },
+  { "nvim-telescope/telescope.nvim",   tag = "0.1.4", },
   "rmagatti/auto-session",
+  'nvim-lualine/lualine.nvim',
+  "lewis6991/gitsigns.nvim",
+  { "ThePrimeagen/harpoon",   branch = "harpoon2" },
+  "EdenEast/nightfox.nvim",
+  { "williamboman/mason.nvim" },
+  {
+    -- dir = '/Users/vitaly/projects/quick-definition.nvim'
+    "vsuhanov/quick-definition.nvim",
+  },
+  "vsuhanov/toggle-file.nvim",
+  "nvim-tree/nvim-tree.lua",
+  "nvim-tree/nvim-web-devicons",
+  "Hajime-Suzuki/vuffers.nvim",
+  "yorickpeterse/nvim-window",
+  "f-person/auto-dark-mode.nvim",
+  -- "neovim/nvim-lspconfig",
+  -- 'mfussenegger/nvim-jdtls',
+  -- 'mustache/vim-mustache-handlebars',
+  -- 'OrangeT/vim-csharp',
+  -- {
+  --   'vsuhanov/omnisharp-extended-lsp.nvim',
+  -- dir = '/Users/vitaly/projects/omnisharp-extended-lsp.nvim'
+  -- },
+  -- 'mfussenegger/nvim-dap',
+  -- 'leoluz/nvim-dap-go',
+  -- 'sindrets/diffview.nvim',
+  -- { "neoclide/coc.nvim",               branch = 'release' },
   -- "mattn/emmet-vim",
   -- "vim-airline/vim-airline",
   -- "vim-airline/vim-airline-themes",
-  "itchyny/lightline.vim",
+  -- "itchyny/lightline.vim",
   -- "rafamadriz/friendly-snippets",
-  "lewis6991/gitsigns.nvim",
   -- "stevearc/oil.nvim",
-  {
-    "stevearc/conform.nvim",
-    opts = {},
-  },
+  -- {
+  --   "stevearc/conform.nvim",
+  --   opts = {},
+  -- },
   -- "github/copilot.vim",
   -- "jiangmiao/auto-pairs",
-  { "ThePrimeagen/harpoon",            branch = "harpoon2" },
   -- "doums/darcula",
   -- "robitx/gp.nvim",
   -- "mattn/emmet-vim",
   -- { 'rose-pine/neovim',  name = 'rose-pine' },
-  { "EdenEast/nightfox.nvim" },
   -- "ggandor/leap.nvim",
   -- "mbbill/undotree",
-  { "williamboman/mason.nvim" },
   -- "nvim-treesitter/playground",
   -- { "neoclide/coc.nvim", branch = "release" },
   -- {
@@ -69,45 +88,24 @@ require("lazy").setup({
   --     { 'rafamadriz/friendly-snippets' },
   --   }
   -- },
-  {
-    -- dir = '/Users/vitaly/projects/quick-definition.nvim'
-    "vsuhanov/quick-definition.nvim",
-  },
-  "vsuhanov/toggle-file.nvim",
-  -- 'mfussenegger/nvim-jdtls',
-  -- 'mustache/vim-mustache-handlebars',
-  -- 'OrangeT/vim-csharp',
-  -- {
-  --   'vsuhanov/omnisharp-extended-lsp.nvim',
-  -- dir = '/Users/vitaly/projects/omnisharp-extended-lsp.nvim'
-  -- },
-  -- 'mfussenegger/nvim-dap',
-  -- 'leoluz/nvim-dap-go',
-  -- 'sindrets/diffview.nvim',
-  "nvim-tree/nvim-tree.lua",
-  "nvim-tree/nvim-web-devicons",
-  {
-    "Hajime-Suzuki/vuffers.nvim",
-  },
-  {
-    "yorickpeterse/nvim-window",
-  }
-  -- "neovim/nvim-lspconfig",
+
 })
 -- require('plugins.gp')
-require('plugins.auto-session')
-require("plugins.harpoon")
 -- require('plugins.oil')
-require("plugins.treesitter")
-require("plugins.gitsigns")
 -- require('plugins.leap')
-require("plugins.mason")
 -- require('plugins.lsp-zero')
-require("plugins.quick-definition")
 -- require('plugins.nvim-jdtls')
 -- require('plugins.nvim-dap')
 -- require('plugins.nvim-dap-go')
+-- require("plugins.conform")
+require('plugins.auto-session')
+require("plugins.harpoon")
+require("plugins.treesitter")
+require("plugins.gitsigns")
+require("plugins.mason")
+require("plugins.quick-definition")
 require("plugins.nvim-tree")
 require("plugins.vuffers")
 require("plugins.nvim-window")
--- require("plugins.conform")
+require("plugins.lualine")
+require("plugins.auto-dark-mode")

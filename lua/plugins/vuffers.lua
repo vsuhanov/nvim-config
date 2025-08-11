@@ -1,8 +1,20 @@
 local vuffers = require("vuffers")
 
+vim.api.nvim_create_autocmd("SessionLoadPost", {
+	callback = function()
+		vuffers.on_session_loaded()
+	end,
+})
+
+vim.api.nvim_create_autocmd("SessionLoadPost", {
+	callback = function()
+		vuffers.on_session_loaded()
+	end,
+})
+
 vuffers.setup({
   debug = {
-    enabled = true,
+    enabled = false,
     level = "error",       -- "error" | "warn" | "info" | "debug" | "trace"
   },
   exclude = {
@@ -64,8 +76,3 @@ vim.api.nvim_create_user_command('Tabs', function()
 end, {})
 
 -- vuffers.open()
-vim.api.nvim_create_autocmd("SessionLoadPost", {
-	callback = function()
-		require("vuffers").on_session_loaded()
-	end,
-})

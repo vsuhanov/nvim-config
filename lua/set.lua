@@ -40,3 +40,5 @@ vim.opt.ttimeout = true
 vim.opt.ttimeoutlen = 300
 
 vim.opt.winborder = 'rounded'
+
+vim.opt.fillchars:append({ eob = " " })

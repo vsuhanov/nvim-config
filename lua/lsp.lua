@@ -4,7 +4,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     if client:supports_method('textDocument/completion') then 
       vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'fuzzy', 'popup' }
       vim.lsp.completion.enable(true, client.id, ev.buf, {autotrigger = true})
-      vim.keymap.set('i', '<C-Space>', function() vim.slp.completion.get() end)
+      vim.keymap.set('i', '<C-Space>', function() vim.lsp.completion.get() end)
     end
       -- vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
       -- vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
@@ -22,3 +22,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.lsp.enable('lua_ls')
 -- vim.lsp.enable('eslint')
 vim.lsp.enable('ts_ls')
+vim.lsp.enable('gopls')

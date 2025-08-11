@@ -16,11 +16,10 @@ keymap("n", "<leader>vt", ":e %:h<cr>", opts)
 -- end
 --
 -- keymap("n", "-", safe_open_oil, opts)
-keymap("n", "-", ":NvimTreeFindFile<CR>", opts)
 
 -- keymap("n", "-", ":silent! e %:h | if v:shell_error | echo 'Directory navigation failed' | endif<cr>", opts)
 keymap("n", "<leader>c", function()
-  vim.cmd(":only")
+  vim.cmd(":tab split")
   vim.cmd(':Tabs')
 end, opts)
 keymap("n", "n", "nzzzv", opts)

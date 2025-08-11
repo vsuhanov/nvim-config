@@ -1,8 +1,27 @@
-require('nvim-tree').setup(
+local previous_window = nil
+
+local function memorize_current_window()
+  previous_window = vim.api.nvim_get_current_win()
+end
+
+local function return_to_previous_window()
+  if previous_window and vim.api.nvim_win_is_valid(previous_window) then
+    vim.api.nvim_set_current_win(previous_window)
+  end
+end
+
+local nvimTree = require('nvim-tree')
+
+nvimTree.setup(
   {
     view = {
       side = "left",
-      width= 60
+      width = 60
+    },
+    actions = {
+      open_file = {
+        quit_on_open = false,
+      }
     },
     update_focused_file = {
       enable = true,
@@ -74,6 +93,17 @@ require('nvim-tree').setup(
       vim.keymap.set("n", "Y", api.fs.copy.relative_path, opts("Copy Relative Path"))
       vim.keymap.set("n", "<2-LeftMouse>", api.node.open.edit, opts("Open"))
       vim.keymap.set("n", "<2-RightMouse>", api.tree.change_root_to_node, opts("CD"))
+      vim.keymap.set("n", "<esc>", return_to_previous_window, { silent = true })
     end
   }
 )
+
+local opts = { silent = true }
+vim.keymap.set("n", "-", function()
+  memorize_current_window()
+  vim.cmd("NvimTreeFindFile")
+end, opts)
+vim.keymap.set("n", "<M-1>", function()
+  vim.cmd("NvimTreeFindFileToggle")
+end, opts)
+
