@@ -22,6 +22,7 @@ else
   require('purple-config')
   require('windows-stuff')
   require('autofilereload')
+  require('lsp')
 
   -- ignore errors: local-config may not exist
   pcall(function()

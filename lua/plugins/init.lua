@@ -12,6 +12,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   "tpope/vim-sensible",
+  "tpope/vim-fugitive",
+  "tpope/vim-commentary",
+  "tpope/vim-surround",
   { "nvim-treesitter/nvim-treesitter", cmd = 'TSUpdate' },
   "nvim-lua/plenary.nvim",
   {
@@ -19,27 +22,25 @@ require("lazy").setup({
     tag = '0.1.4',
   },
   -- { "neoclide/coc.nvim",               branch = 'release' },
-  "tpope/vim-fugitive",
-  "rmagatti/auto-session",
-  "mattn/emmet-vim",
+  -- "rmagatti/auto-session",
+  -- "mattn/emmet-vim",
   -- "vim-airline/vim-airline",
   -- "vim-airline/vim-airline-themes",
   'itchyny/lightline.vim',
   -- "rafamadriz/friendly-snippets",
   "lewis6991/gitsigns.nvim",
-  "tpope/vim-commentary",
-  -- "stevearc/oil.nvim",
+  "stevearc/oil.nvim",
   -- "github/copilot.vim",
-  "jiangmiao/auto-pairs",
+  -- "jiangmiao/auto-pairs",
   { "ThePrimeagen/harpoon",            branch = 'harpoon2' },
   -- "doums/darcula",
   -- "robitx/gp.nvim",
-  "mattn/emmet-vim",
-  "tpope/vim-surround",
-  { 'rose-pine/neovim',  name = 'rose-pine' },
+  -- "mattn/emmet-vim",
+  -- { 'rose-pine/neovim',  name = 'rose-pine' },
   { "EdenEast/nightfox.nvim" },
   -- "ggandor/leap.nvim",
-  "mbbill/undotree",
+  -- "mbbill/undotree",
+  { 'williamboman/mason.nvim' },
   -- "nvim-treesitter/playground",
   -- { "neoclide/coc.nvim", branch = "release" },
   -- {
@@ -70,7 +71,7 @@ require("lazy").setup({
   },
   'vsuhanov/toggle-file.nvim',
   -- 'mfussenegger/nvim-jdtls',
-  'mustache/vim-mustache-handlebars',
+  -- 'mustache/vim-mustache-handlebars',
   -- 'OrangeT/vim-csharp',
   -- {
   --   'vsuhanov/omnisharp-extended-lsp.nvim',
@@ -78,18 +79,18 @@ require("lazy").setup({
   -- },
   -- 'mfussenegger/nvim-dap',
   -- 'leoluz/nvim-dap-go',
-  'sindrets/diffview.nvim',
+  -- 'sindrets/diffview.nvim',
   'nvim-tree/nvim-tree.lua',
   'nvim-tree/nvim-web-devicons'
 })
 -- require('plugins.gp')
-require('plugins.auto-session')
+-- require('plugins.auto-session')
 require('plugins.harpoon')
--- require('plugins.oil')
+require('plugins.oil')
 require('plugins.treesitter')
 require('plugins.gitsigns')
 -- require('plugins.leap')
--- require('plugins.mason')
+require('plugins.mason')
 -- require('plugins.lsp-zero')
 require('plugins.quick-definition')
 -- require('plugins.nvim-jdtls')

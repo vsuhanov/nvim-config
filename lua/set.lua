@@ -39,4 +39,4 @@ vim.opt.timeoutlen = 500
 vim.opt.ttimeout = true
 vim.opt.ttimeoutlen = 300
 
-
+vim.opt.winborder = 'rounded'
