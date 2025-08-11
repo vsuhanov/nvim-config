@@ -31,7 +31,10 @@ require("lazy").setup({
   "vsuhanov/toggle-file.nvim",
   "nvim-tree/nvim-tree.lua",
   "nvim-tree/nvim-web-devicons",
-  "Hajime-Suzuki/vuffers.nvim",
+  {
+    -- dir = '/Users/vitaly/projects/vuffers.nvim'
+    "Hajime-Suzuki/vuffers.nvim",
+  },
   "yorickpeterse/nvim-window",
   "f-person/auto-dark-mode.nvim",
   -- "neovim/nvim-lspconfig",

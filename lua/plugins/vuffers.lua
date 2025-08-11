@@ -19,7 +19,7 @@ vuffers.setup({
   },
   exclude = {
     -- do not show them on the vuffers list
-    -- filenames = { "term://" },
+    filenames = { },
     filetypes = { "lazygit", "NvimTree", "qf" },
   },
   handlers = {
