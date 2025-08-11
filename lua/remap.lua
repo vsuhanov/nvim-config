@@ -19,7 +19,10 @@ keymap("n", "<leader>vt", ":e %:h<cr>", opts)
 keymap("n", "-", ":NvimTreeFindFileToggle<CR>", opts)
 
 -- keymap("n", "-", ":silent! e %:h | if v:shell_error | echo 'Directory navigation failed' | endif<cr>", opts)
-keymap("n", "<leader>c", ":only<cr>", opts)
+keymap("n", "<leader>c", function()
+  vim.cmd(":only")
+  vim.cmd(':Tabs')
+end, opts)
 keymap("n", "n", "nzzzv", opts)
 keymap("n", "N", "Nzzzv", opts)
 keymap("v", "J", ":m '>+1<CR>gv=gv", opts)
@@ -41,20 +44,39 @@ keymap("n", "<leader>cp", ":cp<cr>", opts)
 keymap("n", "<C-_>", "gc", opts)
 keymap("v", "<C-_>", "gc", opts)
 
+-- Generic function to call telescope with selected text in visual mode
+local function telescope_with_selection(telescope_func)
+  return function()
+    -- Save current register
+    local save_reg = vim.fn.getreg('"')
+    local save_regtype = vim.fn.getregtype('"')
+
+    -- Yank selected text to unnamed register
+    vim.cmd('normal! y')
+
+    -- Get the yanked text
+    local selected_text = vim.fn.getreg('"')
+
+    -- Restore register
+    vim.fn.setreg('"', save_reg, save_regtype)
+
+    telescope_func({ default_text = selected_text })
+  end
+end
+
 -- Telescope mappings
 keymap('n', '<leader>wo', ':Telescope find_files<CR>', opts)
 keymap('n', '<leader>ff', ':Telescope live_grep<CR>', opts)
 keymap('n', '<leader>fb', ':Telescope buffers<CR>', opts)
+keymap('n', '<leader>wb', ':Telescope buffers<CR>', opts)
 keymap('n', '<leader>hh', ':Telescope treesitter<CR>', opts)
--- harpoon mappings
--- local harpoon = require("harpoon")
--- keymap("n", "<leader>aa", function() harpoon:list():append() end)
--- keymap("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
--- keymap("n", "<leader>ee", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
--- keymap("n", "<leader>hu", function() harpoon:list():select(1) end)
--- keymap("n", "<leader>hi", function() harpoon:list():select(2) end)
--- keymap("n", "<leader>ho", function() harpoon:list():select(3) end)
--- keymap("n", "<leader>hp", function() harpoon:list():select(4) end)
+
+-- Telescope visual mode mappings with selected text
+keymap('v', '<leader>wo', telescope_with_selection(require('telescope.builtin').find_files), opts)
+keymap('v', '<leader>ff', telescope_with_selection(require('telescope.builtin').live_grep), opts)
+keymap('v', '<leader>fb', telescope_with_selection(require('telescope.builtin').buffers), opts)
+keymap('v', '<leader>wb', telescope_with_selection(require('telescope.builtin').buffers), opts)
+keymap('v', '<leader>hh', telescope_with_selection(require('telescope.builtin').treesitter), opts)
 
 keymap("t", "<C-esc>", "<C-\\><C-n>")
 keymap("t", "<esc><esc>", "<C-\\><C-n>")
@@ -62,7 +84,6 @@ keymap("t", "<esc><esc>", "<C-\\><C-n>")
 -- keymap("n", "<leader>ll", function() vim.lsp.buf.format({ async = true }) end, opts)
 --
 --
--- keymap("n", "<leader>ll", ":LspZeroFormat<CR>", opts)
 keymap("n", "<leader>gpt", ":ChatChatToggle<CR>", opts)
 
 -- keymap("n", "<leader>;;", ":source /Users/vitaly/.config/nvim/init.lua")
@@ -72,7 +93,8 @@ keymap("n", "<leader>gpt", ":ChatChatToggle<CR>", opts)
 -- vim.keymap.set("n", "<leader>2", function() toggle_file.toggle_file_window("./TODO.md") end, opts)
 
 -- quick definition hotkeys
--- local quick_definition = require("quick-definition")
+local quick_definition = require("quick-definition")
+
 vim.keymap.set("n", "K", function() quick_definition.quick_definition() end, opts)
 -- vim.keymap.set("n", "<2-LeftMouse>", function() quick_definition.quick_definition() end, opts)
 vim.keymap.set("n", "<MiddleMouse>", function() vim.lsp.buf.definition() end, opts)
@@ -93,17 +115,17 @@ vim.keymap.set("c", "<C-L>", '<Right>')
 -- vim.keymap.set("n", "<leader>w", "<C-w>")
 
 
--- vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+vim.keymap.set("n", "<leader>b", function() vim.lsp.buf.definition() end, opts)
 -- vim.keymap.set("n", "<leader>b", "<Plug>(coc-definition)", opts)
--- -- vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
--- vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
--- vim.keymap.set("n", "<leader>ge", function() vim.diagnostic.goto_next() end, opts)
--- vim.keymap.set("n", "<leader>gee", function() vim.diagnostic.goto_next() end, opts)
--- vim.keymap.set("n", "<leader>gep", function() vim.diagnostic.goto_prev() end, opts)
--- vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
--- vim.keymap.set("n", "<leader>fu", function() vim.lsp.buf.references() end, opts)
--- vim.keymap.set("n", "<leader>rv", function() vim.lsp.buf.rename() end, opts)
--- vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+-- vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
+vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+vim.keymap.set("n", "<leader>ge", function() vim.diagnostic.goto_next() end, opts)
+vim.keymap.set("n", "<leader>gee", function() vim.diagnostic.goto_next() end, opts)
+vim.keymap.set("n", "<leader>gep", function() vim.diagnostic.goto_prev() end, opts)
+vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
+vim.keymap.set("n", "<leader>fu", function() vim.lsp.buf.references() end, opts)
+vim.keymap.set("n", "<leader>rv", function() vim.lsp.buf.rename() end, opts)
+vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 -- vim.keymap.set("n", "gd", function() vim.fn.CocAction('jumpDefinition') end, opts)
 -- vim.keymap.set("n", "<leader>b", function() vim.fn.CocAction('jumpDefinition') end, opts)
 -- vim.keymap.set("n", "<leader>vd", function() vim.fn.CocActionAsync('doHover') end, opts)
@@ -116,3 +138,30 @@ vim.keymap.set("c", "<C-L>", '<Right>')
 -- vim.keymap.set("n", "<leader>ll", function() vim.cmd("CocCommand editor.action.formatDocument") end, opts)
 -- vim.keymap.set("i", "<C-h>", function() vim.fn.CocActionAsync('showSignatureHelp') end, opts)
 
+-- local conform = require("conform")
+-- vim.keymap.set("n", "<leader>ll", function() conform.format() end, opts);
+vim.keymap.set("n", "<leader>ll", function() vim.lsp.buf.format() end, opts);
+
+local function toggle_quickfix()
+  local quickfix_open = false
+
+  -- Check if quickfix is open by looking at all windows
+  for _, win in pairs(vim.fn.getwininfo()) do
+    if win.quickfix == 1 then
+      quickfix_open = true
+      break
+    end
+  end
+
+  if quickfix_open then
+    vim.cmd('cclose')
+  else
+    vim.cmd('copen')
+  end
+end
+
+vim.keymap.set('n', '<leader>qq', toggle_quickfix, { desc = 'Toggle quickfix list' })
+vim.keymap.set('n', '<leader>qn', ":cn<cr>", opts)
+vim.keymap.set('n', '<leader>qp', ":cp<cr>", opts)
+vim.keymap.set('n', '<leader>qf', ":cf<cr>", opts)
+vim.keymap.set('n', '<leader>ql', ":cl<cr>", opts)
