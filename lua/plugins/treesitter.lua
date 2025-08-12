@@ -13,7 +13,8 @@ require 'nvim-treesitter.configs'.setup {
     "html",
     "css",
     "javascript",
-    "typescript"
+    "typescript",
+    "luadoc",
   },
   sync_install = false,
   auto_install = true,

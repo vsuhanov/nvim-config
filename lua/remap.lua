@@ -87,9 +87,9 @@ keymap("n", "<leader>gpt", ":ChatChatToggle<CR>", opts)
 
 -- keymap("n", "<leader>;;", ":source /Users/vitaly/.config/nvim/init.lua")
 
--- local toggle_file = require("toggle-file")
--- vim.keymap.set("n", "<leader>1", function() toggle_file.toggle_file_window("~/Daily Notes.md") end, opts)
--- vim.keymap.set("n", "<leader>2", function() toggle_file.toggle_file_window("./TODO.md") end, opts)
+local toggle_file = require("toggle-file")
+vim.keymap.set("n", "<leader>1", function() toggle_file.toggle_file_window("~/Daily Notes.md") end, opts)
+vim.keymap.set("n", "<leader>2", function() toggle_file.toggle_file_window("./TODO.md") end, opts)
 
 -- quick definition hotkeys
 local quick_definition = require("quick-definition")
