@@ -123,7 +123,7 @@ vim.keymap.set("n", "<leader>gee", function() vim.diagnostic.goto_next() end, op
 vim.keymap.set("n", "<leader>gep", function() vim.diagnostic.goto_prev() end, opts)
 vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
 vim.keymap.set("n", "<leader>fu", function() vim.lsp.buf.references() end, opts)
-vim.keymap.set("n", "<leader>rv", function() vim.lsp.buf.rename() end, opts)
+-- vim.keymap.set("n", "<leader>rv", function() vim.lsp.buf.rename() end, opts)
 vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 -- vim.keymap.set("n", "gd", function() vim.fn.CocAction('jumpDefinition') end, opts)
 -- vim.keymap.set("n", "<leader>b", function() vim.fn.CocAction('jumpDefinition') end, opts)

@@ -42,6 +42,25 @@ require("lazy").setup({
     event = "VeryLazy",
   },
   "folke/snacks.nvim",
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      "rcarriga/nvim-notify",
+    },
+  },
+  {
+    "smjonas/inc-rename.nvim",
+    opts = {}
+  },
   -- "neovim/nvim-lspconfig",
   -- 'mfussenegger/nvim-jdtls',
   -- 'mustache/vim-mustache-handlebars',
@@ -119,3 +138,4 @@ require("plugins.lualine")
 require("plugins.auto-dark-mode")
 require("plugins.scratch")
 require("plugins.snacks")
+require("plugins.inc-rename")

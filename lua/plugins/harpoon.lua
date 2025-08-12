@@ -209,5 +209,6 @@ vim.keymap.set("n", "<leader>al", function() harpoon:list("Lists"):add() end, { 
 vim.keymap.set("n", "<leader>ea", function() harpoon.ui:toggle_quick_menu(harpoon:list("Lists")) end,
   { silent = true })
 
+
 -- Export meta functions for external access
 return HarpoonMeta
