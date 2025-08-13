@@ -70,7 +70,15 @@ require("lazy").setup({
         table.insert(opts.ensure_installed, "http")
       end,
     }
-  }
+  },
+  'neovim/nvim-lspconfig',
+  'hrsh7th/cmp-nvim-lsp',
+  'hrsh7th/cmp-buffer',
+  'hrsh7th/cmp-path',
+  'hrsh7th/cmp-cmdline',
+  'hrsh7th/nvim-cmp',
+  'hrsh7th/cmp-vsnip',
+  'hrsh7th/vim-vsnip',
   -- "neovim/nvim-lspconfig",
   -- 'mfussenegger/nvim-jdtls',
   -- 'mustache/vim-mustache-handlebars',
@@ -149,3 +157,5 @@ require("plugins.auto-dark-mode")
 require("plugins.scratch")
 require("plugins.snacks")
 require("plugins.inc-rename")
+require("plugins.noice")
+require("plugins.nvim-cmp")
