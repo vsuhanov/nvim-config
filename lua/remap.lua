@@ -36,8 +36,6 @@ keymap("n", "<C-S-Right>", ":vertical resize +2<cr>", opts)
 keymap("n", "<C-S-Left>", ":vertical resize -2<cr>", opts)
 keymap("n", "<C-S-Up>", ":resize +2<cr>", opts)
 keymap("n", "<C-S-Down>", ":resize -2<cr>", opts)
-keymap("n", "<leader>cn", ":cn<cr>", opts)
-keymap("n", "<leader>cp", ":cp<cr>", opts)
 
 -- -- Visual mode mappings
 keymap("n", "<C-_>", "gc", opts)
@@ -114,7 +112,7 @@ vim.keymap.set("c", "<C-L>", '<Right>')
 -- vim.keymap.set("n", "<leader>w", "<C-w>")
 
 
-vim.keymap.set("n", "<leader>b", function() vim.lsp.buf.definition() end, opts)
+vim.keymap.set("n", "<leader>b", function() vim.lsp.buf.definition({ loclist = true }) end, opts)
 -- vim.keymap.set("n", "<leader>b", "<Plug>(coc-definition)", opts)
 -- vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
 vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
@@ -122,7 +120,7 @@ vim.keymap.set("n", "<leader>ge", function() vim.diagnostic.goto_next() end, opt
 vim.keymap.set("n", "<leader>gee", function() vim.diagnostic.goto_next() end, opts)
 vim.keymap.set("n", "<leader>gep", function() vim.diagnostic.goto_prev() end, opts)
 vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-vim.keymap.set("n", "<leader>fu", function() vim.lsp.buf.references() end, opts)
+vim.keymap.set("n", "<leader>fu", function() vim.lsp.buf.references(nil, { loclist = true }) end, opts)
 -- vim.keymap.set("n", "<leader>rv", function() vim.lsp.buf.rename() end, opts)
 vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 -- vim.keymap.set("n", "gd", function() vim.fn.CocAction('jumpDefinition') end, opts)
@@ -141,26 +139,3 @@ vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 -- vim.keymap.set("n", "<leader>ll", function() conform.format() end, opts);
 vim.keymap.set("n", "<leader>ll", function() vim.lsp.buf.format() end, opts);
 
-local function toggle_quickfix()
-  local quickfix_open = false
-
-  -- Check if quickfix is open by looking at all windows
-  for _, win in pairs(vim.fn.getwininfo()) do
-    if win.quickfix == 1 then
-      quickfix_open = true
-      break
-    end
-  end
-
-  if quickfix_open then
-    vim.cmd('cclose')
-  else
-    vim.cmd('copen')
-  end
-end
-
-vim.keymap.set('n', '<leader>qq', toggle_quickfix, { desc = 'Toggle quickfix list' })
-vim.keymap.set('n', '<leader>qn', ":cn<cr>", opts)
-vim.keymap.set('n', '<leader>qp', ":cp<cr>", opts)
-vim.keymap.set('n', '<leader>qf', ":cf<cr>", opts)
-vim.keymap.set('n', '<leader>ql', ":cl<cr>", opts)

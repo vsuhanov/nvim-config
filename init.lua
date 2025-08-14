@@ -23,6 +23,9 @@ else
   require('windows-stuff')
   require('autofilereload')
   require('lsp')
+  
+  -- Setup quickfix/loclist magic
+  require('quickfix-magic').setup()
 
   -- ignore errors: local-config may not exist
   pcall(function()
