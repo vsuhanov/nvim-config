@@ -18,7 +18,7 @@ require("lazy").setup({
   { "nvim-treesitter/nvim-treesitter", cmd = "TSUpdate" },
   "nvim-lua/plenary.nvim",
   { "nvim-telescope/telescope.nvim",   tag = "0.1.4", },
-  "rmagatti/auto-session",
+  -- "rmagatti/auto-session",
   'nvim-lualine/lualine.nvim',
   "lewis6991/gitsigns.nvim",
   { "ThePrimeagen/harpoon",   branch = "harpoon2" },
@@ -32,8 +32,8 @@ require("lazy").setup({
   "nvim-tree/nvim-tree.lua",
   "nvim-tree/nvim-web-devicons",
   {
-    -- dir = '/Users/vitaly/projects/vuffers.nvim'
-    "Hajime-Suzuki/vuffers.nvim",
+    dir = '/Users/vitaly/projects/vuffers.nvim'
+    -- "Hajime-Suzuki/vuffers.nvim",
   },
   "yorickpeterse/nvim-window",
   "f-person/auto-dark-mode.nvim",
@@ -79,6 +79,7 @@ require("lazy").setup({
   'hrsh7th/nvim-cmp',
   'hrsh7th/cmp-vsnip',
   'hrsh7th/vim-vsnip',
+  'Tastyep/structlog.nvim',
   -- "neovim/nvim-lspconfig",
   -- 'mfussenegger/nvim-jdtls',
   -- 'mustache/vim-mustache-handlebars',
@@ -143,7 +144,7 @@ require("lazy").setup({
 -- require('plugins.nvim-dap')
 -- require('plugins.nvim-dap-go')
 -- require("plugins.conform")
-require('plugins.auto-session')
+-- require('plugins.auto-session')
 require("plugins.harpoon")
 require("plugins.treesitter")
 require("plugins.gitsigns")
@@ -159,3 +160,4 @@ require("plugins.snacks")
 require("plugins.inc-rename")
 require("plugins.noice")
 require("plugins.nvim-cmp")
+require("plugins.git-fugitive")

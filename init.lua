@@ -23,6 +23,7 @@ else
   require('windows-stuff')
   require('autofilereload')
   require('lsp')
+  require('plugins.terminal-improvements')
   
   -- Setup quickfix/loclist magic
   require('quickfix-magic').setup()

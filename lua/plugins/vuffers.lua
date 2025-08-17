@@ -1,21 +1,15 @@
 local vuffers = require("vuffers")
 
-vim.api.nvim_create_autocmd("SessionLoadPost", {
-	callback = function()
-		vuffers.on_session_loaded()
-	end,
-})
-
-vim.api.nvim_create_autocmd("SessionLoadPost", {
-	callback = function()
-		vuffers.on_session_loaded()
-	end,
-})
+-- vim.api.nvim_create_autocmd("SessionLoadPost", {
+-- 	callback = function()
+-- 		vuffers.on_session_loaded()
+-- 	end,
+-- })
 
 vuffers.setup({
   debug = {
-    enabled = false,
-    level = "error",       -- "error" | "warn" | "info" | "debug" | "trace"
+    enabled = vim.fn.getcwd():find("vuffers") ~= nil,
+    level = "debug",       -- "error" | "warn" | "info" | "debug" | "trace"
   },
   exclude = {
     -- do not show them on the vuffers list
