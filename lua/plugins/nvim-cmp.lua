@@ -35,7 +35,28 @@ cmp.setup({
     -- { name = 'ultisnips' }, -- For ultisnips users.
     -- { name = 'snippy' }, -- For snippy users.
   }, {
-    { name = 'buffer' },
+    { name = 'buffer', options = {
+      get_bufnrs = function()
+        local bufs = {}
+        for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+          local bufname = vim.api.nvim_buf_get_name(bufnr)
+          -- Only include buffers that:
+          -- 1. Are valid and loaded
+          -- 2. Have a filename (not empty)
+          -- 3. Have a file extension
+          -- 4. Are not special buffers (no :// in name)
+          if vim.api.nvim_buf_is_valid(bufnr) 
+             and vim.api.nvim_buf_is_loaded(bufnr)
+             and bufname ~= ""
+             and bufname:match("%.%w+$")  -- has file extension
+             and not bufname:match("://") -- not special buffer
+          then
+            table.insert(bufs, bufnr)
+          end
+        end
+        return bufs
+      end
+    } },
     { name = 'path' },
   })
 })
@@ -74,6 +95,6 @@ cmp.setup.cmdline(':', {
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
+require('lspconfig')['eslint'].setup {
   capabilities = capabilities
 }

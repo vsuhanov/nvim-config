@@ -32,8 +32,8 @@ require("lazy").setup({
   "nvim-tree/nvim-tree.lua",
   "nvim-tree/nvim-web-devicons",
   {
-    dir = '/Users/vitaly/projects/vuffers.nvim'
-    -- "Hajime-Suzuki/vuffers.nvim",
+    -- dir = '/Users/vitaly/projects/vuffers.nvim'
+    "suhanovs/vuffers.nvim",
   },
   "yorickpeterse/nvim-window",
   "f-person/auto-dark-mode.nvim",
@@ -161,3 +161,4 @@ require("plugins.inc-rename")
 require("plugins.noice")
 require("plugins.nvim-cmp")
 require("plugins.git-fugitive")
+

@@ -1,3 +1,6 @@
 vim.keymap.set('n', '<M-k>', function()
   vim.cmd("vert Git")
 end, { silent = false })
+vim.keymap.set('n', '<M-K>', function()
+  vim.cmd("Git commit")
+end, { silent = false })
