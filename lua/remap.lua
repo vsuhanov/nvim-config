@@ -31,38 +31,8 @@ keymap("n", "<C-_>", "gc", opts)
 keymap("v", "<C-_>", "gc", opts)
 
 -- Generic function to call telescope with selected text in visual mode
-local function telescope_with_selection(telescope_func)
-  return function()
-    -- Save current register
-    local save_reg = vim.fn.getreg('"')
-    local save_regtype = vim.fn.getregtype('"')
 
-    -- Yank selected text to unnamed register
-    vim.cmd('normal! y')
 
-    -- Get the yanked text
-    local selected_text = vim.fn.getreg('"')
-
-    -- Restore register
-    vim.fn.setreg('"', save_reg, save_regtype)
-
-    telescope_func({ default_text = selected_text })
-  end
-end
-
--- Telescope mappings
-keymap('n', '<leader>wo', ':Telescope find_files<CR>', opts)
-keymap('n', '<leader>ff', ':Telescope live_grep<CR>', opts)
-keymap('n', '<leader>fb', ':Telescope buffers<CR>', opts)
-keymap('n', '<leader>wb', ':Telescope buffers<CR>', opts)
-keymap('n', '<leader>hh', ':Telescope treesitter<CR>', opts)
-
--- Telescope visual mode mappings with selected text
-keymap('v', '<leader>wo', telescope_with_selection(require('telescope.builtin').find_files), opts)
-keymap('v', '<leader>ff', telescope_with_selection(require('telescope.builtin').live_grep), opts)
-keymap('v', '<leader>fb', telescope_with_selection(require('telescope.builtin').buffers), opts)
-keymap('v', '<leader>wb', telescope_with_selection(require('telescope.builtin').buffers), opts)
-keymap('v', '<leader>hh', telescope_with_selection(require('telescope.builtin').treesitter), opts)
 
 keymap("t", "<C-esc>", "<C-\\><C-n>")
 keymap("t", "<esc><esc>", "<C-\\><C-n>")

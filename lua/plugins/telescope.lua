@@ -1,0 +1,79 @@
+local telescope_builtin = require('telescope.builtin')
+local telescope = require('telescope')
+telescope.setup {
+  defaults = {
+    path_dispay = { 'smart' },
+    -- Default configuration for telescope goes here:
+    -- config_key = value,
+    mappings = {
+      i = {
+        -- map actions.which_key to <C-h> (default: <C-/>)
+        -- actions.which_key shows the mappings for your picker,
+        -- e.g. git_{create, delete, ...}_branch for the git_branches picker
+        ["<C-h>"] = "which_key"
+      }
+    }
+  },
+  pickers = {
+    find_files = {
+      find_command = {
+        "fd",
+        "--type", "f",
+        "--hidden",
+        "--follow",
+        "--exclude", "target",       -- Maven build dir
+        "--exclude", "build",        -- Gradle build dir
+        "--exclude", ".gradle",      -- Gradle cache
+        "--exclude", "node_modules", -- If you have JS tooling
+        "--exclude", ".git",
+        "--exclude", "*.class",      -- Compiled Java files
+      },
+    },
+    -- Default configuration for builtin pickers goes here:
+    -- picker_name = {
+    --   picker_config_key = value,
+    --   ...
+    -- }
+    -- Now the picker_config_key will be applied every time you call this
+    -- builtin picker
+  },
+  extensions = {
+    -- Your extension configuration goes here:
+    -- extension_name = {
+    --   extension_config_key = value,
+    -- }
+    -- please take a look at the readme of the extension you want to configure
+  }
+}
+local function telescope_with_selection(telescope_func)
+  return function()
+    -- Save current register
+    local save_reg = vim.fn.getreg('"')
+    local save_regtype = vim.fn.getregtype('"')
+
+    -- Yank selected text to unnamed register
+    vim.cmd('normal! y')
+
+    -- Get the yanked text
+    local selected_text = vim.fn.getreg('"')
+
+    -- Restore register
+    vim.fn.setreg('"', save_reg, save_regtype)
+
+    telescope_func({ default_text = selected_text })
+  end
+end
+local opts = { silent = true }
+-- Telescope visual mode mappings with selected text
+vim.keymap.set('v', '<leader>wo', telescope_with_selection(telescope_builtin.find_files), opts)
+vim.keymap.set('v', '<leader>ff', telescope_with_selection(telescope_builtin.live_grep), opts)
+vim.keymap.set('v', '<leader>fb', telescope_with_selection(telescope_builtin.buffers), opts)
+vim.keymap.set('v', '<leader>wb', telescope_with_selection(telescope_builtin.buffers), opts)
+vim.keymap.set('v', '<leader>hh', telescope_with_selection(telescope_builtin.treesitter), opts)
+
+-- Telescope mappings
+vim.keymap.set('n', '<leader>wo', ':Telescope find_files<CR>', opts)
+vim.keymap.set('n', '<leader>ff', ':Telescope live_grep<CR>', opts)
+vim.keymap.set('n', '<leader>fb', ':Telescope buffers<CR>', opts)
+vim.keymap.set('n', '<leader>wb', ':Telescope buffers<CR>', opts)
+vim.keymap.set('n', '<leader>hh', ':Telescope treesitter<CR>', opts)

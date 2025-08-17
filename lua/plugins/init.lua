@@ -161,4 +161,5 @@ require("plugins.inc-rename")
 require("plugins.noice")
 require("plugins.nvim-cmp")
 require("plugins.git-fugitive")
+require("plugins.telescope")
 
