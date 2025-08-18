@@ -4,12 +4,9 @@ require("scratch").setup({
   use_telescope = true,
   -- fzf-lua is recommanded, since it will order the files by modification datetime desc. (require rg)
   file_picker = "telescope",                      -- "fzflua" | "telescope" | nil
-  filetypes = { "lua", "js", "sh", "ts", "http" },     -- you can simply put filetype here
+  filetypes = { "txt", "json", "lua", "js", "sh", "ts", "http" },     -- you can simply put filetype here
   filetype_details = {                         -- or, you can have more control here
     json = {},                                 -- empty table is fine
-    ["project-name.md"] = {
-      subdir = "project-name"                  -- group scratch files under specific sub folder
-    },
     ["yaml"] = {},
     go = {
       requireDir = true,     -- true if each scratch file requires a new directory
@@ -41,3 +38,8 @@ require("scratch").setup({
     },
   },
 })
+
+local opts = {silent = true}
+vim.keymap.set("n", "<leader>nn", function() vim.cmd("Scratch") end, opts)
+vim.keymap.set("n", "<leader>nf", function() vim.cmd("ScratchWithName") end, opts)
+vim.keymap.set("n", "<leader>no", function() vim.cmd("ScratchOpen") end, opts)
