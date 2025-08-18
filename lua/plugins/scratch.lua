@@ -37,6 +37,20 @@ require("scratch").setup({
       end,
     },
   },
+  filename = function(ft, directory)
+      local files = vim.fn.readdir(directory)
+      local max_num = 0
+
+      for _, file in ipairs(files) do
+        local num = file:match("^scratch%-(%d+)%.")
+        if num then
+          max_num = math.max(max_num, tonumber(num))
+        end
+      end
+
+      return "scratch-" .. (max_num + 1) .. "." .. ft
+    end
+
 })
 
 local opts = {silent = true}

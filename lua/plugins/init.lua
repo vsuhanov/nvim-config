@@ -38,7 +38,7 @@ require("lazy").setup({
   "yorickpeterse/nvim-window",
   "f-person/auto-dark-mode.nvim",
   {
-    "LintaoAmons/scratch.nvim",
+    "vsuhanov/scratch.nvim",
     event = "VeryLazy",
   },
   "folke/snacks.nvim",
