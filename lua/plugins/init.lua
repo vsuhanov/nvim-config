@@ -33,7 +33,7 @@ require("lazy").setup({
   "nvim-tree/nvim-web-devicons",
   {
     -- dir = '/Users/vitaly/projects/vuffers.nvim'
-    "suhanovs/vuffers.nvim",
+    "vsuhanov/vuffers.nvim",
   },
   "yorickpeterse/nvim-window",
   "f-person/auto-dark-mode.nvim",
@@ -42,21 +42,21 @@ require("lazy").setup({
     event = "VeryLazy",
   },
   "folke/snacks.nvim",
-  {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    opts = {
-      -- add any options here
-    },
-    dependencies = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-      "MunifTanjim/nui.nvim",
-      -- OPTIONAL:
-      --   `nvim-notify` is only needed, if you want to use the notification view.
-      --   If not available, we use `mini` as the fallback
-      "rcarriga/nvim-notify",
-    },
-  },
+  -- {
+  --   "folke/noice.nvim",
+  --   event = "VeryLazy",
+  --   opts = {
+  --     -- add any options here
+  --   },
+  --   dependencies = {
+  --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+  --     "MunifTanjim/nui.nvim",
+  --     -- OPTIONAL:
+  --     --   `nvim-notify` is only needed, if you want to use the notification view.
+  --     --   If not available, we use `mini` as the fallback
+  --     "rcarriga/nvim-notify",
+  --   },
+  -- },
   {
     "smjonas/inc-rename.nvim",
     opts = {}
@@ -158,7 +158,7 @@ require("plugins.auto-dark-mode")
 require("plugins.scratch")
 require("plugins.snacks")
 require("plugins.inc-rename")
-require("plugins.noice")
+-- require("plugins.noice")
 require("plugins.nvim-cmp")
 require("plugins.git-fugitive")
 require("plugins.telescope")
