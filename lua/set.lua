@@ -33,7 +33,7 @@ vim.opt.colorcolumn = ""
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
-vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 vim.opt.timeoutlen = 500
 vim.opt.ttimeout = true
@@ -42,3 +42,11 @@ vim.opt.ttimeoutlen = 300
 vim.opt.winborder = 'rounded'
 
 vim.opt.fillchars:append({ eob = " " })
+vim.opt.cursorline = true
+
+vim.opt.guicursor = {
+  "n-v-c-sm:block-Cursor",
+  "i-ci-ve:ver25-CursorI",
+  "r-cr-o:hor20-CursorR",
+  "t:block-blinkon500-blinkoff500-TermCursor"
+}
