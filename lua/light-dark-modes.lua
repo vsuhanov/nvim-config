@@ -13,7 +13,7 @@ function M.setLightMode()
   vim.api.nvim_set_hl(0, 'WinBar', { bg = '#87CEEB', bold = true })
   vim.api.nvim_set_hl(0, 'WinBarNC', { bg = '#dedede', fg = "#ffffff" })
 
-  vim.api.nvim_set_hl(0, "Cursor", { fg = "#000000", bg = "#111111" }) -- Red cursor, black text
+  -- vim.api.nvim_set_hl(0, "Cursor", { fg = "#000000", bg = "#111111" }) -- Red cursor, black text
   vim.opt.winbar = "%=%f "
 end
 

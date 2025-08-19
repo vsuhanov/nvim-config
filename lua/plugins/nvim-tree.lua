@@ -94,6 +94,24 @@ nvimTree.setup(
       vim.keymap.set("n", "<2-LeftMouse>", api.node.open.edit, opts("Open"))
       vim.keymap.set("n", "<2-RightMouse>", api.tree.change_root_to_node, opts("CD"))
       vim.keymap.set("n", "<esc>", return_to_previous_window, { silent = true, buffer = bufnr })
+
+      -- Custom function to search in current directory with Telescope
+      vim.keymap.set("n", "<leader>ff", function()
+        local node = api.tree.get_node_under_cursor()
+        if not node then return end
+
+        local search_path
+        if node.type == "directory" then
+          search_path = node.absolute_path
+        else
+          search_path = vim.fn.fnamemodify(node.absolute_path, ":h")
+        end
+
+        require('telescope.builtin').live_grep({
+          cwd = search_path,
+          prompt_title = "Search in " .. vim.fn.fnamemodify(search_path, ":t")
+        })
+      end, opts("Telescope Search in Directory"))
     end
   }
 )
@@ -106,4 +124,3 @@ end, opts)
 vim.keymap.set("n", "<M-1>", function()
   vim.cmd("NvimTreeFindFileToggle")
 end, opts)
-
