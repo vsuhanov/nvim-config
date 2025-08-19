@@ -73,3 +73,21 @@ vim.keymap.set("n", "<leader>fu", function() vim.lsp.buf.references(nil, { locli
 vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 vim.keymap.set("n", "<leader>ll", function() vim.lsp.buf.format() end, opts);
 vim.keymap.set('n', '<C-;>', ':', { silent = false })
+vim.keymap.set('n', '<X1Mouse>', '<C-o>', { silent = false })
+vim.keymap.set('n', '<X2Mouse>', '<C-i>', { silent = false })
+vim.keymap.set('v', '<X1Mouse>', ':normal! <Esc><C-o>', { silent = false })
+vim.keymap.set('v', '<X2Mouse>', ':normal! <Esc><C-i>', { silent = false })
+
+-- Double-click to quick definition
+vim.keymap.set('n', '<MiddleMouse>', function()
+  vim.lsp.buf.definition({ loclist = true })
+end, { silent = true })
+
+vim.keymap.set('v', '<2-LeftMouse>', function()
+  vim.cmd('normal! <Esc>')
+  require('quick-definition').quick_definition()
+end, { silent = true })
+
+vim.keymap.set('n', '<2-LeftMouse>', function()
+  require('quick-definition').quick_definition()
+end, { silent = true })
