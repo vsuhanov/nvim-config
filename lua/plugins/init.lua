@@ -12,43 +12,65 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   "tpope/vim-sensible",
-  "tpope/vim-fugitive",
+  { "tpope/vim-fugitive",        config = function() require('plugins.git-fugitive') end },
   "tpope/vim-commentary",
   "tpope/vim-surround",
-  { "nvim-treesitter/nvim-treesitter", cmd = "TSUpdate" },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    cmd = "TSUpdate",
+    config = function()
+      require('plugins.treesitter')
+    end
+  },
   "nvim-lua/plenary.nvim",
-  { "nvim-telescope/telescope.nvim",   tag = "0.1.4", },
+  {
+    "nvim-telescope/telescope.nvim",
+    tag = "0.1.4",
+    config = function()
+      require(
+        'plugins.telescope')
+    end
+  },
   -- "rmagatti/auto-session",
-  'nvim-lualine/lualine.nvim',
-  "lewis6991/gitsigns.nvim",
-  { "ThePrimeagen/harpoon",   branch = "harpoon2" },
+  { 'nvim-lualine/lualine.nvim', config = function() require('plugins.lualine') end },
+  { "lewis6991/gitsigns.nvim",   config = function() require('plugins.gitsigns') end },
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    config = function()
+      require('plugins.harpoon')
+    end
+  },
   "EdenEast/nightfox.nvim",
-  { "williamboman/mason.nvim" },
+  { "williamboman/mason.nvim",   config = function() require('plugins.mason') end },
   {
     -- dir = '/Users/vitaly/projects/quick-definition.nvim'
     "vsuhanov/quick-definition.nvim",
+    config = function() require('plugins.quick-definition') end
   },
-  "vsuhanov/toggle-file.nvim",
-  "nvim-tree/nvim-tree.lua",
+  { "vsuhanov/toggle-file.nvim", config = function() require('plugins.quick-definition') end },
+  { "nvim-tree/nvim-tree.lua",   config = function() require('plugins.nvim-tree') end },
   "nvim-tree/nvim-web-devicons",
   {
     -- dir = '/Users/vitaly/projects/vuffers.nvim'
     "vsuhanov/vuffers.nvim",
+    config = function() require('plugins.vuffers') end
   },
-  "yorickpeterse/nvim-window",
-  "f-person/auto-dark-mode.nvim",
+  { "yorickpeterse/nvim-window",    config = function() require('plugins.nvim-window') end },
+  { "f-person/auto-dark-mode.nvim", config = function() require('plugins.auto-dark-mode') end },
   {
     "vsuhanov/scratch.nvim",
     event = "VeryLazy",
+    config = function() require('plugins.scratch') end
   },
-  "folke/snacks.nvim",
+  { "folke/snacks.nvim", config = function() require('plugins.snacks') end },
   -- {
   --   "folke/noice.nvim",
   --   event = "VeryLazy",
   --   opts = {
   --     -- add any options here
   --   },
-  --   dependencies = {
+  --   dependencies = {,
   --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
   --     "MunifTanjim/nui.nvim",
   --     -- OPTIONAL:
@@ -59,7 +81,7 @@ require("lazy").setup({
   -- },
   {
     "smjonas/inc-rename.nvim",
-    opts = {}
+    config = function() require('plugins.inc-rename') end
   },
   {
     "rest-nvim/rest.nvim",
@@ -76,11 +98,11 @@ require("lazy").setup({
   'hrsh7th/cmp-buffer',
   'hrsh7th/cmp-path',
   'hrsh7th/cmp-cmdline',
-  'hrsh7th/nvim-cmp',
+  { 'hrsh7th/nvim-cmp',  config = function() require('plugins.nvim-cmp') end },
   'hrsh7th/cmp-vsnip',
   'hrsh7th/vim-vsnip',
   'Tastyep/structlog.nvim',
-  'MisanthropicBit/winmove.nvim',
+  { 'MisanthropicBit/winmove.nvim', config = function() require('plugins.winmove') end },
   -- "neovim/nvim-lspconfig",
   -- 'mfussenegger/nvim-jdtls',
   -- 'mustache/vim-mustache-handlebars',
@@ -137,31 +159,3 @@ require("lazy").setup({
   -- },
 
 })
--- require('plugins.gp')
--- require('plugins.oil')
--- require('plugins.leap')
--- require('plugins.lsp-zero')
--- require('plugins.nvim-jdtls')
--- require('plugins.nvim-dap')
--- require('plugins.nvim-dap-go')
--- require("plugins.conform")
--- require('plugins.auto-session')
-require("plugins.harpoon")
-require("plugins.treesitter")
-require("plugins.gitsigns")
-require("plugins.mason")
-require("plugins.quick-definition")
-require("plugins.nvim-tree")
-require("plugins.vuffers")
-require("plugins.nvim-window")
-require("plugins.lualine")
-require("plugins.auto-dark-mode")
-require("plugins.scratch")
-require("plugins.snacks")
-require("plugins.inc-rename")
--- require("plugins.noice")
-require("plugins.nvim-cmp")
-require("plugins.git-fugitive")
-require("plugins.telescope")
-require("plugins.winmove")
-

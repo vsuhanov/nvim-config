@@ -37,16 +37,8 @@ keymap("v", "<C-_>", "gc", opts)
 keymap("t", "<C-esc>", "<C-\\><C-n>")
 keymap("t", "<esc><esc>", "<C-\\><C-n>")
 
-local toggle_file = require("toggle-file")
-vim.keymap.set("n", "<leader>1", function() toggle_file.toggle_file_window("~/Daily Notes.md") end, opts)
-vim.keymap.set("n", "<leader>2", function() toggle_file.toggle_file_window("./TODO.md") end, opts)
 
 -- quick definition hotkeys
-local quick_definition = require("quick-definition")
-
-vim.keymap.set("n", "K", function() quick_definition.quick_definition() end, opts)
--- vim.keymap.set("n", "<2-LeftMouse>", function() quick_definition.quick_definition() end, opts)
-vim.keymap.set("n", "<MiddleMouse>", function() vim.lsp.buf.definition() end, opts)
 
 -- copy to system clipboard. Normal mode will copy latest selection
 vim.keymap.set("n", "<leader>y", 'mt`<v`>"+y`t')
@@ -81,13 +73,4 @@ vim.keymap.set('v', '<X2Mouse>', ':normal! <Esc><C-i>', { silent = false })
 -- Double-click to quick definition
 vim.keymap.set('n', '<MiddleMouse>', function()
   vim.lsp.buf.definition({ loclist = true })
-end, { silent = true })
-
-vim.keymap.set('v', '<2-LeftMouse>', function()
-  vim.cmd('normal! <Esc>')
-  require('quick-definition').quick_definition()
-end, { silent = true })
-
-vim.keymap.set('n', '<2-LeftMouse>', function()
-  require('quick-definition').quick_definition()
 end, { silent = true })
