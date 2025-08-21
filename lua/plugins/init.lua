@@ -48,7 +48,7 @@ require("lazy").setup({
     "vsuhanov/quick-definition.nvim",
     config = function() require('plugins.quick-definition') end
   },
-  { "vsuhanov/toggle-file.nvim", config = function() require('plugins.quick-definition') end },
+  { "vsuhanov/toggle-file.nvim", config = function() require('plugins.toggle-file') end },
   { "nvim-tree/nvim-tree.lua",   config = function() require('plugins.nvim-tree') end },
   "nvim-tree/nvim-web-devicons",
   {
