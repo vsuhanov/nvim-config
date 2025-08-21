@@ -108,7 +108,7 @@ nvimTree.setup(
           search_path = vim.fn.fnamemodify(node.absolute_path, ":h")
         end
 
-        require('telescope.builtin').live_grep({
+        require('plugins.telescope-live-multigrep').live_multigrep({
           cwd = search_path,
           prompt_title = "Search in " .. vim.fn.fnamemodify(search_path, ":t")
         })

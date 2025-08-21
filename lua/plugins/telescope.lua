@@ -66,14 +66,15 @@ end
 local opts = { silent = true }
 -- Telescope visual mode mappings with selected text
 vim.keymap.set('v', '<leader>wo', telescope_with_selection(telescope_builtin.find_files), opts)
-vim.keymap.set('v', '<leader>ff', telescope_with_selection(telescope_builtin.live_grep), opts)
+vim.keymap.set('v', '<leader>ff', telescope_with_selection(require('plugins.telescope-live-multigrep').live_multigrep),
+  opts)
 vim.keymap.set('v', '<leader>fb', telescope_with_selection(telescope_builtin.buffers), opts)
 vim.keymap.set('v', '<leader>wb', telescope_with_selection(telescope_builtin.buffers), opts)
 vim.keymap.set('v', '<leader>hh', telescope_with_selection(telescope_builtin.treesitter), opts)
 
 -- Telescope mappings
 vim.keymap.set('n', '<leader>wo', ':Telescope find_files<CR>', opts)
-vim.keymap.set('n', '<leader>ff', ':Telescope live_grep<CR>', opts)
+vim.keymap.set('n', '<leader>ff', function() require('plugins.telescope-live-multigrep').live_multigrep() end, opts)
 vim.keymap.set('n', '<leader>fb', ':Telescope buffers<CR>', opts)
 vim.keymap.set('n', '<leader>wb', ':Telescope buffers<CR>', opts)
 vim.keymap.set('n', '<leader>hh', ':Telescope treesitter<CR>', opts)
