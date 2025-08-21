@@ -80,6 +80,7 @@ require("lazy").setup({
   'hrsh7th/cmp-vsnip',
   'hrsh7th/vim-vsnip',
   'Tastyep/structlog.nvim',
+  'MisanthropicBit/winmove.nvim',
   -- "neovim/nvim-lspconfig",
   -- 'mfussenegger/nvim-jdtls',
   -- 'mustache/vim-mustache-handlebars',
@@ -162,4 +163,5 @@ require("plugins.inc-rename")
 require("plugins.nvim-cmp")
 require("plugins.git-fugitive")
 require("plugins.telescope")
+require("plugins.winmove")
 
