@@ -103,4 +103,8 @@ require("lazy").setup({
   'hrsh7th/vim-vsnip',
   'Tastyep/structlog.nvim',
   { 'MisanthropicBit/winmove.nvim', config = function() require('plugins.winmove') end },
+  {
+    "linrongbin16/gitlinker.nvim",
+    config = function() require('plugins.gitlinker') end,
+  },
 })
