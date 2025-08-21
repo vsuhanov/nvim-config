@@ -48,14 +48,14 @@ require("lazy").setup({
     "vsuhanov/quick-definition.nvim",
     config = function() require('plugins.quick-definition') end
   },
-  { "vsuhanov/toggle-file.nvim", config = function() require('plugins.toggle-file') end },
-  { "nvim-tree/nvim-tree.lua",   config = function() require('plugins.nvim-tree') end },
-  "nvim-tree/nvim-web-devicons",
   {
     -- dir = '/Users/vitaly/projects/vuffers.nvim'
     "vsuhanov/vuffers.nvim",
     config = function() require('plugins.vuffers') end
   },
+  { "vsuhanov/toggle-file.nvim", config = function() require('plugins.toggle-file') end },
+  { "nvim-tree/nvim-tree.lua",   config = function() require('plugins.nvim-tree') end },
+  "nvim-tree/nvim-web-devicons",
   { "yorickpeterse/nvim-window",    config = function() require('plugins.nvim-window') end },
   { "f-person/auto-dark-mode.nvim", config = function() require('plugins.auto-dark-mode') end },
   {
@@ -103,59 +103,4 @@ require("lazy").setup({
   'hrsh7th/vim-vsnip',
   'Tastyep/structlog.nvim',
   { 'MisanthropicBit/winmove.nvim', config = function() require('plugins.winmove') end },
-  -- "neovim/nvim-lspconfig",
-  -- 'mfussenegger/nvim-jdtls',
-  -- 'mustache/vim-mustache-handlebars',
-  -- 'OrangeT/vim-csharp',
-  -- {
-  --   'vsuhanov/omnisharp-extended-lsp.nvim',
-  -- dir = '/Users/vitaly/projects/omnisharp-extended-lsp.nvim'
-  -- },
-  -- 'mfussenegger/nvim-dap',
-  -- 'leoluz/nvim-dap-go',
-  -- 'sindrets/diffview.nvim',
-  -- { "neoclide/coc.nvim",               branch = 'release' },
-  -- "mattn/emmet-vim",
-  -- "vim-airline/vim-airline",
-  -- "vim-airline/vim-airline-themes",
-  -- "itchyny/lightline.vim",
-  -- "rafamadriz/friendly-snippets",
-  -- "stevearc/oil.nvim",
-  -- {
-  --   "stevearc/conform.nvim",
-  --   opts = {},
-  -- },
-  -- "github/copilot.vim",
-  -- "jiangmiao/auto-pairs",
-  -- "doums/darcula",
-  -- "robitx/gp.nvim",
-  -- "mattn/emmet-vim",
-  -- { 'rose-pine/neovim',  name = 'rose-pine' },
-  -- "ggandor/leap.nvim",
-  -- "mbbill/undotree",
-  -- "nvim-treesitter/playground",
-  -- { "neoclide/coc.nvim", branch = "release" },
-  -- {
-  --   'VonHeikemen/lsp-zero.nvim',
-  --   branch = 'v1.x',
-  --   dependencies = {
-  --     -- LSP Support
-  --     { 'neovim/nvim-lspconfig' },
-  --     { 'williamboman/mason.nvim' },
-  --     { 'williamboman/mason-lspconfig.nvim' },
-  --
-  --     -- Autocompletion
-  --     { 'hrsh7th/nvim-cmp' },
-  --     { 'hrsh7th/cmp-buffer' },
-  --     { 'hrsh7th/cmp-path' },
-  --     { 'saadparwaiz1/cmp_luasnip' },
-  --     { 'hrsh7th/cmp-nvim-lsp' },
-  --     { 'hrsh7th/cmp-nvim-lua' },
-  --
-  --     -- Snippets
-  --     { 'L3MON4D3/LuaSnip' },
-  --     { 'rafamadriz/friendly-snippets' },
-  --   }
-  -- },
-
 })

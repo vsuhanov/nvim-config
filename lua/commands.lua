@@ -61,15 +61,6 @@ vim.api.nvim_create_user_command(
   {}
 )
 
-
-vim.api.nvim_create_autocmd('VimEnter', {
-  callback = function()
-    vim.cmd("Tab")
-    vim.cmd("NvimTreeOpen")
-  end
-})
-
-
 vim.api.nvim_create_user_command('Messages', function()
   vim.cmd('new')
   local messages = vim.fn.execute('messages')

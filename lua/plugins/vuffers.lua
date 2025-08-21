@@ -69,4 +69,9 @@ vim.api.nvim_create_user_command('Tabs', function()
   vuffers.toggle()
 end, {})
 
--- vuffers.open()
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    vuffers.open()
+  end
+})
+

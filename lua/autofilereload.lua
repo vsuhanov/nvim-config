@@ -1,5 +1,5 @@
 -- Autosave on text changes (very frequent)
-vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+vim.api.nvim_create_autocmd({ "TextChanged" }, {
   callback = function()
     if vim.bo.modified and vim.bo.buftype == "" and vim.fn.expand("%") ~= "" then
       vim.cmd("silent! update")
@@ -28,7 +28,7 @@ local function safe_checktime()
 end
 
 -- Check for external changes frequently
-vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+vim.api.nvim_create_autocmd({ "CursorHold" }, {
   callback = safe_checktime
 })
 

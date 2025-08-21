@@ -94,6 +94,7 @@ nvimTree.setup(
       vim.keymap.set("n", "<2-LeftMouse>", api.node.open.edit, opts("Open"))
       vim.keymap.set("n", "<2-RightMouse>", api.tree.change_root_to_node, opts("CD"))
       vim.keymap.set("n", "<esc>", return_to_previous_window, { silent = true, buffer = bufnr })
+      vim.keymap.set("n", "-", return_to_previous_window, { silent = true, buffer = bufnr })
 
       -- Custom function to search in current directory with Telescope
       vim.keymap.set("n", "<leader>ff", function()
@@ -124,3 +125,10 @@ end, opts)
 vim.keymap.set("n", "<M-1>", function()
   vim.cmd("NvimTreeFindFileToggle")
 end, opts)
+
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    vim.cmd("NvimTreeOpen")
+  end
+})
+
