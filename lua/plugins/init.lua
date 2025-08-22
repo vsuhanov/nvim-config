@@ -59,6 +59,7 @@ require("lazy").setup({
   { "yorickpeterse/nvim-window",    config = function() require('plugins.nvim-window') end },
   { "f-person/auto-dark-mode.nvim", config = function() require('plugins.auto-dark-mode') end },
   {
+    -- dir = '/Users/vitaly/projects/scratch.nvim',
     "vsuhanov/scratch.nvim",
     event = "VeryLazy",
     config = function() require('plugins.scratch') end
