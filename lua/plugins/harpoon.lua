@@ -18,6 +18,9 @@ HarpoonMeta.switch_to_list = function(list_name)
     return
   end
 
+  -- Ensure the list configuration exists (creates it if needed)
+  HarpoonMeta.create_new_list(list_name)
+
   -- Clear current keymaps
   for _, keymap in ipairs(current_keymaps) do
     vim.keymap.del(keymap.mode, keymap.lhs)

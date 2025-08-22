@@ -78,3 +78,23 @@ vim.keymap.set('n', '<leader>ff', function() require('plugins.telescope-live-mul
 vim.keymap.set('n', '<leader>fb', ':Telescope buffers<CR>', opts)
 vim.keymap.set('n', '<leader>wb', ':Telescope buffers<CR>', opts)
 vim.keymap.set('n', '<leader>hh', ':Telescope treesitter<CR>', opts)
+
+vim.keymap.set("n", "<leader>b", function()
+  local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+  for _, client in ipairs(clients) do
+    if client.server_capabilities.implementationProvider then
+      telescope_builtin.lsp_implementations()
+      return
+    end
+  end
+  telescope_builtin.lsp_definitions()
+end, opts)
+vim.keymap.set("n", "<leader>fu", function() telescope_builtin.lsp_references() end, opts)
+vim.keymap.set("n", "<leader>ac", function() telescope_builtin.commands() end, opts)
+vim.keymap.set("n", "<leader>ah", function() telescope_builtin.command_history() end, opts)
+vim.keymap.set("n", "<leader>fh", function() telescope_builtin.search_history() end, opts)
+vim.keymap.set("n", "<leader>fb", function() telescope_builtin.git_branches() end, opts)
+vim.keymap.set("n", "<leader>gc", function() telescope_builtin.git_commits() end, opts)
+vim.keymap.set("n", "<leader>gbc", function() telescope_builtin.git_bcommits() end, opts)
+vim.keymap.set("v", "<leader>gbl", function() telescope_builtin.git_bcommits_range() end, opts)
+

@@ -107,4 +107,6 @@ require("lazy").setup({
     "linrongbin16/gitlinker.nvim",
     config = function() require('plugins.gitlinker') end,
   },
+  'sindrets/diffview.nvim',
+
 })

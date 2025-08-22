@@ -53,7 +53,6 @@ vim.keymap.set("c", "<C-J>", '<Down>')
 vim.keymap.set("c", "<C-H>", '<Left>')
 vim.keymap.set("c", "<C-L>", '<Right>')
 
-vim.keymap.set("n", "<leader>b", function() vim.lsp.buf.definition({ loclist = true }) end, opts)
 -- vim.keymap.set("n", "<leader>b", "<Plug>(coc-definition)", opts)
 -- vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
 vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
@@ -61,7 +60,6 @@ vim.keymap.set("n", "<leader>ge", function() vim.diagnostic.goto_next() end, opt
 vim.keymap.set("n", "<leader>gee", function() vim.diagnostic.goto_next() end, opts)
 vim.keymap.set("n", "<leader>gep", function() vim.diagnostic.goto_prev() end, opts)
 vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-vim.keymap.set("n", "<leader>fu", function() vim.lsp.buf.references(nil, { loclist = true }) end, opts)
 vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 vim.keymap.set("n", "<leader>ll", function() vim.lsp.buf.format() end, opts);
 vim.keymap.set('n', '<C-;>', ':', { silent = false })
@@ -69,6 +67,14 @@ vim.keymap.set('n', '<X1Mouse>', '<C-o>', { silent = false })
 vim.keymap.set('n', '<X2Mouse>', '<C-i>', { silent = false })
 vim.keymap.set('v', '<X1Mouse>', ':normal! <Esc><C-o>', { silent = false })
 vim.keymap.set('v', '<X2Mouse>', ':normal! <Esc><C-i>', { silent = false })
+
+-- Telescope fallback keymaps (only if telescope is not installed)
+local telescope_ok, _ = pcall(require, 'telescope')
+if not telescope_ok then
+  -- Add your fallback keymaps here
+  vim.keymap.set("n", "<leader>b", function() vim.lsp.buf.definition({ loclist = true }) end, opts)
+  vim.keymap.set("n", "<leader>fu", function() vim.lsp.buf.references(nil, { loclist = true }) end, opts)
+end
 
 -- Double-click to quick definition
 vim.keymap.set('n', '<MiddleMouse>', function()
