@@ -74,6 +74,7 @@ vim.keymap.set('v', '<leader>hh', telescope_with_selection(telescope_builtin.tre
 
 -- Telescope mappings
 vim.keymap.set('n', '<leader>wo', ':Telescope find_files<CR>', opts)
+-- vim.keymap.set('n', '<leader>ff', function() telescope_builtin.live_grep() end, opts)
 vim.keymap.set('n', '<leader>ff', function() require('plugins.telescope-live-multigrep').live_multigrep() end, opts)
 vim.keymap.set('n', '<leader>fb', ':Telescope buffers<CR>', opts)
 vim.keymap.set('n', '<leader>wb', ':Telescope buffers<CR>', opts)
@@ -97,4 +98,9 @@ vim.keymap.set("n", "<leader>fb", function() telescope_builtin.git_branches() en
 vim.keymap.set("n", "<leader>gc", function() telescope_builtin.git_commits() end, opts)
 vim.keymap.set("n", "<leader>gbc", function() telescope_builtin.git_bcommits() end, opts)
 vim.keymap.set("v", "<leader>gbl", function() telescope_builtin.git_bcommits_range() end, opts)
-
+vim.api.nvim_create_user_command('TelescopeLazy', function()
+  telescope_builtin.find_files({
+    cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy")
+  })
+end, { desc = "search through installed plugins" }
+)

@@ -2,6 +2,7 @@ local pickers = require "telescope.pickers"
 local finders = require "telescope.finders"
 local make_entry = require "telescope.make_entry"
 local conf = require "telescope.config".values
+local sorters = require('telescope.sorters')
 local process_glob_pattern = function(pattern)
   if pattern:sub(1, 1) == "/" then
     return "**/*" .. pattern:sub(2) .. "*/**"
@@ -40,7 +41,7 @@ local live_multigrep = function(opts)
 
       return vim.tbl_flatten {
         args,
-        { "--color=never", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case" },
+        { "--color=never", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--trim" },
       }
     end,
     entry_maker = make_entry.gen_from_vimgrep(opts),
@@ -54,7 +55,7 @@ local live_multigrep = function(opts)
       debounce = 100,
       previewer = conf.grep_previewer(opts),
       sorter =
-          require('telescope.sorters').empty()
+          sorters.empty()
     }):find()
 end
 -- live_multigrep()

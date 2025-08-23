@@ -109,5 +109,5 @@ require("lazy").setup({
     config = function() require('plugins.gitlinker') end,
   },
   'sindrets/diffview.nvim',
-
+  { 'echasnovski/mini.ai', version = '*', config = function() end },
 })
