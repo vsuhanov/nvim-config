@@ -96,7 +96,7 @@ nvimTree.setup(
       vim.keymap.set("n", "<esc>", return_to_previous_window, { silent = true, buffer = bufnr })
       vim.keymap.set("n", "-", return_to_previous_window, { silent = true, buffer = bufnr })
 
-      -- Custom function to search in current directory with Telescope
+      -- Custom function to search in current directory with Snacks picker
       vim.keymap.set("n", "<leader>ff", function()
         local node = api.tree.get_node_under_cursor()
         if not node then return end
@@ -108,11 +108,11 @@ nvimTree.setup(
           search_path = vim.fn.fnamemodify(node.absolute_path, ":h")
         end
 
-        require('plugins.telescope-live-multigrep').live_multigrep({
+        require('snacks').picker.grep({
           cwd = search_path,
-          prompt_title = "Search in " .. vim.fn.fnamemodify(search_path, ":t")
+          win = { title = "Search in " .. vim.fn.fnamemodify(search_path, ":t") }
         })
-      end, opts("Telescope Search in Directory"))
+      end, opts("Snacks Picker Search in Directory"))
     end
   }
 )

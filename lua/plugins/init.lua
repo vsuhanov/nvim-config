@@ -27,11 +27,11 @@ require("lazy").setup({
   },
   "nvim-lua/plenary.nvim",
   {
+    enabled = false,
     "nvim-telescope/telescope.nvim",
     tag = "0.1.4",
     config = function()
-      require(
-        'plugins.telescope')
+      require('plugins.telescope')
     end
   },
   -- "rmagatti/auto-session",
@@ -67,7 +67,7 @@ require("lazy").setup({
     event = "VeryLazy",
     config = function() require('plugins.scratch') end
   },
-  { "folke/snacks.nvim", config = function() require('plugins.snacks') end },
+  { "folke/snacks.nvim", config = function() require('plugins.snacks'); require('plugins.snacks-picker') end },
   -- {
   --   "folke/noice.nvim",
   --   event = "VeryLazy",
@@ -83,10 +83,10 @@ require("lazy").setup({
   --     "rcarriga/nvim-notify",
   --   },
   -- },
-  {
-    "smjonas/inc-rename.nvim",
-    config = function() require('plugins.inc-rename') end
-  },
+  -- {
+  --   "smjonas/inc-rename.nvim",
+  --   config = function() require('plugins.inc-rename') end
+  -- },
   {
     "rest-nvim/rest.nvim",
     dependencies = {
