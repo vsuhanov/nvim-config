@@ -47,8 +47,8 @@ require("lazy").setup({
   "EdenEast/nightfox.nvim",
   { "williamboman/mason.nvim",   config = function() require('plugins.mason') end },
   {
-    dir = '/Users/vitaly/projects/quick-definition.nvim',
-    -- "vsuhanov/quick-definition.nvim",
+    -- dir = '/Users/vitaly/projects/quick-definition.nvim',
+    "vsuhanov/quick-definition.nvim",
     config = function() require('plugins.quick-definition') end
   },
   {
