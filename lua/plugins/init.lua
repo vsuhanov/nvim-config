@@ -57,7 +57,7 @@ require("lazy").setup({
     config = function() require('plugins.vuffers') end
   },
   {
-    dir = '/Users/vitaly/projects/toggle-file.nvim',
+    -- dir = '/Users/vitaly/projects/toggle-file.nvim',
     "vsuhanov/toggle-file.nvim",
     config = function() require('plugins.toggle-file') end
   },
