@@ -126,9 +126,3 @@ vim.keymap.set("n", "<M-1>", function()
   vim.cmd("NvimTreeFindFileToggle")
 end, opts)
 
-vim.api.nvim_create_autocmd('VimEnter', {
-  callback = function()
-    vim.cmd("NvimTreeOpen")
-  end
-})
-

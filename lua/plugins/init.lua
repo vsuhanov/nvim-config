@@ -45,7 +45,7 @@ require("lazy").setup({
     end
   },
   "EdenEast/nightfox.nvim",
-  { "williamboman/mason.nvim",   config = function() require('plugins.mason') end },
+  { "williamboman/mason.nvim", config = function() require('plugins.mason') end },
   {
     -- dir = '/Users/vitaly/projects/quick-definition.nvim',
     "vsuhanov/quick-definition.nvim",
@@ -56,8 +56,12 @@ require("lazy").setup({
     "vsuhanov/vuffers.nvim",
     config = function() require('plugins.vuffers') end
   },
-  { "vsuhanov/toggle-file.nvim", config = function() require('plugins.toggle-file') end },
-  { "nvim-tree/nvim-tree.lua",   config = function() require('plugins.nvim-tree') end },
+  {
+    dir = '/Users/vitaly/projects/toggle-file.nvim',
+    "vsuhanov/toggle-file.nvim",
+    config = function() require('plugins.toggle-file') end
+  },
+  { "nvim-tree/nvim-tree.lua", config = function() require('plugins.nvim-tree') end },
   "nvim-tree/nvim-web-devicons",
   { "yorickpeterse/nvim-window",    config = function() require('plugins.nvim-window') end },
   { "f-person/auto-dark-mode.nvim", config = function() require('plugins.auto-dark-mode') end },
@@ -67,7 +71,9 @@ require("lazy").setup({
     event = "VeryLazy",
     config = function() require('plugins.scratch') end
   },
-  { "folke/snacks.nvim", config = function() require('plugins.snacks'); require('plugins.snacks-picker') end },
+  { "folke/snacks.nvim", config = function()
+    require('plugins.snacks'); require('plugins.snacks-picker')
+  end },
   -- {
   --   "folke/noice.nvim",
   --   event = "VeryLazy",
@@ -112,5 +118,6 @@ require("lazy").setup({
     config = function() require('plugins.gitlinker') end,
   },
   'sindrets/diffview.nvim',
-  { 'echasnovski/mini.ai', version = '*', config = function() require('plugins.miniai') end },
+  { 'echasnovski/mini.ai',          version = '*',                                     config = function() require(
+    'plugins.miniai') end },
 })
