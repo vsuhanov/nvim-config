@@ -14,6 +14,9 @@ require("lazy").setup({
   "tpope/vim-sensible",
   { "tpope/vim-fugitive",        config = function() require('plugins.git-fugitive') end },
   "tpope/vim-commentary",
+  "tpope/vim-dadbod",
+  'kristijanhusak/vim-dadbod-ui',
+  'kristijanhusak/vim-dadbod-completion',
   "tpope/vim-surround",
   {
     "nvim-treesitter/nvim-treesitter",
@@ -44,8 +47,8 @@ require("lazy").setup({
   "EdenEast/nightfox.nvim",
   { "williamboman/mason.nvim",   config = function() require('plugins.mason') end },
   {
-    -- dir = '/Users/vitaly/projects/quick-definition.nvim'
-    "vsuhanov/quick-definition.nvim",
+    dir = '/Users/vitaly/projects/quick-definition.nvim',
+    -- "vsuhanov/quick-definition.nvim",
     config = function() require('plugins.quick-definition') end
   },
   {
@@ -109,5 +112,5 @@ require("lazy").setup({
     config = function() require('plugins.gitlinker') end,
   },
   'sindrets/diffview.nvim',
-  { 'echasnovski/mini.ai', version = '*', config = function() end },
+  { 'echasnovski/mini.ai', version = '*', config = function() require('plugins.miniai') end },
 })
