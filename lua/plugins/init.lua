@@ -71,9 +71,12 @@ require("lazy").setup({
     event = "VeryLazy",
     config = function() require('plugins.scratch') end
   },
-  { "folke/snacks.nvim", config = function()
-    require('plugins.snacks'); require('plugins.snacks-picker')
-  end },
+  {
+    "folke/snacks.nvim",
+    config = function()
+      require('plugins.snacks'); require('plugins.snacks-picker')
+    end
+  },
   -- {
   --   "folke/noice.nvim",
   --   event = "VeryLazy",
@@ -108,7 +111,7 @@ require("lazy").setup({
   'hrsh7th/cmp-buffer',
   'hrsh7th/cmp-path',
   'hrsh7th/cmp-cmdline',
-  { 'hrsh7th/nvim-cmp',  config = function() require('plugins.nvim-cmp') end },
+  { 'hrsh7th/nvim-cmp',             config = function() require('plugins.nvim-cmp') end },
   'hrsh7th/cmp-vsnip',
   'hrsh7th/vim-vsnip',
   'Tastyep/structlog.nvim',
@@ -118,6 +121,24 @@ require("lazy").setup({
     config = function() require('plugins.gitlinker') end,
   },
   'sindrets/diffview.nvim',
-  { 'echasnovski/mini.ai',          version = '*',                                     config = function() require(
-    'plugins.miniai') end },
+  {
+    'echasnovski/mini.ai',
+    version = '*',
+    config = function()
+      require(
+        'plugins.miniai')
+    end
+  },
+  {
+    'skardyy/neo-img',
+    build = ":NeoImg Install",
+    config = function() require('plugins.neo-img') end
+  },
+  {
+    'aklt/plantuml-syntax'
+  },
+  {
+    'stevearc/oil.nvim',
+    config = function() require('plugins.oil') end
+  }
 })

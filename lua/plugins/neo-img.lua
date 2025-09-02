@@ -1,0 +1,2 @@
+require('neo-img').setup()
+
