@@ -11,6 +11,7 @@ local function return_to_previous_window()
 end
 
 local nvimTree = require('nvim-tree')
+local api = require('nvim-tree.api')
 
 nvimTree.setup(
   {
@@ -30,7 +31,12 @@ nvimTree.setup(
       }
     },
     on_attach = function(bufnr)
-      local api = require("nvim-tree.api")
+      local function reveal_in_finder()
+        local node = api.tree.get_node_under_cursor()
+        if node then
+          vim.fn.system('open -R "' .. node.absolute_path .. '"')
+        end
+      end
 
       local function opts(desc)
         return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
@@ -83,7 +89,7 @@ nvimTree.setup(
       vim.keymap.set("n", "q", api.tree.close, opts("Close"))
       vim.keymap.set("n", "r", api.fs.rename, opts("Rename"))
       vim.keymap.set("n", "R", api.tree.reload, opts("Refresh"))
-      vim.keymap.set("n", "s", api.node.run.system, opts("Run System"))
+      vim.keymap.set("n", "s", reveal_in_finder, opts("Reveal in finder"))
       vim.keymap.set("n", "S", api.tree.search_node, opts("Search"))
       vim.keymap.set("n", "u", api.fs.rename_full, opts("Rename: Full Path"))
       vim.keymap.set("n", "U", api.tree.toggle_custom_filter, opts("Toggle Filter: Hidden"))
@@ -125,4 +131,3 @@ end, opts)
 vim.keymap.set("n", "<M-1>", function()
   vim.cmd("NvimTreeFindFileToggle")
 end, opts)
-

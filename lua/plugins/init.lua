@@ -140,5 +140,17 @@ require("lazy").setup({
   {
     'stevearc/oil.nvim',
     config = function() require('plugins.oil') end
-  }
+  },
+  {
+    'tzachar/local-highlight.nvim',
+    config = function()
+      require('plugins.local-highlight')
+    end
+  },
+  -- {
+  --   'TobinPalmer/pastify.nvim',
+  --   config = function()
+  --     require('plugins.pastify')
+  --   end
+  -- },
 })

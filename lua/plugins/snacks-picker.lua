@@ -18,3 +18,4 @@ snacks.setup({
   },
 })
 
+require('plugins.snacks-picker-keymap')
