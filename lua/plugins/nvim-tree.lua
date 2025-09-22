@@ -9,6 +9,11 @@ local function return_to_previous_window()
     vim.api.nvim_set_current_win(previous_window)
   end
 end
+local function return_to_previous_window_and_close()
+  if previous_window and vim.api.nvim_win_is_valid(previous_window) then
+    vim.api.nvim_set_current_win(previous_window)
+  end
+end
 
 local nvimTree = require('nvim-tree')
 local api = require('nvim-tree.api')
@@ -35,6 +40,13 @@ nvimTree.setup(
         local node = api.tree.get_node_under_cursor()
         if node then
           vim.fn.system('open -R "' .. node.absolute_path .. '"')
+        end
+      end
+      local function open_in_intellij()
+        local node = api.tree.get_node_under_cursor()
+        if node then
+          -- print('open -a "IntelliJ IDEA.app" --args "' .. node.absolute_path .. '"')
+          vim.fn.system('open -a "IntelliJ IDEA.app" "' .. node.absolute_path .. '"')
         end
       end
 
@@ -77,6 +89,7 @@ nvimTree.setup(
       vim.keymap.set("n", "ge", api.fs.copy.basename, opts("Copy Basename"))
       vim.keymap.set("n", "H", api.tree.toggle_hidden_filter, opts("Toggle Filter: Dotfiles"))
       vim.keymap.set("n", "I", api.tree.toggle_gitignore_filter, opts("Toggle Filter: Git Ignore"))
+      vim.keymap.set("n", "i", open_in_intellij, opts("Open in Intellij"))
       vim.keymap.set("n", "J", api.node.navigate.sibling.last, opts("Last Sibling"))
       vim.keymap.set("n", "K", api.node.navigate.sibling.first, opts("First Sibling"))
       vim.keymap.set("n", "L", api.node.open.toggle_group_empty, opts("Toggle Group Empty"))
@@ -101,6 +114,7 @@ nvimTree.setup(
       vim.keymap.set("n", "<2-RightMouse>", api.tree.change_root_to_node, opts("CD"))
       vim.keymap.set("n", "<esc>", return_to_previous_window, { silent = true, buffer = bufnr })
       vim.keymap.set("n", "-", return_to_previous_window, { silent = true, buffer = bufnr })
+      vim.keymap.set("n", "<C-->", return_to_previous_window_and_close, { silent = true, buffer = bufnr })
 
       -- Custom function to search in current directory with Snacks picker
       vim.keymap.set("n", "<leader>ff", function()
