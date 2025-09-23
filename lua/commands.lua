@@ -53,12 +53,33 @@ vim.api.nvim_create_user_command('ReloadConfig',
 
 vim.api.nvim_create_user_command(
   'CopyBufferPath',
-  function()
+  function(opts)
     local path = vim.fn.expand('%:p')
+    if opts.args == 'withLineNumber' then
+      local line_number = vim.fn.line('.')
+      path = path .. ':' .. line_number
+    end
     vim.fn.setreg('+', path)
     print('Copied: ' .. path)
   end,
-  {}
+  { nargs = '?', complete = function() return {'withLineNumber'} end }
+)
+
+vim.api.nvim_create_user_command(
+  'CopyRelativePath',
+  function(opts)
+    local abs_path = vim.fn.expand('%:p')
+    local cwd = vim.fn.getcwd()
+    local path = vim.fn.fnamemodify(abs_path, ':~:.')
+
+    if opts.args == 'withLineNumber' then
+      local line_number = vim.fn.line('.')
+      path = path .. ':' .. line_number
+    end
+    vim.fn.setreg('+', path)
+    print('Copied: ' .. path)
+  end,
+  { nargs = '?', complete = function() return {'withLineNumber'} end }
 )
 
 vim.api.nvim_create_user_command('Messages', function()
