@@ -13,3 +13,10 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     pattern = "init.vim",
     command = "silent! source %",
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "gitcommit", "gitrebase", "gitconfig" },
+  callback = function()
+    vim.bo.bufhidden = "delete"
+  end,
+})
