@@ -1,3 +1,5 @@
+local nvimTree = require('nvim-tree')
+local api = require('nvim-tree.api')
 local previous_window = nil
 
 local function memorize_current_window()
@@ -12,11 +14,10 @@ end
 local function return_to_previous_window_and_close()
   if previous_window and vim.api.nvim_win_is_valid(previous_window) then
     vim.api.nvim_set_current_win(previous_window)
+    api.tree.close()
   end
 end
 
-local nvimTree = require('nvim-tree')
-local api = require('nvim-tree.api')
 
 nvimTree.setup(
   {
@@ -66,7 +67,7 @@ nvimTree.setup(
       vim.keymap.set("n", ">", api.node.navigate.sibling.next, opts("Next Sibling"))
       vim.keymap.set("n", "<", api.node.navigate.sibling.prev, opts("Previous Sibling"))
       vim.keymap.set("n", ".", api.node.run.cmd, opts("Run Command"))
-      vim.keymap.set("n", "_", api.tree.change_root_to_parent, opts("Up"))
+      -- vim.keymap.set("n", "_", api.tree.change_root_to_parent, opts("Up"))
       vim.keymap.set("n", "a", api.fs.create, opts("Create File Or Directory"))
       vim.keymap.set("n", "bd", api.marks.bulk.delete, opts("Delete Bookmarked"))
       vim.keymap.set("n", "bt", api.marks.bulk.trash, opts("Trash Bookmarked"))
@@ -114,7 +115,7 @@ nvimTree.setup(
       vim.keymap.set("n", "<2-RightMouse>", api.tree.change_root_to_node, opts("CD"))
       vim.keymap.set("n", "<esc>", return_to_previous_window, { silent = true, buffer = bufnr })
       vim.keymap.set("n", "-", return_to_previous_window, { silent = true, buffer = bufnr })
-      vim.keymap.set("n", "<C-->", return_to_previous_window_and_close, { silent = true, buffer = bufnr })
+      vim.keymap.set("n", "_", return_to_previous_window_and_close, { silent = true, buffer = bufnr })
 
       -- Custom function to search in current directory with Snacks picker
       vim.keymap.set("n", "<leader>ff", function()
