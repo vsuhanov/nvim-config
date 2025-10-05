@@ -3,6 +3,9 @@ local harpoon = require("harpoon")
 -- Current active list name
 local current_list = "marks2"
 
+local list_options = {
+  height_in_lines = 30
+}
 -- Store current keymaps for cleanup
 local current_keymaps = {}
 
@@ -33,7 +36,7 @@ HarpoonMeta.switch_to_list = function(list_name)
   -- Set up new keymaps for current list
   local keymaps = {
     { mode = "n", lhs = "<leader>aa", rhs = function() harpoon:list(current_list):add() end },
-    { mode = "n", lhs = "<leader>ee", rhs = function() harpoon.ui:toggle_quick_menu(harpoon:list(current_list)) end },
+    { mode = "n", lhs = "<leader>ee", rhs = function() harpoon.ui:toggle_quick_menu(harpoon:list(current_list), list_options) end },
   }
 
   for _, keymap in ipairs(keymaps) do
@@ -188,7 +191,7 @@ HarpoonMeta.switch_to_list(current_list)
 
 -- Custom commands for Lists list handling
 vim.api.nvim_create_user_command('HarpoonLists', function()
-  harpoon.ui:toggle_quick_menu(harpoon:list("Lists"))
+  harpoon.ui:toggle_quick_menu(harpoon:list("Lists"), list_options)
 end, { desc = 'Open Harpoon Lists manager' })
 
 vim.api.nvim_create_user_command('HarpoonCreateList', function()
@@ -199,7 +202,7 @@ vim.api.nvim_create_user_command('HarpoonSwitchTo', function(opts)
   if opts.args and opts.args ~= "" then
     HarpoonMeta.switch_to_list(opts.args)
   else
-    harpoon.ui:toggle_quick_menu(harpoon:list("Lists"))
+    harpoon.ui:toggle_quick_menu(harpoon:list("Lists"), list_options)
   end
 end, { nargs = '?', desc = 'Switch to a list (opens Lists manager if no arg)' })
 
@@ -209,7 +212,7 @@ end, { desc = 'Show current active list' })
 
 
 vim.keymap.set("n", "<leader>al", function() harpoon:list("Lists"):add() end, { silent = true })
-vim.keymap.set("n", "<leader>ea", function() harpoon.ui:toggle_quick_menu(harpoon:list("Lists")) end,
+vim.keymap.set("n", "<leader>ea", function() harpoon.ui:toggle_quick_menu(harpoon:list("Lists"), list_options) end,
   { silent = true })
 
 
