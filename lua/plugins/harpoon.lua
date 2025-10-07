@@ -251,14 +251,6 @@ harpoon:setup(base_lists_config)
 
 -- Pre-populate Lists list with marks2 and special options
 harpoon:list("Lists"):add({
-  value = "marks2",
-  context = {
-    list_name = "marks2"
-  }
-})
-
--- Add special "NEW" option
-harpoon:list("Lists"):add({
   value = "NEW",
   context = {
     special_action = "create_new"
@@ -272,6 +264,14 @@ harpoon:list("Lists"):add({
     special_action = "create_for_branch"
   }
 })
+harpoon:list("Lists"):add({
+  value = "marks2",
+  context = {
+    list_name = "marks2"
+  }
+})
+
+-- Add special "NEW" option
 
 -- Set up initial keymaps
 HarpoonMeta.switch_to_list(current_list)
