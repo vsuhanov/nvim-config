@@ -46,8 +46,8 @@ nvimTree.setup(
       local function open_in_intellij()
         local node = api.tree.get_node_under_cursor()
         if node then
-          -- print('open -a "IntelliJ IDEA.app" --args "' .. node.absolute_path .. '"')
-          vim.fn.system('open -a "IntelliJ IDEA.app" "' .. node.absolute_path .. '"')
+          local utils = require('utils')
+          utils.open_in_idea(node.absolute_path)
         end
       end
 

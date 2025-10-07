@@ -91,3 +91,13 @@ vim.api.nvim_create_user_command('Messages', function()
   vim.bo.swapfile = false
   vim.bo.readonly = true
 end, {})
+
+vim.api.nvim_create_user_command('OpenInIdea', function()
+  local utils = require('utils')
+  local current_file = vim.fn.expand('%:p')
+  if current_file == '' then
+    print('No file is currently open')
+    return
+  end
+  utils.open_in_idea(current_file)
+end, {})
