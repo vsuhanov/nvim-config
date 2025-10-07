@@ -1,7 +1,48 @@
 local harpoon = require("harpoon")
 
--- Current active list name
-local current_list = "marks2"
+-- Data file management
+local harpoon_data_file = vim.fn.stdpath("data") .. "/harpoon_lists.json"
+
+local function get_current_working_directory()
+  return vim.fn.getcwd()
+end
+
+local function save_current_list(cwd, list_name)
+  local data = {}
+
+  if vim.fn.filereadable(harpoon_data_file) == 1 then
+    local content = vim.fn.readfile(harpoon_data_file)
+    if #content > 0 then
+      local ok, decoded = pcall(vim.json.decode, table.concat(content, "\n"))
+      if ok then
+        data = decoded
+      end
+    end
+  end
+
+  data[cwd] = list_name
+
+  local encoded = vim.json.encode(data)
+  vim.fn.writefile({encoded}, harpoon_data_file)
+end
+
+local function get_saved_list(cwd)
+  if vim.fn.filereadable(harpoon_data_file) == 1 then
+    local content = vim.fn.readfile(harpoon_data_file)
+    if #content > 0 then
+      local ok, data = pcall(vim.json.decode, table.concat(content, "\n"))
+      if ok and data[cwd] then
+        return data[cwd]
+      end
+    end
+  end
+  return nil
+end
+
+-- Initialize current list from saved data or default to "marks2"
+local cwd = get_current_working_directory()
+local saved_list = get_saved_list(cwd)
+local current_list = saved_list or "marks2"
 
 local list_options = {
   height_in_lines = 30
@@ -32,6 +73,10 @@ HarpoonMeta.switch_to_list = function(list_name)
 
   -- Update current list
   current_list = list_name
+
+  -- Save the current list for this working directory
+  local cwd = get_current_working_directory()
+  save_current_list(cwd, list_name)
 
   -- Set up new keymaps for current list
   local keymaps = {
