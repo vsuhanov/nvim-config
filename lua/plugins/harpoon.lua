@@ -213,8 +213,34 @@ base_lists_config = {
     end,
 
     select = function(list_item, list, option)
-      if list_item.context and list_item.context.list_name then
-        HarpoonMeta.switch_to_list(list_item.context.list_name)
+      if list_item.context then
+        if list_item.context.list_name then
+          HarpoonMeta.switch_to_list(list_item.context.list_name)
+        elseif list_item.context.special_action == "create_new" then
+          harpoon:list("Lists"):add()
+        elseif list_item.context.special_action == "create_for_branch" then
+          -- Get current git branch name
+          local handle = io.popen("git branch --show-current 2>/dev/null")
+          local branch_name = handle:read("*a"):gsub("%s+", "")
+          handle:close()
+
+          if branch_name ~= "" then
+            -- Create new list with branch name
+            HarpoonMeta.create_new_list(branch_name)
+            HarpoonMeta.switch_to_list(branch_name)
+
+            -- Add the new list to the Lists list
+            harpoon:list("Lists"):add({
+              value = branch_name,
+              context = {
+                list_name = branch_name
+              }
+            })
+            print("Created and switched to list: " .. branch_name)
+          else
+            print("Not in a git repository or unable to determine branch name")
+          end
+        end
       end
     end
   }
@@ -223,11 +249,27 @@ base_lists_config = {
 -- Initial setup
 harpoon:setup(base_lists_config)
 
--- Pre-populate Lists list with marks2
+-- Pre-populate Lists list with marks2 and special options
 harpoon:list("Lists"):add({
   value = "marks2",
   context = {
     list_name = "marks2"
+  }
+})
+
+-- Add special "NEW" option
+harpoon:list("Lists"):add({
+  value = "NEW",
+  context = {
+    special_action = "create_new"
+  }
+})
+
+-- Add special "NEW FOR CURRENT BRANCH" option
+harpoon:list("Lists"):add({
+  value = "NEW FOR CURRENT BRANCH",
+  context = {
+    special_action = "create_for_branch"
   }
 })
 
