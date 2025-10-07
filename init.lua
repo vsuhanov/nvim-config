@@ -28,6 +28,9 @@ else
   -- Setup quickfix/loclist magic
   require('quickfix-magic').setup()
 
+  -- Setup git branch highlighting
+  require('git-branch-highlight').setup()
+
   -- ignore errors: local-config may not exist
   pcall(function()
     require("local-config")
