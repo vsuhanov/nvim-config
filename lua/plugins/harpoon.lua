@@ -216,5 +216,95 @@ vim.keymap.set("n", "<leader>ea", function() harpoon.ui:toggle_quick_menu(harpoo
   { silent = true })
 
 
+-- File highlighting for harpoon buffers
+local file_colors = {}
+local color_index = 1
+
+-- Define colors for file highlighting
+local highlight_colors = {
+  "HarpoonFile1",
+  "HarpoonFile2",
+  "HarpoonFile3",
+  "HarpoonFile4",
+  "HarpoonFile5",
+  "HarpoonFile6",
+  "HarpoonFile7",
+  "HarpoonFile8",
+}
+
+-- Create highlight groups
+local function setup_file_highlights()
+  local colors = {
+    "#cc9999", -- muted red
+    "#99cccc", -- muted teal
+    "#9999cc", -- muted blue
+    "#99cc99", -- muted green
+    "#cccc99", -- muted yellow
+    "#cc99cc", -- muted pink
+    "#99aacc", -- muted light blue
+    "#aa99cc", -- muted purple
+  }
+
+  for i, color in ipairs(colors) do
+    vim.api.nvim_set_hl(0, highlight_colors[i], { fg = color, bold = true, cterm = { bold = true } })
+  end
+end
+
+-- Get or assign color for a file
+local function get_file_color(filename)
+  if not file_colors[filename] then
+    file_colors[filename] = highlight_colors[color_index]
+    color_index = color_index % #highlight_colors + 1
+  end
+  return file_colors[filename]
+end
+
+-- Highlight file references in current buffer
+local function highlight_file_references()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+
+  -- Clear existing highlights
+  vim.api.nvim_buf_clear_namespace(bufnr, -1, 0, -1)
+
+  for line_nr, line in ipairs(lines) do
+    -- Match pattern like "plugins/harpoon.lua:14" - extract just the filename
+    local full_match, filename = line:match("(([^/]+%.[^:]+):%d+)")
+    if filename then
+      local color_group = get_file_color(filename)
+
+      -- Find the start and end of the full file reference in the line
+      local start_col, end_col = line:find(vim.pesc(full_match))
+      if start_col then
+        vim.api.nvim_buf_add_highlight(bufnr, -1, color_group, line_nr - 1, start_col - 1, end_col)
+      end
+    end
+  end
+end
+
+-- Setup highlights and autocmd
+setup_file_highlights()
+
+-- Create autocmd to highlight harpoon buffers
+vim.api.nvim_create_autocmd({"BufEnter", "TextChanged", "TextChangedI"}, {
+  pattern = "*",
+  callback = function()
+    -- Check if this looks like a harpoon buffer by examining content
+    local lines = vim.api.nvim_buf_get_lines(0, 0, 10, false)
+    local has_file_refs = false
+
+    for _, line in ipairs(lines) do
+      if line:match("[^/]+%.[^:]+:%d+") then
+        has_file_refs = true
+        break
+      end
+    end
+
+    if has_file_refs then
+      highlight_file_references()
+    end
+  end
+})
+
 -- Export meta functions for external access
 return HarpoonMeta
