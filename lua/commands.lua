@@ -101,3 +101,7 @@ vim.api.nvim_create_user_command('OpenInIdea', function()
   end
   utils.open_in_idea(current_file)
 end, {})
+
+vim.api.nvim_create_user_command('FoldIndent', function()
+  vim.cmd("setlocal foldmethod=indent")
+end, {})
