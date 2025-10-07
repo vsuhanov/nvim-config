@@ -230,6 +230,16 @@ local highlight_colors = {
   "HarpoonFile6",
   "HarpoonFile7",
   "HarpoonFile8",
+  "HarpoonFile9",
+  "HarpoonFile10",
+  "HarpoonFile11",
+  "HarpoonFile12",
+  "HarpoonFile13",
+  "HarpoonFile14",
+  "HarpoonFile15",
+  "HarpoonFile16",
+  "HarpoonFile17",
+  "HarpoonFile18",
 }
 
 -- Create highlight groups
@@ -239,10 +249,20 @@ local function setup_file_highlights()
     "#99cccc", -- muted teal
     "#9999cc", -- muted blue
     "#99cc99", -- muted green
-    "#cccc99", -- muted yellow
+    "#d4a574", -- muted orange
     "#cc99cc", -- muted pink
     "#99aacc", -- muted light blue
     "#aa99cc", -- muted purple
+    "#b3b399", -- muted olive
+    "#cc9999", -- muted coral
+    "#99ccaa", -- muted seafoam
+    "#aa99aa", -- muted lavender
+    "#c4aa99", -- muted brown
+    "#99aaaa", -- muted gray-blue
+    "#aacc99", -- muted lime
+    "#cc99aa", -- muted rose
+    "#99ccbb", -- muted mint
+    "#bbaa99", -- muted tan
   }
 
   for i, color in ipairs(colors) do
