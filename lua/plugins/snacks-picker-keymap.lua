@@ -39,11 +39,21 @@ vim.keymap.set("n", "<leader>b", function()
   local clients = vim.lsp.get_clients({ bufnr = 0 })
   for _, client in ipairs(clients) do
     if client.server_capabilities.implementationProvider then
-      snacks.picker.lsp_implementations()
+      local res = snacks.picker.lsp_definitions()
+      local is_empty = res:empty()  -- returns boolean
+      print(vim.inspect(is_empty))
+      if is_empty then
+       local impl_picker = snacks.picker.lsp_implementations()
+       if impl_picker:empty() then 
+         local lsp_declarations = snacks.picker.lsp_declarations()
+         if lsp_declarations:empty() then
+           snacks.picker.lsp_references()
+         end
+       end
+      end
       return
     end
   end
-  snacks.picker.lsp_definitions()
 end, opts)
 
 vim.keymap.set("n", "<leader>fu", function() snacks.picker.lsp_references() end, opts)
