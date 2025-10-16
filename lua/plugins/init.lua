@@ -13,6 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   "tpope/vim-sensible",
   { "tpope/vim-fugitive",        config = function() require('plugins.git-fugitive') end },
+  "cedarbaum/fugitive-azure-devops.vim",
   "tpope/vim-commentary",
   "tpope/vim-dadbod",
   'kristijanhusak/vim-dadbod-ui',
@@ -38,8 +39,8 @@ require("lazy").setup({
   { 'nvim-lualine/lualine.nvim', config = function() require('plugins.lualine') end },
   { "lewis6991/gitsigns.nvim",   config = function() require('plugins.gitsigns') end },
   {
-    -- "vsuhanov/harpoon",
-    dir = '/Users/vitaly/projects/harpoon',
+    "ThePrimeagen/harpoon",
+    -- dir = '/Users/vitaly/projects/harpoon',
     branch = "harpoon2",
     config = function()
       require('plugins.harpoon')
@@ -52,11 +53,11 @@ require("lazy").setup({
     "vsuhanov/quick-definition.nvim",
     config = function() require('plugins.quick-definition') end
   },
-  {
-    -- dir = '/Users/vitaly/projects/vuffers.nvim'
-    "vsuhanov/vuffers.nvim",
-    config = function() require('plugins.vuffers') end
-  },
+  -- {
+  --   -- dir = '/Users/vitaly/projects/vuffers.nvim'
+  --   "vsuhanov/vuffers.nvim",
+  --   config = function() require('plugins.vuffers') end
+  -- },
   {
     -- dir = '/Users/vitaly/projects/toggle-file.nvim',
     "vsuhanov/toggle-file.nvim",
@@ -115,13 +116,13 @@ require("lazy").setup({
   { 'hrsh7th/nvim-cmp',             config = function() require('plugins.nvim-cmp') end },
   'hrsh7th/cmp-vsnip',
   'hrsh7th/vim-vsnip',
-  'Tastyep/structlog.nvim',
+  -- 'Tastyep/structlog.nvim',
   { 'MisanthropicBit/winmove.nvim', config = function() require('plugins.winmove') end },
   {
     "linrongbin16/gitlinker.nvim",
     config = function() require('plugins.gitlinker') end,
   },
-  'sindrets/diffview.nvim',
+  -- 'sindrets/diffview.nvim',
   {
     'echasnovski/mini.ai',
     version = '*',
@@ -130,11 +131,11 @@ require("lazy").setup({
         'plugins.miniai')
     end
   },
-  {
-    'skardyy/neo-img',
-    build = ":NeoImg Install",
-    config = function() require('plugins.neo-img') end
-  },
+  -- {
+  --   'skardyy/neo-img',
+  --   build = ":NeoImg Install",
+  --   config = function() require('plugins.neo-img') end
+  -- },
   {
     'aklt/plantuml-syntax'
   },
@@ -143,6 +144,7 @@ require("lazy").setup({
     config = function() require('plugins.oil') end
   },
   {
+    -- this plugin highlights word under cursor on screen
     'tzachar/local-highlight.nvim',
     config = function()
       require('plugins.local-highlight')

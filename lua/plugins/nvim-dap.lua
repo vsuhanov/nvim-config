@@ -7,7 +7,7 @@ require("nvim-dap-virtual-text").setup({
   commented = true,   -- Show virtual text alongside comment
 })
 
-dap_python.setup("python3")
+dap_python.setup(os.getenv("DAP_PYTHON_VENV_PATH") or "python3")
 
 vim.fn.sign_define("DapBreakpoint", {
   text = "",

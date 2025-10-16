@@ -6,7 +6,85 @@ local harpoon_data_file = vim.fn.stdpath("data") .. "/harpoon_lists.json"
 local function get_current_working_directory()
   return vim.fn.getcwd()
 end
+local function create_list()
+  return {
+    create_list_item = function(config, name)
+      local bufname = vim.api.nvim_buf_get_name(0)
+      if bufname == "" then
+        return nil
+      end
 
+      -- Check if current buffer is an NvimTree buffer
+      if bufname:match("NvimTree_") then
+        local ok, tree_api = pcall(require, "nvim-tree.api")
+        if not ok then
+          print("nvim-tree API not available")
+          return nil
+        end
+
+        -- Get the current node
+        local node = tree_api.tree.get_node_under_cursor()
+        if not node then
+          print("No node under cursor")
+          return nil
+        end
+
+        local absolute_path = node.absolute_path
+        local parent_dir = vim.fn.fnamemodify(absolute_path, ":h:t")
+        local node_name = vim.fn.fnamemodify(absolute_path, ":t")
+
+        return {
+          value = "tree: " .. parent_dir .. "/" .. node_name,
+          context = {
+            treePath = absolute_path
+          }
+        }
+      end
+
+      local line_num = vim.fn.line(".")
+      local col = vim.fn.col(".")
+
+      -- Get parent directory and filename
+      local parent_dir = vim.fn.fnamemodify(bufname, ":h:t")
+      local filename = vim.fn.fnamemodify(bufname, ":t")
+
+      -- Get line contents
+      local line_content = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, false)[1] or ""
+      line_content = line_content:gsub("^%s+", "")
+
+      return {
+        value = parent_dir .. "/" .. filename .. ":" .. line_num .. " - " .. line_content,
+        context = {
+          row = line_num,
+          col = col,
+          path = bufname,
+        }
+      }
+    end,
+
+    select = function(list_item, list, option)
+      if list_item.value:match("^#") then
+        return
+      end
+
+      -- Handle tree entries
+      if list_item.context and list_item.context.treePath then
+        local ok, tree_api = pcall(require, "nvim-tree.api")
+        if ok then
+          tree_api.tree.focus()
+          tree_api.tree.find_file(list_item.context.treePath)
+        end
+        return
+      end
+
+      -- Handle regular file entries
+      if list_item.context and list_item.context.path then
+        vim.cmd("edit " .. list_item.context.path)
+        vim.fn.cursor(list_item.context.row, list_item.context.col)
+      end
+    end
+  }
+end
 local function save_current_list(cwd, list_name)
   local data = {}
 
@@ -23,7 +101,7 @@ local function save_current_list(cwd, list_name)
   data[cwd] = list_name
 
   local encoded = vim.json.encode(data)
-  vim.fn.writefile({encoded}, harpoon_data_file)
+  vim.fn.writefile({ encoded }, harpoon_data_file)
 end
 
 local function get_saved_list(cwd)
@@ -81,7 +159,14 @@ HarpoonMeta.switch_to_list = function(list_name)
   -- Set up new keymaps for current list
   local keymaps = {
     { mode = "n", lhs = "<leader>aa", rhs = function() harpoon:list(current_list):add() end },
-    { mode = "n", lhs = "<leader>ee", rhs = function() harpoon.ui:toggle_quick_menu(harpoon:list(current_list), list_options) end },
+    {
+      mode = "n",
+      lhs = "<leader>ee",
+      rhs = function()
+        harpoon.ui:toggle_quick_menu(harpoon:list(current_list),
+          list_options)
+      end
+    },
   }
 
   for _, keymap in ipairs(keymaps) do
@@ -97,95 +182,17 @@ HarpoonMeta.create_new_list = function(list_name)
     return
   end
 
-  -- Create new list config with same behavior as marks2
-  local new_list_config = {
-    create_list_item = function(config, name)
-      local bufname = vim.api.nvim_buf_get_name(0)
-      if bufname == "" then
-        return nil
-      end
-
-      local line_num = vim.fn.line(".")
-      local col = vim.fn.col(".")
-
-      -- Get parent directory and filename
-      local parent_dir = vim.fn.fnamemodify(bufname, ":h:t")
-      local filename = vim.fn.fnamemodify(bufname, ":t")
-
-      -- Get line contents
-      local line_content = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, false)[1] or ""
-      line_content = line_content:gsub("^%s+", "")
-
-      return {
-        value = parent_dir .. "/" .. filename .. ":" .. line_num .. " - " .. line_content,
-        context = {
-          row = line_num,
-          col = col,
-          path = bufname,
-        }
-      }
-    end,
-
-    select = function(list_item, list, option)
-      if list_item.value:match("^#") then
-        return
-      end
-
-      if list_item.context and list_item.context.path then
-        vim.cmd("edit " .. list_item.context.path)
-        vim.fn.cursor(list_item.context.row, list_item.context.col)
-      end
-    end
-  }
-
-  -- Add new list to base config and re-setup
+  local new_list_config = create_list()
   base_lists_config[list_name] = new_list_config
   harpoon:setup(base_lists_config)
 
   return list_name
 end
 
+
 -- Configure the base lists
 base_lists_config = {
-  marks2 = {
-    create_list_item = function(config, name)
-      local bufname = vim.api.nvim_buf_get_name(0)
-      if bufname == "" then
-        return nil
-      end
-
-      local line_num = vim.fn.line(".")
-      local col = vim.fn.col(".")
-
-      -- Get parent directory and filename
-      local parent_dir = vim.fn.fnamemodify(bufname, ":h:t")
-      local filename = vim.fn.fnamemodify(bufname, ":t")
-
-      -- Get line contents
-      local line_content = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, false)[1] or ""
-      line_content = line_content:gsub("^%s+", "")
-
-      return {
-        value = parent_dir .. "/" .. filename .. ":" .. line_num .. " - " .. line_content,
-        context = {
-          row = line_num,
-          col = col,
-          path = bufname,
-        }
-      }
-    end,
-
-    select = function(list_item, list, option)
-      if list_item.value:match("^#") then
-        return
-      end
-
-      if list_item.context and list_item.context.path then
-        vim.cmd("edit " .. list_item.context.path)
-        vim.fn.cursor(list_item.context.row, list_item.context.col)
-      end
-    end
-  },
+  marks2 = create_list(),
 
   Lists = {
     create_list_item = function(config, name)
@@ -382,8 +389,20 @@ local function highlight_file_references()
 
       -- Find the start and end of the full file reference in the line
       local start_col, end_col = line:find(vim.pesc(full_match))
-      if start_col then
+      if start_col and end_col then
         vim.api.nvim_buf_add_highlight(bufnr, -1, color_group, line_nr - 1, start_col - 1, end_col)
+      end
+    else
+      -- Match pattern like "tree: parentdir/nodename" - extract just the nodename
+      local nodename = line:match("tree:%s+[^/]+/([^/]+)%s*$")
+      if nodename then
+        local color_group = get_file_color(nodename)
+
+        -- Find the start and end of the nodename in the line
+        local start_col, end_col = line:find(vim.pesc(nodename))
+        if start_col and end_col then
+          vim.api.nvim_buf_add_highlight(bufnr, -1, color_group, line_nr - 1, start_col - 1, end_col)
+        end
       end
     end
   end
@@ -391,25 +410,18 @@ end
 
 -- Setup highlights and autocmd
 setup_file_highlights()
-
--- Create autocmd to highlight harpoon buffers
-vim.api.nvim_create_autocmd({"BufEnter", "TextChanged", "TextChangedI"}, {
-  pattern = "*",
+local group = vim.api.nvim_create_augroup("HarpoonHighlight", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+  group = group,
+  pattern = "harpoon",
   callback = function()
-    -- Check if this looks like a harpoon buffer by examining content
-    local lines = vim.api.nvim_buf_get_lines(0, 0, 10, false)
-    local has_file_refs = false
-
-    for _, line in ipairs(lines) do
-      if line:match("[^/]+%.[^:]+:%d+") then
-        has_file_refs = true
-        break
-      end
-    end
-
-    if has_file_refs then
-      highlight_file_references()
-    end
+    -- Defer highlighting until buffer is fully populated
+    vim.schedule(highlight_file_references)
+    -- Also highlight on text changes
+    -- vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+    --   buffer = 0,
+    --   callback = highlight_file_references
+    -- })
   end
 })
 
