@@ -29,6 +29,28 @@ function M.get_cwd_color_index()
   return (hash % #M.colors) + 1
 end
 
+-- Convert hex color to RGB values
+local function hex_to_rgb(hex)
+  hex = hex:gsub("#", "")
+  return {
+    r = tonumber(hex:sub(1, 2), 16),
+    g = tonumber(hex:sub(3, 4), 16),
+    b = tonumber(hex:sub(5, 6), 16)
+  }
+end
+
+-- Set iTerm2 tab color using escape sequences
+function M.set_iterm_tab_color(hex_color)
+  local rgb = hex_to_rgb(hex_color)
+  -- iTerm2 escape sequence to set tab color
+  local escape_seq = string.format(
+    "\027]6;1;bg;red;brightness;%d\007\027]6;1;bg;green;brightness;%d\007\027]6;1;bg;blue;brightness;%d\007",
+    rgb.r, rgb.g, rgb.b
+  )
+  io.write(escape_seq)
+  io.flush()
+end
+
 function M.setDarkMode()
   vim.cmd("colo nightfox");
 
@@ -37,6 +59,9 @@ function M.setDarkMode()
 
   vim.api.nvim_set_hl(0, 'WinBar', { bg = color.bg, fg = color.fg, bold = false })
   vim.api.nvim_set_hl(0, 'WinBarNC', { bg = '#0E141C', fg = "#9DA0A1" })
+
+  -- Set iTerm2 tab color to match winbar
+  M.set_iterm_tab_color(color.bg)
 
   -- vim.api.nvim_set_hl(0, "Cursor", { fg = "#000000", bg = "#ff0000" }) -- Red cursor, black text
   vim.opt.winbar = "%=%f "
@@ -50,6 +75,9 @@ function M.setLightMode()
 
   vim.api.nvim_set_hl(0, 'WinBar', { bg = color.bg, fg = color.fg, bold = true })
   vim.api.nvim_set_hl(0, 'WinBarNC', { bg = '#dedede', fg = "#ffffff" })
+
+  -- Set iTerm2 tab color to match winbar
+  M.set_iterm_tab_color(color.bg)
 
   -- vim.api.nvim_set_hl(0, "Cursor", { fg = "#000000", bg = "#111111" }) -- Red cursor, black text
   vim.opt.winbar = "%=%f "
