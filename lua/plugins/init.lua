@@ -67,9 +67,7 @@ require("lazy").setup({
   {
     'vsuhanov/region-highlight.nvim',
     config = function()
-      require('region-highlight').setup({
-        -- your configuration here
-      })
+      require('plugins.region-highlight')
     end
   },
   { "nvim-tree/nvim-tree.lua", config = function() require('plugins.nvim-tree') end },

@@ -66,6 +66,7 @@ function M.setDarkMode()
 
   -- vim.api.nvim_set_hl(0, "Cursor", { fg = "#000000", bg = "#ff0000" }) -- Red cursor, black text
   vim.opt.winbar = "%=%f "
+  require('region-highlight').setDarkMode()
 end
 
 function M.setLightMode()
@@ -86,6 +87,7 @@ function M.setLightMode()
 
   -- vim.api.nvim_set_hl(0, "Cursor", { fg = "#000000", bg = "#111111" }) -- Red cursor, black text
   vim.opt.winbar = "%=%f "
+  require('region-highlight').setLightMode()
 end
 
 -- M.setDarkMode()
