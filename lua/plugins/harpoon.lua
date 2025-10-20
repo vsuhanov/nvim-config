@@ -125,25 +125,18 @@ local create_base_lists_config = function(harpoon_instance)
             handle:close()
 
             if branch_name ~= "" then
-              -- Get current directory basename
-              local cwd = vim.fn.getcwd()
-              local dir_basename = vim.fn.fnamemodify(cwd, ":t")
-
-              -- Create list name with directory basename and branch name
-              local list_name = dir_basename .. " - " .. branch_name
-
-              -- Create new list with combined name
-              HarpoonMeta.create_new_list(list_name)
-              HarpoonMeta.switch_to_list(list_name)
+              -- Create new list with branch name
+              HarpoonMeta.create_new_list(branch_name)
+              HarpoonMeta.switch_to_list(branch_name)
 
               -- Add the new list to the Lists list
               harpoon_instance:list("Lists"):add({
-                value = list_name,
+                value = branch_name,
                 context = {
-                  list_name = list_name
+                  list_name = branch_name
                 }
               })
-              print("Created and switched to list: " .. list_name)
+              print("Created and switched to list: " .. branch_name)
             else
               print("Not in a git repository or unable to determine branch name")
             end
@@ -372,9 +365,6 @@ local function setup_file_highlights()
   for i, color in ipairs(colors) do
     vim.api.nvim_set_hl(0, highlight_colors[i], { fg = color, bold = true, cterm = { bold = true } })
   end
-
-  -- Add bright pink highlight for project name
-  vim.api.nvim_set_hl(0, "HarpoonProjectName", { fg = "#ff1493", bold = true, cterm = { bold = true } })
 end
 
 -- Get or assign color for a file
@@ -394,20 +384,7 @@ local function highlight_file_references()
   -- Clear existing highlights
   vim.api.nvim_buf_clear_namespace(bufnr, -1, 0, -1)
 
-  -- Get current project name for highlighting
-  local cwd = vim.fn.getcwd()
-  local project_name = vim.fn.fnamemodify(cwd, ":t")
-
   for line_nr, line in ipairs(lines) do
-    -- Highlight project name if present in the line
-    local project_start = 1
-    while true do
-      local start_col, end_col = line:find(vim.pesc(project_name), project_start)
-      if not start_col then break end
-      vim.api.nvim_buf_add_highlight(bufnr, -1, "HarpoonProjectName", line_nr - 1, start_col - 1, end_col)
-      project_start = end_col + 1
-    end
-
     -- Match pattern like "plugins/harpoon.lua:14" - extract just the filename
     local full_match, filename = line:match("(([^/]+%.[^:]+):%d+)")
     if filename then
