@@ -63,6 +63,14 @@ require("lazy").setup({
     "vsuhanov/toggle-file.nvim",
     config = function() require('plugins.toggle-file') end
   },
+  {
+    'vsuhanov/region-highlight.nvim',
+    config = function()
+      require('region-highlight').setup({
+        -- your configuration here
+      })
+    end
+  },
   { "nvim-tree/nvim-tree.lua", config = function() require('plugins.nvim-tree') end },
   "nvim-tree/nvim-web-devicons",
   { "yorickpeterse/nvim-window",    config = function() require('plugins.nvim-window') end },
@@ -170,5 +178,3 @@ require("lazy").setup({
     end,
   },
 })
-
-
