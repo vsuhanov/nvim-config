@@ -40,8 +40,8 @@ require("lazy").setup({
   { "lewis6991/gitsigns.nvim",   config = function() require('plugins.gitsigns') end },
   {
     -- "ThePrimeagen/harpoon",
-    -- "vsuhanov/harpoon",
-    dir = '/Users/vitaly/projects/harpoon',
+    "vsuhanov/harpoon",
+    -- dir = '/Users/vitaly/projects/harpoon',
     branch = "harpoon2",
     config = function()
       require('plugins.harpoon')
