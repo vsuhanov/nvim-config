@@ -51,3 +51,6 @@ vim.opt.guicursor = {
   "r-cr-o:hor20-CursorR",
   "t:block-blinkon500-blinkoff500-TermCursor"
 }
+
+vim.o.exrc = true
+vim.o.secure = false  -- Prevents unsafe commands in local config files
