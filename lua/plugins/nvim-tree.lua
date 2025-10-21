@@ -114,8 +114,8 @@ nvimTree.setup(
       vim.keymap.set("n", "<2-LeftMouse>", api.node.open.edit, opts("Open"))
       vim.keymap.set("n", "<2-RightMouse>", api.tree.change_root_to_node, opts("CD"))
       vim.keymap.set("n", "<esc>", return_to_previous_window, { silent = true, buffer = bufnr })
-      vim.keymap.set("n", "-", return_to_previous_window, { silent = true, buffer = bufnr })
-      vim.keymap.set("n", "_", return_to_previous_window_and_close, { silent = true, buffer = bufnr })
+      vim.keymap.set("n", "_", return_to_previous_window, { silent = true, buffer = bufnr })
+      vim.keymap.set("n", "-", return_to_previous_window_and_close, { silent = true, buffer = bufnr })
 
       -- Custom function to search in current directory with Snacks picker
       vim.keymap.set("n", "<leader>ff", function()
