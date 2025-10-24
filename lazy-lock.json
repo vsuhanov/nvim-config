@@ -35,7 +35,11 @@
   "region-highlight.nvim": { "branch": "main", "commit": "3d18cf4e287c1c3ddc87a6238226d7d319fe8d0b" },
   "rest.nvim": { "branch": "main", "commit": "5466d1e447fc4b038ef511a7a2c4c7cbb13da01a" },
   "scratch.nvim": { "branch": "main", "commit": "d8698fd4a8415a6b95af59a510b6145b55a7b3e3" },
+<<<<<<< Updated upstream
   "snacks.nvim": { "branch": "main", "commit": "b68648b79e9ae2a794311a31a9dc5e571004feb7" },
+=======
+  "snacks.nvim": { "branch": "main", "commit": "889515a336fe2ae7911d29a8d30b4f30baa90041" },
+>>>>>>> Stashed changes
   "toggle-file.nvim": { "branch": "main", "commit": "7c7ed490ff185e1ef46c2c66c69e378cf33483e1" },
   "vim-commentary": { "branch": "master", "commit": "64a654ef4a20db1727938338310209b6a63f60c9" },
   "vim-dadbod": { "branch": "master", "commit": "e95afed23712f969f83b4857a24cf9d59114c2e6" },
