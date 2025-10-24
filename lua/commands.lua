@@ -155,4 +155,5 @@ end
 
 vim.api.nvim_create_user_command('Claude', claude_command, {})
 vim.keymap.set("n", "<leader>ai", function() vim.cmd("Claude") end, {silent = true});
+vim.keymap.set("n", "<leader>3", function() vim.cmd("Claude") end, {silent = true});
 
