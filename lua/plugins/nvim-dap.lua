@@ -47,6 +47,30 @@ dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()
 end
 
+-- DAP notification listeners - notify once per debug session
+local notifications = require("utils.notifications")
+local session_notified = {}
+
+-- Notify when debugger stops (breakpoint or other reasons) - only once per session
+dap.listeners.after.event_stopped["debugger_notify"] = function(session, body)
+  local session_id = session.id
+  if not session_notified[session_id] then
+    local reason = body.reason or "unknown"
+    notifications.notify(
+      string.format("Debugger stopped: %s", reason),
+      "DAP Debugger"
+    )
+    session_notified[session_id] = true
+  end
+end
+
+-- Clear notification flag when debugger terminates
+dap.listeners.after.event_terminated["debugger_notify"] = function(session, body)
+  local session_id = session.id
+  session_notified[session_id] = nil
+  notifications.notify("Debugger terminated", "DAP Debugger")
+end
+
 local opts = { noremap = true, silent = true }
 
 -- Toggle breakpoint
