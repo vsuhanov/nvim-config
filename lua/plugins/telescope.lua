@@ -1,5 +1,6 @@
 local telescope_builtin = require('telescope.builtin')
 local telescope = require('telescope')
+local actions = require('telescope.actions')
 telescope.setup {
   defaults = {
     path_dispay = { 'smart' },
@@ -10,11 +11,17 @@ telescope.setup {
         -- map actions.which_key to <C-h> (default: <C-/>)
         -- actions.which_key shows the mappings for your picker,
         -- e.g. git_{create, delete, ...}_branch for the git_branches picker
-        ["<C-h>"] = "which_key"
+        ["<C-h>"] = "which_key",
+        ["<C-k>"] = actions.cycle_history_prev,
+        ["<C-j>"] = actions.cycle_history_next,
       }
     }
   },
   pickers = {
+    lsp_references  = { fname_width = 60 },
+    lsp_definitions  = { fname_width = 60 },
+    lsp_implementations  = { fname_width = 60 },
+    jumplist  = { fname_width = 60 },
     find_files = {
       find_command = {
         "fd",
@@ -65,31 +72,24 @@ local function telescope_with_selection(telescope_func)
 end
 local opts = { silent = true }
 -- Telescope visual mode mappings with selected text
+--
 vim.keymap.set('v', '<leader>wo', telescope_with_selection(telescope_builtin.find_files), opts)
-vim.keymap.set('v', '<leader>ff', telescope_with_selection(require('plugins.telescope-live-multigrep').live_multigrep),
-  opts)
-vim.keymap.set('v', '<leader>fb', telescope_with_selection(telescope_builtin.buffers), opts)
+vim.keymap.set('v', '<leader>ff', telescope_with_selection(require('plugins.telescope-live-multigrep').live_multigrep), opts)
+-- vim.keymap.set('v', '<leader>fb', telescope_with_selection(telescope_builtin.buffers), opts)
 vim.keymap.set('v', '<leader>wb', telescope_with_selection(telescope_builtin.buffers), opts)
 vim.keymap.set('v', '<leader>hh', telescope_with_selection(telescope_builtin.treesitter), opts)
 
 -- Telescope mappings
-vim.keymap.set('n', '<leader>wo', ':Telescope find_files<CR>', opts)
--- vim.keymap.set('n', '<leader>ff', function() telescope_builtin.live_grep() end, opts)
+vim.keymap.set('n', '<leader>wo', telescope_builtin.find_files, opts)
+vim.keymap.set('n', '<leader>wr', telescope_builtin.resume, opts)
+vim.keymap.set('n', '<leader>w]', function() telescope_builtin.jumplist() end, opts)
+-- vim.keymap.set('n', '<leader>fo', function() telescope_builtin.live_grep() end, opts)
 vim.keymap.set('n', '<leader>ff', function() require('plugins.telescope-live-multigrep').live_multigrep() end, opts)
-vim.keymap.set('n', '<leader>fb', ':Telescope buffers<CR>', opts)
-vim.keymap.set('n', '<leader>wb', ':Telescope buffers<CR>', opts)
-vim.keymap.set('n', '<leader>hh', ':Telescope treesitter<CR>', opts)
+-- vim.keymap.set('n', '<leader>fb', ':Telescope buffers<CR>', opts)
+-- vim.keymap.set('n', '<leader>wb', ':Telescope buffers<CR>', opts)
+-- vim.keymap.set('n', '<leader>hh', ':Telescope treesitter<CR>', opts)
 
-vim.keymap.set("n", "<leader>b", function()
-  local clients = vim.lsp.get_active_clients({ bufnr = 0 })
-  for _, client in ipairs(clients) do
-    if client.server_capabilities.implementationProvider then
-      telescope_builtin.lsp_implementations()
-      return
-    end
-  end
-  telescope_builtin.lsp_definitions()
-end, opts)
+vim.keymap.set("n", "<leader>b", function() telescope_builtin.lsp_definitions() end, opts)
 vim.keymap.set("n", "<leader>fu", function() telescope_builtin.lsp_references() end, opts)
 vim.keymap.set("n", "<leader>ac", function() telescope_builtin.commands() end, opts)
 vim.keymap.set("n", "<leader>ah", function() telescope_builtin.command_history() end, opts)
@@ -98,6 +98,7 @@ vim.keymap.set("n", "<leader>fb", function() telescope_builtin.git_branches() en
 vim.keymap.set("n", "<leader>gc", function() telescope_builtin.git_commits() end, opts)
 vim.keymap.set("n", "<leader>gbc", function() telescope_builtin.git_bcommits() end, opts)
 vim.keymap.set("v", "<leader>gbl", function() telescope_builtin.git_bcommits_range() end, opts)
+
 vim.api.nvim_create_user_command('TelescopeLazy', function()
   telescope_builtin.find_files({
     cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy")

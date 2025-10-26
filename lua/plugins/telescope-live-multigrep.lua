@@ -39,10 +39,11 @@ local live_multigrep = function(opts)
         end
       end
 
-      return vim.tbl_flatten {
+      return vim.iter({
         args,
-        { "--color=never", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--trim" },
+        { "--color=never", "--vimgrep", "--smart-case" },
       }
+      ):flatten():totable()
     end,
     entry_maker = make_entry.gen_from_vimgrep(opts),
     cwd = opts.cwd,
@@ -54,8 +55,8 @@ local live_multigrep = function(opts)
       prompt_title = "Multi Grep",
       debounce = 100,
       previewer = conf.grep_previewer(opts),
-      sorter =
-          sorters.empty()
+      sorter = sorters.highlighter_only(opts),
+
     }):find()
 end
 -- live_multigrep()

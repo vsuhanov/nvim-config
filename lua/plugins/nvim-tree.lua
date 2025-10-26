@@ -129,11 +129,10 @@ nvimTree.setup(
           search_path = vim.fn.fnamemodify(node.absolute_path, ":h")
         end
 
-        require('snacks').picker.grep({
+        require('plugins.telescope-live-multigrep').live_multigrep({
           cwd = search_path,
-          win = { title = "Search in " .. vim.fn.fnamemodify(search_path, ":t") }
         })
-      end, opts("Snacks Picker Search in Directory"))
+      end, opts("Telescope Find in Directory"))
     end
   }
 )

@@ -28,11 +28,19 @@ require("lazy").setup({
   },
   "nvim-lua/plenary.nvim",
   {
-    enabled = false,
+    enabled = true,
     "nvim-telescope/telescope.nvim",
+    -- dir = "/Users/vitaly/projects/telescope.nvim",
     tag = "0.1.4",
     config = function()
       require('plugins.telescope')
+    end
+  },
+  {
+    "otavioschwanck/telescope-alternate",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function() 
+      require('plugins.telescope-alternate')
     end
   },
   -- "rmagatti/auto-session",
@@ -80,31 +88,38 @@ require("lazy").setup({
     event = "VeryLazy",
     config = function() require('plugins.scratch') end
   },
+  -- {
+  --   "folke/snacks.nvim",
+  --   config = function()
+  --     require('plugins.snacks'); require('plugins.snacks-picker')
+  --   end
+  -- },
   {
-    "folke/snacks.nvim",
-    config = function()
-      require('plugins.snacks'); require('plugins.snacks-picker')
-    end
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {
+      signs = true,
+      keywords = {
+        FIX = {
+          icon = " ", -- icon used for the sign, and in search results
+          color = "error", -- can be a hex color, or a named color (see below)
+          alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
+          -- signs = false, -- configure signs for some keywords individually
+        },
+        TODO = { icon = " ", color = "info" },
+        suhanov = { icon = " ", color = "#ff9900" },
+        todo = { icon = " ", color = "info" },
+        HACK = { icon = " ", color = "warning" },
+        WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+        PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+        NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+        TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+      }
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
   },
-  -- {
-  --   "folke/noice.nvim",
-  --   event = "VeryLazy",
-  --   opts = {
-  --     -- add any options here
-  --   },
-  --   dependencies = {,
-  --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-  --     "MunifTanjim/nui.nvim",
-  --     -- OPTIONAL:
-  --     --   `nvim-notify` is only needed, if you want to use the notification view.
-  --     --   If not available, we use `mini` as the fallback
-  --     "rcarriga/nvim-notify",
-  --   },
-  -- },
-  -- {
-  --   "smjonas/inc-rename.nvim",
-  --   config = function() require('plugins.inc-rename') end
-  -- },
   {
     "rest-nvim/rest.nvim",
     dependencies = {
