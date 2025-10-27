@@ -80,3 +80,7 @@ vim.keymap.set('v', '<X2Mouse>', ':normal! <Esc><C-i>', { silent = false })
 vim.keymap.set('n', '<MiddleMouse>', function()
   vim.lsp.buf.definition({ loclist = true })
 end, { silent = true })
+
+vim.keymap.set('v', 'p', 'P', { noremap = true })
+vim.keymap.set('v', 'c', '"cc', { noremap = true })
+vim.keymap.set('v', 'C', '"cC', { noremap = true })
