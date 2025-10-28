@@ -36,10 +36,11 @@ require("lazy").setup({
       require('plugins.telescope')
     end
   },
+  -- ThisIsCamelCase
   {
     "otavioschwanck/telescope-alternate",
     dependencies = { "nvim-telescope/telescope.nvim" },
-    config = function() 
+    config = function()
       require('plugins.telescope-alternate')
     end
   },
@@ -191,5 +192,29 @@ require("lazy").setup({
     config = function()
       require('plugins.nvim-dap')
     end,
+  },
+  {
+    "chrisgrieser/nvim-various-textobjs",
+    event = "VeryLazy",
+    opts = {
+      keymaps = {
+        useDefaults = true
+      }
+    },
+  },
+  {
+    "chrisgrieser/nvim-spider",
+    keys = {
+      { "w", "<cmd>lua require('spider').motion('w')<CR>", mode = { "n", "o", "x" } },
+      { "e", "<cmd>lua require('spider').motion('e')<CR>", mode = { "n", "o", "x" } },
+      { "b", "<cmd>lua require('spider').motion('b')<CR>", mode = { "n", "o", "x" } },
+    },
+    -- Lua
+    {
+      "folke/zen-mode.nvim",
+      config = function()
+        require('plugins.zen-mode')
+      end,
+    }
   },
 })

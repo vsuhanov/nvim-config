@@ -1,9 +1,11 @@
 local telescope_builtin = require('telescope.builtin')
 local telescope = require('telescope')
 local actions = require('telescope.actions')
+local picker_config = { fname_width = 60, path_display = { shorten = { len = 3, exclude = { 2, -1 } } } }
 telescope.setup {
   defaults = {
-    path_dispay = { 'smart' },
+    path_dispay = { shorten = { len = 3, exclude = { 2, -1 } } },
+    dynamic_preview_title = true,
     -- Default configuration for telescope goes here:
     -- config_key = value,
     mappings = {
@@ -14,15 +16,21 @@ telescope.setup {
         ["<C-h>"] = "which_key",
         ["<C-k>"] = actions.cycle_history_prev,
         ["<C-j>"] = actions.cycle_history_next,
-      }
+        ["<C-q>"] = require('telescope.actions').send_to_loclist + require('telescope.actions').open_loclist,
+        ["<M-q>"] = require('telescope.actions').send_selected_to_loclist + require('telescope.actions').open_loclist,
+      },
+      n = {
+        ["<C-q>"] = require('telescope.actions').send_to_loclist + require('telescope.actions').open_loclist,
+        ["<M-q>"] = require('telescope.actions').send_selected_to_loclist + require('telescope.actions').open_loclist,
+      },
     }
   },
   pickers = {
-    lsp_references  = { fname_width = 60 },
-    lsp_definitions  = { fname_width = 60 },
-    lsp_implementations  = { fname_width = 60 },
-    jumplist  = { fname_width = 60 },
-    find_files = {
+    lsp_references      = picker_config,
+    lsp_definitions     = picker_config,
+    lsp_implementations = picker_config,
+    jumplist            = picker_config,
+    find_files          = {
       find_command = {
         "fd",
         "--type", "f",
@@ -74,7 +82,8 @@ local opts = { silent = true }
 -- Telescope visual mode mappings with selected text
 --
 vim.keymap.set('v', '<leader>wo', telescope_with_selection(telescope_builtin.find_files), opts)
-vim.keymap.set('v', '<leader>ff', telescope_with_selection(require('plugins.telescope-live-multigrep').live_multigrep), opts)
+vim.keymap.set('v', '<leader>ff', telescope_with_selection(require('plugins.telescope-live-multigrep').live_multigrep),
+  opts)
 -- vim.keymap.set('v', '<leader>fb', telescope_with_selection(telescope_builtin.buffers), opts)
 vim.keymap.set('v', '<leader>wb', telescope_with_selection(telescope_builtin.buffers), opts)
 vim.keymap.set('v', '<leader>hh', telescope_with_selection(telescope_builtin.treesitter), opts)

@@ -2,9 +2,9 @@ local scratch = require("scratch")
 scratch.setup({
   scratch_file_dir = vim.fn.stdpath("cache") .. "/scratch.nvim",     -- where your scratch files will be put
   window_cmd = "edit",                                  -- 'vsplit' | 'split' | 'edit' | 'tabedit' | 'rightbelow vsplit'
-  -- use_telescope = true,
+  use_telescope = true,
   -- fzf-lua is recommanded, since it will order the files by modification datetime desc. (require rg)
-  file_picker = "random value to enter branch that will use native select",                      -- "fzflua" | "telescope" | nil
+  file_picker = "telescope",                      -- "fzflua" | "telescope" | nil
   filetypes = { "txt", "json", "lua", "js", "sh", "ts", "http" },     -- you can simply put filetype here
   filetype_details = {                         -- or, you can have more control here
     json = {},                                 -- empty table is fine

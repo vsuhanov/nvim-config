@@ -21,6 +21,36 @@ dap.adapters.nlua = function(callback, config)
   callback({ type = 'server', host = config.host or "127.0.0.1", port = config.port or 8086 })
 end
 
+dap.adapters['pwa-node'] = {
+  type = 'server',
+  host = 'localhost',
+  port = '${port}',
+  executable = {
+    command = 'node',
+    args = {
+      vim.fn.stdpath('data') .. '/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js',
+      '${port}'
+    },
+  }
+}
+
+dap.configurations.typescript = {
+  {
+    type = 'pwa-node',
+    request = 'launch',
+    name = 'Debug Current Test File',
+    cwd = '${workspaceFolder}',
+    runtimeExecutable = 'bun',
+    runtimeArgs = {
+      'test:debug',
+      '${file}',
+    },
+    console = 'integratedTerminal',
+  },
+}
+
+dap.configurations.javascript = dap.configurations.typescript
+
 vim.fn.sign_define("DapBreakpoint", {
   text = "",
   texthl = "DiagnosticSignError",
