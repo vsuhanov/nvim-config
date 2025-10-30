@@ -26,30 +26,14 @@ dap.adapters['pwa-node'] = {
   host = 'localhost',
   port = '${port}',
   executable = {
-    command = 'node',
+    command = 'sh',
     args = {
+      '/tmp/echo-date-and-call-node.sh',
       vim.fn.stdpath('data') .. '/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js',
       '${port}'
     },
   }
 }
-
-dap.configurations.typescript = {
-  {
-    type = 'pwa-node',
-    request = 'launch',
-    name = 'Debug Current Test File',
-    cwd = '${workspaceFolder}',
-    runtimeExecutable = 'bun',
-    runtimeArgs = {
-      'test:debug',
-      '${file}',
-    },
-    console = 'integratedTerminal',
-  },
-}
-
-dap.configurations.javascript = dap.configurations.typescript
 
 vim.fn.sign_define("DapBreakpoint", {
   text = "",

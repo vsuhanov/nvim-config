@@ -210,11 +210,12 @@ require("lazy").setup({
       { "b", "<cmd>lua require('spider').motion('b')<CR>", mode = { "n", "o", "x" } },
     },
     -- Lua
-    {
-      "folke/zen-mode.nvim",
-      config = function()
-        require('plugins.zen-mode')
-      end,
-    }
   },
+  {
+    "folke/zen-mode.nvim",
+    config = function()
+      require('plugins.zen-mode')
+    end,
+  }
+
 })
