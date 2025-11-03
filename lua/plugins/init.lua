@@ -223,10 +223,11 @@ require("lazy").setup({
       hl_group = 'LocalHighlight'
     }
   },
-  -- {
-  --   dir = "~/projects/persistent-breakpoints.nvim",
-  --   opts = {
-  --     load_breakpoints_event = "VimEnter",
-  --   }
-  -- }
+  {
+    -- dir = "~/projects/persistent-breakpoints.nvim",
+    "vsuhanov/persistent-breakpoints.nvim",
+    opts = {
+      load_saved_breakpoint_buffers = true,
+    }
+  }
 })
