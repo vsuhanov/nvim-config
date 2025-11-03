@@ -59,7 +59,7 @@ function M.setDarkMode()
 
   vim.api.nvim_set_hl(0, 'WinBar', { bg = color.bg, fg = color.fg, bold = false })
   vim.api.nvim_set_hl(0, 'WinBarNC', { bg = '#0E141C', fg = "#9DA0A1" })
-  vim.api.nvim_set_hl(0, 'Comment', { fg = "#ff9900" })
+  -- vim.api.nvim_set_hl(0, 'Comment', { fg = "#ff9900" })
   vim.api.nvim_set_hl(0, '@comment', { fg = "#ff9900" })
   -- Set iTerm2 tab color to match winbar
   M.set_iterm_tab_color(color.bg)
@@ -78,8 +78,7 @@ function M.setLightMode()
 
   vim.api.nvim_set_hl(0, 'WinBar', { bg = color.bg, fg = color.fg, bold = true })
   vim.api.nvim_set_hl(0, 'WinBarNC', { bg = '#dedede', fg = "#ffffff" })
-  vim.api.nvim_set_hl(0, 'Comment', { fg = "#ff9900", bg = "#dedede" })
-  -- vim.api.nvim_set_hl(0, '@comment', { fg = "#8c3800", bg = "#222222" })
+  vim.api.nvim_set_hl(0, 'Comment', { fg = "#222222", bg = "#a6a6a6" })
   vim.api.nvim_set_hl(0, '@comment', { fg = "#8c3800" })
 
   -- Set iTerm2 tab color to match winbar

@@ -86,3 +86,6 @@ vim.keymap.set('v', 'c', '"cc', { noremap = true })
 vim.keymap.set('v', 'C', '"cC', { noremap = true })
 vim.keymap.set('n', 'c', '"cc', { noremap = true })
 vim.keymap.set('n', 'C', '"cC', { noremap = true })
+
+vim.keymap.set('n', '<leader>6', '<C-^>', {})
+
