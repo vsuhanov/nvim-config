@@ -63,14 +63,15 @@ telescope.setup {
 local function telescope_with_selection(telescope_func)
   return function()
     -- Save current register
-    local save_reg = vim.fn.getreg('"')
-    local save_regtype = vim.fn.getregtype('"')
+    local save_reg = vim.fn.getreg('t')
+    local save_regtype = vim.fn.getregtype('t')
+
 
     -- Yank selected text to unnamed register
-    vim.cmd('normal! y')
+    vim.cmd('normal! "ty')
 
     -- Get the yanked text
-    local selected_text = vim.fn.getreg('"')
+    local selected_text = vim.fn.getreg('t')
 
     -- Restore register
     vim.fn.setreg('"', save_reg, save_regtype)
