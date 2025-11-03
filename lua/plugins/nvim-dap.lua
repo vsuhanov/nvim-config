@@ -89,7 +89,11 @@ local opts = { noremap = true, silent = true }
 
 -- Toggle breakpoint
 vim.keymap.set("n", "<leader>db", function()
-  dap.toggle_breakpoint()
+  require('persistent-breakpoints.api').toggle_breakpoint()
+end, opts)
+
+vim.keymap.set("n", "<leader>Db", function()
+  require('persistent-breakpoints.api').set_conditional_breakpoint()
 end, opts)
 
 -- Continue / Start

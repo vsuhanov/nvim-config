@@ -216,6 +216,17 @@ require("lazy").setup({
     config = function()
       require('plugins.zen-mode')
     end,
+  },
+  {
+    "wurli/visimatch.nvim",
+    opts = {
+      hl_group = 'LocalHighlight'
+    }
+  },
+  {
+    dir = "~/projects/persistent-breakpoints.nvim",
+    opts = {
+      load_breakpoints_event = "VimEnter",
+    }
   }
-
 })

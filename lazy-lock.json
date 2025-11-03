@@ -49,6 +49,7 @@
   "vim-sensible": { "branch": "master", "commit": "0ce2d843d6f588bb0c8c7eec6449171615dc56d9" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
   "vim-vsnip": { "branch": "master", "commit": "9bcfabea653abdcdac584283b5097c3f8760abaa" },
+  "visimatch.nvim": { "branch": "main", "commit": "4334be61a9d3a6b268179144c6354349e445eb89" },
   "winmove.nvim": { "branch": "master", "commit": "0a98acf6c5007dcb286f9e31de0aca231b244927" },
   "zen-mode.nvim": { "branch": "main", "commit": "438a59c33763d79e34ceb394e012c3bfd6aa1084" }
 }

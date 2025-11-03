@@ -85,7 +85,7 @@ vim.keymap.set('v', '<leader>wo', telescope_with_selection(telescope_builtin.fin
 vim.keymap.set('v', '<leader>ff', telescope_with_selection(require('plugins.telescope-live-multigrep').live_multigrep),
   opts)
 -- vim.keymap.set('v', '<leader>fb', telescope_with_selection(telescope_builtin.buffers), opts)
-vim.keymap.set('v', '<leader>wb', telescope_with_selection(telescope_builtin.buffers), opts)
+vim.keymap.set('n', '<leader>wb', function() telescope_builtin.buffers() end, opts)
 vim.keymap.set('v', '<leader>hh', telescope_with_selection(telescope_builtin.treesitter), opts)
 
 -- Telescope mappings

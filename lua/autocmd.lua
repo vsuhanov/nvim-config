@@ -14,9 +14,12 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     command = "silent! source %",
 })
 
+local git_init_group = vim.api.nvim_create_augroup("suhanov_git", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
+  group = git_init_group,
   pattern = { "gitcommit", "gitrebase", "gitconfig" },
   callback = function()
+    -- print("gitcommit filetype is triggered")
     vim.bo.bufhidden = "delete"
   end,
 })
