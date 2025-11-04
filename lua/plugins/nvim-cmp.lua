@@ -1,9 +1,10 @@
 local cmp = require 'cmp'
+local cmp_buffer = require 'cmp_buffer'
 cmp.setup({
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)   -- For `vsnip` users.
+      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
       -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
       -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
       -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
@@ -16,6 +17,7 @@ cmp.setup({
       -- require("cmp.config").set_onetime({ sources = {} })
     end,
   },
+  
   window = {
     -- completion = cmp.config.window.bordered(),
     -- documentation = cmp.config.window.bordered(),
@@ -25,38 +27,47 @@ cmp.setup({
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),   -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    ['<TAB>'] = cmp.mapping.confirm({ select = true }),   -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),  -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<TAB>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   }),
+  sorting = {
+    comparators = {
+      function(...) return cmp_buffer:compare_locality(...) end,
+      -- The rest of your comparators...
+    }
+  },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-    { name = 'vsnip' },   -- For vsnip users.
+    { name = 'vsnip' }, -- For vsnip users.
     -- { name = 'luasnip' }, -- For luasnip users.
     -- { name = 'ultisnips' }, -- For ultisnips users.
     -- { name = 'snippy' }, -- For snippy users.
   }, {
-    { name = 'buffer', options = {
-      get_bufnrs = function()
-        local bufs = {}
-        for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-          local bufname = vim.api.nvim_buf_get_name(bufnr)
-          -- Only include buffers that:
-          -- 1. Are valid and loaded
-          -- 2. Have a filename (not empty)
-          -- 3. Have a file extension
-          -- 4. Are not special buffers (no :// in name)
-          if vim.api.nvim_buf_is_valid(bufnr) 
-             and vim.api.nvim_buf_is_loaded(bufnr)
-             and bufname ~= ""
-             and bufname:match("%.%w+$")  -- has file extension
-             and not bufname:match("://") -- not special buffer
-          then
-            table.insert(bufs, bufnr)
+    {
+      name = 'buffer',
+      options = {
+        get_bufnrs = function()
+          local bufs = {}
+          for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+            local bufname = vim.api.nvim_buf_get_name(bufnr)
+            -- Only include buffers that:
+            -- 1. Are valid and loaded
+            -- 2. Have a filename (not empty)
+            -- 3. Have a file extension
+            -- 4. Are not special buffers (no :// in name)
+            if vim.api.nvim_buf_is_valid(bufnr)
+                and vim.api.nvim_buf_is_loaded(bufnr)
+                and bufname ~= ""
+                and bufname:match("%.%w+$") -- has file extension
+                and not bufname:match("://") -- not special buffer
+            then
+              table.insert(bufs, bufnr)
+            end
           end
+          return bufs
         end
-        return bufs
-      end
-    } },
+      }
+    },
     { name = 'path' },
   })
 })
@@ -71,7 +82,7 @@ cmp.setup({
     })
  })
  require("cmp_git").setup() ]]
-                               --
+--
 
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline({ '/', '?' }, {
@@ -91,4 +102,3 @@ cmp.setup.cmdline(':', {
   }),
   matching = { disallow_symbol_nonprefix_matching = false }
 })
-
