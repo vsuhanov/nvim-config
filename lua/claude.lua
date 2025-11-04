@@ -24,7 +24,7 @@ local function claude_command()
     -- Check if Claude buffer exists globally
     local buffers = vim.fn.getbufinfo()
     for _, buf in ipairs(buffers) do
-      if vim.fn.bufname(buf.bufnr) == "Claude" then
+      if vim.fn.bufname(buf.bufnr) == "Claude" and vim.fn.getbufvar(buf.bufnr, "&buflisted") == 1 then
         claude_buf = buf.bufnr
         break
       end
@@ -38,7 +38,8 @@ local function claude_command()
       vim.api.nvim_feedkeys("A", "n", false)
     else
       -- Create new terminal buffer
-      vim.cmd("vs | terminal claude")
+      vim.cmd("vs")
+      vim.cmd("terminal claude")
       -- Set the buffer name to "Claude"
       vim.cmd("file Claude")
     end
