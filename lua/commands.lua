@@ -106,4 +106,16 @@ vim.api.nvim_create_user_command('FoldIndent', function()
   vim.cmd("setlocal foldmethod=indent")
 end, {})
 
+vim.api.nvim_create_user_command('GitHunkDiffInline', function()
+  vim.cmd("Gitsigns preview_hunk_inline")
+end, {desc = "GIT: Show inline diff for current hunk"})
+
+vim.api.nvim_create_user_command('GitHunkDiff', function()
+  vim.cmd("Gitsigns preview_hunk")
+end, {desc = "GIT: Show floating diff for current hunk"})
+
+vim.api.nvim_create_user_command('Gh', function()
+  vim.cmd("Gitsigns stage_hunk")
+end, {desc = "GIT: Stage/Unstage current hunk"})
+vim.keymap.set({'n'}, '<leader>gh', ':Gh<cr>', {silent = true})
 
