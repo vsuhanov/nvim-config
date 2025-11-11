@@ -22,6 +22,7 @@ else
   require('purple-config')
   require('windows-stuff')
   require('autofilereload')
+  require('autocmd')
   require('lsp')
   require('plugins.terminal-improvements')
   require('plugins.todo-floating-window')
