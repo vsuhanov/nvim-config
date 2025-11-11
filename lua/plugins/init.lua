@@ -81,7 +81,10 @@ require("lazy").setup({
   },
   { "nvim-tree/nvim-tree.lua", config = function() require('plugins.nvim-tree') end },
   "nvim-tree/nvim-web-devicons",
-  { "yorickpeterse/nvim-window",    config = function() require('plugins.nvim-window') end },
+  {
+    "yorickpeterse/nvim-window",
+    config = function() require('plugins.nvim-window') end
+  },
   { "f-person/auto-dark-mode.nvim", config = function() require('plugins.auto-dark-mode') end },
   {
     -- dir = '/Users/vitaly/projects/scratch.nvim',
@@ -145,7 +148,7 @@ require("lazy").setup({
     "linrongbin16/gitlinker.nvim",
     config = function() require('plugins.gitlinker') end,
   },
-  -- 'sindrets/diffview.nvim',
+  'sindrets/diffview.nvim',
   {
     'echasnovski/mini.ai',
     version = '*',

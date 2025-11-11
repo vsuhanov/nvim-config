@@ -62,7 +62,7 @@ vim.api.nvim_create_user_command(
     vim.fn.setreg('+', path)
     print('Copied: ' .. path)
   end,
-  { nargs = '?', complete = function() return {'withLineNumber'} end }
+  { nargs = '?', complete = function() return { 'withLineNumber' } end }
 )
 
 vim.api.nvim_create_user_command(
@@ -79,7 +79,7 @@ vim.api.nvim_create_user_command(
     vim.fn.setreg('+', path)
     print('Copied: ' .. path)
   end,
-  { nargs = '?', complete = function() return {'withLineNumber'} end }
+  { nargs = '?', complete = function() return { 'withLineNumber' } end }
 )
 
 vim.api.nvim_create_user_command('Messages', function()
@@ -106,3 +106,7 @@ vim.api.nvim_create_user_command('FoldIndent', function()
   vim.cmd("setlocal foldmethod=indent")
 end, {})
 
+vim.api.nvim_create_user_command('LazyGit', function()
+  vim.cmd("term lazygit")
+end, {})
+vim.keymap.set('n', '<M-k>', ':vs | LazyGit<cr>', { silent = true })
