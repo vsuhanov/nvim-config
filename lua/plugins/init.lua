@@ -83,7 +83,7 @@ require("lazy").setup({
   "nvim-tree/nvim-web-devicons",
   {
     "yorickpeterse/nvim-window",
-    dir = "/Users/vitaliy.suhanov/projects/nvim-window",
+    -- dir = "/Users/vitaliy.suhanov/projects/nvim-window",
     -- "yorickpeterse/nvim-window",;
     config = function() require('plugins.nvim-window') end
   },
