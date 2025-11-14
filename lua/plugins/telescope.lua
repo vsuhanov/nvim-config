@@ -86,31 +86,37 @@ end
 local opts = { silent = true }
 -- Telescope visual mode mappings with selected text
 --
-vim.keymap.set({'v'}, '<leader>wo', telescope_with_selection(telescope_builtin.find_files), opts)
-vim.keymap.set({'v'}, '<leader>ff', telescope_with_selection(require('plugins.telescope-live-multigrep').live_multigrep),
+vim.keymap.set({ 'v' }, '<leader>wo', telescope_with_selection(telescope_builtin.find_files), opts)
+vim.keymap.set({ 'v' }, '<leader>ff',
+  telescope_with_selection(require('plugins.telescope-live-multigrep').live_multigrep),
   opts)
 -- vim.keymap.set('v', '<leader>fb', telescope_with_selection(telescope_builtin.buffers), opts)
 vim.keymap.set('n', '<leader>wb', function() telescope_builtin.buffers() end, opts)
 vim.keymap.set('v', '<leader>hh', telescope_with_selection(telescope_builtin.treesitter), opts)
 
 -- Telescope mappings
-vim.keymap.set({'n'}, '<leader>wo', telescope_builtin.find_files, opts)
-vim.keymap.set({'n'}, '<leader>wr', telescope_builtin.resume, opts)
-vim.keymap.set({'n'}, '<leader>w]', function() telescope_builtin.jumplist() end, opts)
+vim.keymap.set({ 'n' }, '<leader>wo', telescope_builtin.find_files, opts)
+vim.keymap.set({ 'n' }, '<leader>wr', telescope_builtin.resume, opts)
+vim.keymap.set({ 'n' }, '<leader>w]', function() telescope_builtin.jumplist() end, opts)
 -- vim.keymap.set('n', '<leader>fo', function() telescope_builtin.live_grep() end, opts)
-vim.keymap.set({'n', 't'}, '<leader>ff', function() require('plugins.telescope-live-multigrep').live_multigrep() end, opts)
+vim.keymap.set({ 'n', 't' }, '<leader>ff', function() require('plugins.telescope-live-multigrep').live_multigrep() end,
+  opts)
 -- vim.keymap.set({'n', 't'}, '<leader>fb', ':Telescope buffers<CR>', opts)
 -- vim.keymap.set('n', '<leader>wb', ':Telescope buffers<CR>', opts)
--- vim.keymap.set('n', '<leader>hh', ':Telescope treesitter<CR>', opts)
+vim.keymap.set('n', '<leader>hh', ':Telescope treesitter<CR>', opts)
 
 vim.keymap.set('n', "<leader>b", function() telescope_builtin.lsp_definitions() end, opts)
+vim.keymap.set('n', "<leader>B", function()
+  vim.cmd('vs')
+  telescope_builtin.lsp_definitions()
+end, opts)
 vim.keymap.set("n", "<leader>fu", function() telescope_builtin.lsp_references() end, opts)
-vim.keymap.set({'n'}, "<leader>ac", function() telescope_builtin.commands() end, opts)
-vim.keymap.set({'n'}, "<leader>ah", function() telescope_builtin.command_history() end, opts)
-vim.keymap.set({'n'}, "<leader>fh", function() telescope_builtin.search_history() end, opts)
-vim.keymap.set({'n'}, "<leader>fb", function() telescope_builtin.git_branches() end, opts)
-vim.keymap.set({'n'}, "<leader>gc", function() telescope_builtin.git_commits() end, opts)
-vim.keymap.set({'n'}, "<leader>gbc", function() telescope_builtin.git_bcommits() end, opts)
+vim.keymap.set({ 'n' }, "<leader>ac", function() telescope_builtin.commands() end, opts)
+vim.keymap.set({ 'n' }, "<leader>ah", function() telescope_builtin.command_history() end, opts)
+vim.keymap.set({ 'n' }, "<leader>fh", function() telescope_builtin.search_history() end, opts)
+vim.keymap.set({ 'n' }, "<leader>fb", function() telescope_builtin.git_branches() end, opts)
+vim.keymap.set({ 'n' }, "<leader>gc", function() telescope_builtin.git_commits() end, opts)
+vim.keymap.set({ 'n' }, "<leader>gbc", function() telescope_builtin.git_bcommits() end, opts)
 vim.keymap.set("v", "<leader>gbl", function() telescope_builtin.git_bcommits_range() end, opts)
 
 vim.api.nvim_create_user_command('TelescopeLazy', function()
