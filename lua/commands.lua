@@ -106,7 +106,24 @@ vim.api.nvim_create_user_command('FoldIndent', function()
   vim.cmd("setlocal foldmethod=indent")
 end, {})
 
-vim.api.nvim_create_user_command('LazyGit', function()
-  vim.cmd("term lazygit")
+-- vim.api.nvim_create_user_command('LazyGit', function()
+--   vim.cmd("term lazygit")
+-- end, {})
+-- vim.keymap.set('n', '<M-k>', ':vs | LazyGit<cr>', { silent = true })
+--
+--
+vim.api.nvim_create_user_command("MoveBufToPrevTabSplit", function()
+  local buf = vim.api.nvim_get_current_buf()
+  vim.cmd("tabprevious")
+  vim.cmd("vsplit")
+  vim.cmd("buffer " .. buf)
 end, {})
-vim.keymap.set('n', '<M-k>', ':vs | LazyGit<cr>', { silent = true })
+
+
+vim.api.nvim_create_user_command("LazyGitEdit", function(opts)
+  vim.cmd("close")
+  vim.cmd("edit " .. vim.fn.fnameescape(opts.args))
+end, {
+  nargs = 1,
+  complete = "file",
+})
