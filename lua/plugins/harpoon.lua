@@ -440,7 +440,13 @@ vim.api.nvim_create_autocmd("FileType", {
   group = group,
   pattern = "harpoon",
   callback = function()
+    -- Defer highlighting until buffer is fully populated
     vim.schedule(highlight_file_references)
+    -- Also highlight on text changes
+    -- vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+    --   buffer = 0,
+    --   callback = highlight_file_references
+    -- })
   end
 })
 
