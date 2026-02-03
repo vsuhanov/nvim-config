@@ -4,7 +4,7 @@ local dap_python = require("dap-python")
 
 require("dapui").setup({})
 require("nvim-dap-virtual-text").setup({
-  commented = true,   -- Show virtual text alongside comment
+  commented = true, -- Show virtual text alongside comment
 })
 
 dap_python.setup(os.getenv("DAP_PYTHON_VENV_PATH") or "python3")
@@ -136,3 +136,8 @@ vim.keymap.set("n", "<leader>ex", function()
     dapui.eval(expr)
   end
 end, opts)
+
+
+vim.api.nvim_create_user_command("DebugLua", function()
+  require "osv".launch({ port = 8086 })
+end, { desc = "Debug lua program on port 8086" })

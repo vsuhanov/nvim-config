@@ -192,6 +192,7 @@ require("lazy").setup({
       "rcarriga/nvim-dap-ui",
       "mfussenegger/nvim-dap-python",
       "theHamsta/nvim-dap-virtual-text",
+      "jbyuki/one-small-step-for-vimkind",
     },
     config = function()
       require('plugins.nvim-dap')
@@ -262,5 +263,3 @@ require("lazy").setup({
     }
   }
 })
-
-
