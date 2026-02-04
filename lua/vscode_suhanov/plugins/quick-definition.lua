@@ -1,1 +1,0 @@
-require("quick-definition").setup();

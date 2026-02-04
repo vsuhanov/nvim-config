@@ -1,0 +1,1 @@
+require('region-highlight').setup({})

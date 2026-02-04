@@ -24,8 +24,8 @@ else
   require('autofilereload')
   require('autocmd')
   require('lsp')
-  require('plugins.terminal-improvements')
-  require('plugins.todo-floating-window')
+  require('not-plugins.terminal-improvements')
+  require('not-plugins.todo-floating-window')
   require('claude')
   -- Setup quickfix/loclist magic
   require('quickfix-magic').setup()
