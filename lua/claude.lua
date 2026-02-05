@@ -1,51 +1,47 @@
-local function claude_command()
-  -- Check if a buffer named "Claude" already exists in current tab
-  local claude_buf = nil
-  local claude_win = nil
+local function ai_cli_command()
+  local ai_command = vim.fn.getenv("NVIM_AI_CLI_COMMAND")
+  if ai_command == vim.NIL or ai_command == "" then
+    ai_command = "claude"
+  end
+
+  local buf_name = "AI_CLI"
+  local ai_buf = nil
+  local ai_win = nil
   local current_tab = vim.fn.tabpagenr()
 
-  -- Check all windows in current tab
   for _, win in ipairs(vim.api.nvim_tabpage_list_wins(current_tab)) do
     local buf = vim.api.nvim_win_get_buf(win)
-    local buf_name = vim.fn.bufname(buf)
-    if buf_name == "Claude" then
-      claude_win = win
-      claude_buf = buf
+    if vim.fn.bufname(buf) == buf_name then
+      ai_win = win
+      ai_buf = buf
       break
     end
   end
 
-  if claude_win then
-    -- Buffer is visible in current tab, focus it
-    vim.api.nvim_set_current_win(claude_win)
-    -- Enter terminal mode
+  if ai_win then
+    vim.api.nvim_set_current_win(ai_win)
     vim.api.nvim_feedkeys("A", "n", false)
   else
-    -- Check if Claude buffer exists globally
     local buffers = vim.fn.getbufinfo()
     for _, buf in ipairs(buffers) do
-      if vim.fn.bufname(buf.bufnr) == "Claude" and vim.fn.getbufvar(buf.bufnr, "&buflisted") == 1 then
-        claude_buf = buf.bufnr
+      if vim.fn.bufname(buf.bufnr) == buf_name and vim.fn.getbufvar(buf.bufnr, "&buflisted") == 1 then
+        ai_buf = buf.bufnr
         break
       end
     end
 
-    if claude_buf and vim.fn.bufexists(claude_buf) == 1 then
-      -- Buffer exists but not in current window, open in vertical split
+    if ai_buf and vim.fn.bufexists(ai_buf) == 1 then
       vim.cmd("vs")
-      vim.cmd("buffer " .. claude_buf)
-      -- Enter terminal mode
+      vim.cmd("buffer " .. ai_buf)
       vim.api.nvim_feedkeys("A", "n", false)
     else
-      -- Create new terminal buffer
       vim.cmd("vs")
-      vim.cmd("terminal claude")
-      -- Set the buffer name to "Claude"
-      vim.cmd("file Claude")
+      vim.cmd("terminal " .. ai_command)
+      vim.cmd("file " .. buf_name)
     end
   end
 end
 
-vim.api.nvim_create_user_command('Claude', claude_command, {})
-vim.keymap.set("n", "<leader>ai", function() vim.cmd("Claude") end, {silent = true});
-vim.keymap.set("n", "<leader>3", function() vim.cmd("Claude") end, {silent = true});
+vim.api.nvim_create_user_command('AiCli', ai_cli_command, {})
+vim.keymap.set("n", "<leader>ai", function() vim.cmd("AiCli") end, {silent = true})
+vim.keymap.set("n", "<leader>3", function() vim.cmd("AiCli") end, {silent = true})

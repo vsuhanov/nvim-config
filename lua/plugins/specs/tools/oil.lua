@@ -3,6 +3,7 @@ return {
   keys = {
     { "<leader>rf", ":Oil --float<cr>", desc = "Open oil file browser" },
   },
+  cmd = { "Oil" },
   opts = {
     default_file_explorer = false,
     columns = {

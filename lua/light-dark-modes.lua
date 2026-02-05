@@ -78,7 +78,7 @@ function M.setLightMode()
 
   vim.api.nvim_set_hl(0, 'WinBar', { bg = color.bg, fg = color.fg, bold = true })
   vim.api.nvim_set_hl(0, 'WinBarNC', { bg = '#dedede', fg = "#ffffff" })
-  vim.api.nvim_set_hl(0, 'Comment', { fg = "#222222", bg = "#a6a6a6" })
+  vim.api.nvim_set_hl(0, 'Comment', { fg = "#8c3800" })
   vim.api.nvim_set_hl(0, '@comment', { fg = "#8c3800" })
 
   -- Set iTerm2 tab color to match winbar
