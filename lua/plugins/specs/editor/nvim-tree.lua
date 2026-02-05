@@ -143,7 +143,7 @@ return {
           search_path = vim.fn.fnamemodify(node.absolute_path, ":h")
         end
 
-        require('plugins.telescope-live-multigrep').live_multigrep({
+        require('plugins.config.telescope-live-multigrep').live_multigrep({
           cwd = search_path,
         })
       end, opts("Telescope Find in Directory"))
