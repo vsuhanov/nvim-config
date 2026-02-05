@@ -89,3 +89,5 @@ vim.keymap.set('n', 'C', '"cC', { noremap = true })
 
 vim.keymap.set('n', '<leader>6', '<C-^>', {})
 
+vim.keymap.set({"n"}, "<C-S-c>", ":CopyBufferPath<CR>", {})
+vim.keymap.set({"n"}, "<C-M-c>", ":CopyRelativePath<CR>", {})
