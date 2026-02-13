@@ -27,6 +27,7 @@ else
   require('not-plugins.terminal-improvements')
   require('not-plugins.todo-floating-window')
   require('ai-cli')
+  require('tabline')
   -- Setup quickfix/loclist magic
   require('quickfix-magic').setup()
 
@@ -41,3 +42,5 @@ else
     vim.env.GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
   end
 end
+
+
