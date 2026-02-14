@@ -9,10 +9,11 @@ local function return_to_previous_window()
     vim.api.nvim_set_current_win(previous_window)
   end
 end
-
-local function memorize_and_toggle()
-  memorize_current_window()
-  vim.cmd("Neotree toggle")
+local function return_to_previous_window_and_close()
+  if previous_window and vim.api.nvim_win_is_valid(previous_window) then
+    vim.api.nvim_set_current_win(previous_window)
+  end
+    vim.cmd("Neotree close")
 end
 
 local function go_to_previous_window()
@@ -44,8 +45,11 @@ return {
     keys = {
       {
         "-",
-        ":Neotree reveal<CR>",
-        desc = "Toggle neo-tree"
+        function()
+          memorize_current_window()
+          vim.cmd("Neotree reveal")
+        end,
+        desc = "open neo-tree"
       },
     },
     opts = {
@@ -76,8 +80,9 @@ return {
         position = "right",
         width = 60,
         mappings = {
-          ["-"] = go_to_previous_window,
-          ["<esc>"] = go_to_previous_window,
+          ["-"] = return_to_previous_window,
+          ["_"] = return_to_previous_window_and_close,
+          ["<esc>"] = return_to_previous_window,
           ["i"] = open_in_intellij,
           ["s"] = reveal_in_finder,
           ["<bs>"] = "noop",
