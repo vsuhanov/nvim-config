@@ -31,13 +31,4 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   end,
 })
 
--- Source - https://stackoverflow.com/a
--- Posted by Razzi Abuissa
--- Retrieved 2025-11-11, License - CC BY-SA 4.0
-
-vim.api.nvim_create_autocmd("TermClose", {
-    callback = function()
-       vim.cmd("close")
-    end
-})
 

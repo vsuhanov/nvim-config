@@ -13,7 +13,7 @@ local function return_to_previous_window_and_close()
   if previous_window and vim.api.nvim_win_is_valid(previous_window) then
     vim.api.nvim_set_current_win(previous_window)
   end
-    vim.cmd("Neotree close")
+  vim.cmd("Neotree close")
 end
 
 local function go_to_previous_window()
@@ -51,8 +51,20 @@ return {
         end,
         desc = "open neo-tree"
       },
+      {
+        "_",
+        function()
+          vim.cmd("Neotree close")
+        end,
+        desc = "close neo-tree"
+      },
     },
     opts = {
+      commands = {
+        get_path = function(state)
+          print(state.tree:get_node().path)
+        end
+      },
       sources = {
         "filesystem",
         "buffers",
@@ -64,6 +76,7 @@ return {
       filesystem = {
         side = "right",
         width = 60,
+        bind_to_cwd = false,
         follow_current_file = {
           enabled = false,
         },

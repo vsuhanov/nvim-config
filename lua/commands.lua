@@ -54,7 +54,15 @@ vim.api.nvim_create_user_command('ReloadConfig',
 vim.api.nvim_create_user_command(
   'CopyBufferPath',
   function(opts)
-    local path = vim.fn.expand('%:p')
+    local path
+    if vim.api.nvim_get_option_value('filetype', {}) == 'neo-tree' then
+      local manager = require("neo-tree.sources.manager")
+      local state = manager.get_state_for_window()
+      local node = state.tree:get_node()
+      path = node.path
+    else
+      path = vim.fn.expand('%:p')
+    end
     if opts.args == 'withLineNumber' then
       local line_number = vim.fn.line('.')
       path = path .. ':' .. line_number
@@ -68,9 +76,16 @@ vim.api.nvim_create_user_command(
 vim.api.nvim_create_user_command(
   'CopyRelativePath',
   function(opts)
-    local abs_path = vim.fn.expand('%:p')
-    local cwd = vim.fn.getcwd()
-    local path = vim.fn.fnamemodify(abs_path, ':~:.')
+    local path
+    if vim.api.nvim_get_option_value('filetype', {}) == 'neo-tree' then
+      local manager = require("neo-tree.sources.manager")
+      local state = manager.get_state_for_window()
+      local node = state.tree:get_node()
+      path = vim.fn.fnamemodify(node.path, ':~:.')
+    else
+      local abs_path = vim.fn.expand('%:p')
+      path = vim.fn.fnamemodify(abs_path, ':~:.')
+    end
 
     if opts.args == 'withLineNumber' then
       local line_number = vim.fn.line('.')
