@@ -27,21 +27,47 @@ vim.api.nvim_create_user_command('TelescopeLazy', function()
 end, { desc = "search through installed plugins" }
 )
 
+local function open_in_picked_window(prompt_bufnr)
+  local actions = require("telescope.actions")
+  local action_state = require("telescope.actions.state")
+  local window_picker = require("window-picker")
+  local entry = action_state.get_selected_entry()
+  actions.close(prompt_bufnr)
+
+  local winid = window_picker.pick_window()
+  if not winid then
+    return
+  end
+
+  vim.api.nvim_set_current_win(winid)
+
+  vim.cmd("edit " .. vim.fn.fnameescape(entry.path or entry.filename or entry.value))
+end
 return {
   "nvim-telescope/telescope.nvim",
   tag = "0.1.4",
   dependencies = { "nvim-lua/plenary.nvim" },
   keys = {
-    { "<leader>wo", function() require('telescope.builtin').find_files() end, desc = "Find files", mode = "n" },
+    { "<leader>wo", function() require('telescope.builtin').find_files() end,                                                    desc = "Find files", mode = "n" },
     { "<leader>wo", function() telescope_with_selection(function(opts) require('telescope.builtin').find_files(opts) end)() end, desc = "Find files", mode = "v" },
-    { "<leader>ff", function() require('plugins.config.telescope-live-multigrep').live_multigrep() end, desc = "Live grep", mode = { "n", "t" } },
-    { "<leader>ff", function() telescope_with_selection(function(opts) require('plugins.config.telescope-live-multigrep').live_multigrep(opts) end)() end, desc = "Live grep", mode = "v" },
-    { "<leader>wb", function() require('telescope.builtin').buffers() end,                              desc = "Buffers" },
-    { "<leader>wr", function() require('telescope.builtin').resume() end,                               desc = "Resume" },
-    { "<leader>w]", function() require('telescope.builtin').jumplist() end,                             desc = "Jumplist" },
-    { "<leader>hh", function() require('telescope.builtin').treesitter() end, desc = "Treesitter", mode = "n" },
-    { "<leader>hh", function() telescope_with_selection(function(opts) require('telescope.builtin').treesitter(opts) end)() end, desc = "Treesitter", mode = "v" },
-    { "<leader>b",  function() require('telescope.builtin').lsp_definitions() end,                      desc = "LSP definitions" },
+    { "<leader>ff", function() require('plugins.config.telescope-live-multigrep').live_multigrep() end,                          desc = "Live grep",  mode = { "n", "t" } },
+    {
+      "<leader>ff",
+      function()
+        telescope_with_selection(function(opts)
+          require('plugins.config.telescope-live-multigrep')
+              .live_multigrep(opts)
+        end)()
+      end,
+      desc = "Live grep",
+      mode = "v"
+    },
+    { "<leader>wb", function() require('telescope.builtin').buffers() end,                                                       desc = "Buffers" },
+    { "<leader>wr", function() require('telescope.builtin').resume() end,                                                        desc = "Resume" },
+    { "<leader>w]", function() require('telescope.builtin').jumplist() end,                                                      desc = "Jumplist" },
+    { "<leader>hh", function() require('telescope.builtin').treesitter() end,                                                    desc = "Treesitter",     mode = "n" },
+    { "<leader>hh", function() telescope_with_selection(function(opts) require('telescope.builtin').treesitter(opts) end)() end, desc = "Treesitter",     mode = "v" },
+    { "<leader>b",  function() require('telescope.builtin').lsp_definitions() end,                                               desc = "LSP definitions" },
     {
       "<leader>B",
       function()
@@ -56,8 +82,18 @@ return {
     { "<leader>fb",  function() require('telescope.builtin').git_branches() end,       desc = "Git branches" },
     { "<leader>gc",  function() require('telescope.builtin').git_commits() end,        desc = "Git commits" },
     { "<leader>gbc", function() require('telescope.builtin').git_bcommits() end,       desc = "Buffer commits" },
-    { "<leader>gbl", function() require('telescope.builtin').git_bcommits_range() end, desc = "Commits range", mode = "n" },
-    { "<leader>gbl", function() telescope_with_selection(function(opts) require('telescope.builtin').git_bcommits_range(opts) end)() end, desc = "Commits range", mode = "v" },
+    { "<leader>gbl", function() require('telescope.builtin').git_bcommits_range() end, desc = "Commits range",  mode = "n" },
+    {
+      "<leader>gbl",
+      function()
+        telescope_with_selection(function(opts)
+          require('telescope.builtin').git_bcommits_range(
+            opts)
+        end)()
+      end,
+      desc = "Commits range",
+      mode = "v"
+    },
   },
   cmd = { "Telescope", "TelescopeLazy" },
   opts = {
@@ -78,14 +114,16 @@ return {
           ["<M-q>"] = require('telescope.actions').send_selected_to_loclist + require('telescope.actions').open_loclist,
           ["<C-Q>"] = require('telescope.actions').send_to_qflist + require('telescope.actions').open_qflist,
           ["<M-Q>"] = require('telescope.actions').send_selected_to_qflist + require('telescope.actions').open_qflist,
+          ["<C-w>"] = open_in_picked_window,
         },
         n = {
+          ["<C-w>"] = open_in_picked_window,
           ["<C-q>"] = require('telescope.actions').send_to_loclist + require('telescope.actions').open_loclist,
           ["<M-q>"] = require('telescope.actions').send_selected_to_loclist + require('telescope.actions').open_loclist,
           ["<C-Q>"] = require('telescope.actions').send_to_qflist + require('telescope.actions').open_qflist,
           ["<M-Q>"] = require('telescope.actions').send_selected_to_qflist + require('telescope.actions').open_qflist,
         },
-      }
+      },
     },
     pickers = {
       lsp_references      = picker_config,

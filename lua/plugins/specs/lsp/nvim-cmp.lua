@@ -39,8 +39,10 @@ return {
         ['<C-e>'] = require('cmp').mapping.abort(),
         ['<C-n>'] = require('cmp').mapping.select_next_item(),
         ['<C-p>'] = require('cmp').mapping.select_prev_item(),
-        ['<CR>'] = require('cmp').mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        ['<TAB>'] = require('cmp').mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ['<CR>'] = require('cmp').mapping.confirm({ select = true, behavior = require('cmp.types').cmp.ConfirmBehavior
+        .Insert }),                                                                                                                 -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ['<TAB>'] = require('cmp').mapping.confirm({ select = true, behavior = require('cmp.types').cmp.ConfirmBehavior
+        .Replace }),                                                                                                                -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
       }),
       sorting = {
         comparators = {
@@ -70,7 +72,7 @@ return {
                 if vim.api.nvim_buf_is_valid(bufnr)
                     and vim.api.nvim_buf_is_loaded(bufnr)
                     and bufname ~= ""
-                    and bufname:match("%.%w+$") -- has file extension
+                    and bufname:match("%.%w+$")  -- has file extension
                     and not bufname:match("://") -- not special buffer
                 then
                   table.insert(bufs, bufnr)

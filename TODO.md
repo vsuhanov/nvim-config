@@ -1,0 +1,2 @@
+- [✓] ~~integrate telescope with nvim so that there is a hotkey I can hit which will call window picker and allow me to select in which window I want the buffer to open~~
+- [✓] ~~how do cmp completions work?~~ 
