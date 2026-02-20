@@ -1,5 +1,6 @@
 return {
-  "vsuhanov/harpoon",
+  -- "vsuhanov/harpoon",
+  "ThePrimeagen/harpoon",
   branch = "harpoon2",
   keys = {
     { "<leader>aa", function()

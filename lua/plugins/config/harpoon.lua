@@ -142,13 +142,14 @@ local create_base_lists_config = function(harpoon_instance)
 end
 
 
-local harpoon = require("harpoon"):new({
-  settings = {
-    key = function()
-      return "root"
-    end,
-  },
-})
+local harpoon = require("harpoon")
+-- local harpoon = require("harpoon"):new({
+--   settings = {
+--     key = function()
+--       return "root"
+--     end,
+--   },
+-- })
 harpoon:setup(create_base_lists_config(harpoon))
 
 local harpoon_data_file = vim.fn.stdpath("data") .. "/harpoon_lists.json"

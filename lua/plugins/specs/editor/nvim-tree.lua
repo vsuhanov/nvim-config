@@ -1,4 +1,5 @@
 local previous_window = nil
+local window_tracking = require('window-tracking')
 
 local function memorize_current_window()
   previous_window = vim.api.nvim_get_current_win()
@@ -32,10 +33,44 @@ local function memorize_and_open()
   vim.cmd("NvimTreeFindFile")
 end
 
+local function open_in_previous_window()
+  local api = require('nvim-tree.api')
+  local node = api.tree.get_node_under_cursor()
+  if not node or node.nodes then return end
+
+  local stored_win = window_tracking.get_last_file_window()
+
+  if stored_win and vim.api.nvim_win_is_valid(stored_win) then
+    vim.api.nvim_set_current_win(stored_win)
+    vim.cmd('edit ' .. vim.fn.fnameescape(node.absolute_path))
+  else
+    api.node.open.edit()
+  end
+end
+
+local function open_with_window_picker()
+  local api = require('nvim-tree.api')
+  local node = api.tree.get_node_under_cursor()
+  if not node or node.nodes then return end
+
+  local picker_ok, picker = pcall(require, 'window-picker')
+  if not picker_ok then
+    vim.notify("window-picker not available", vim.log.levels.ERROR)
+    return
+  end
+
+  local picked_window = picker.pick_window()
+
+  if picked_window then
+    vim.api.nvim_set_current_win(picked_window)
+    vim.cmd('edit ' .. vim.fn.fnameescape(node.absolute_path))
+  end
+end
+
 return {
   "nvim-tree/nvim-tree.lua",
   dependencies = { "nvim-tree/nvim-web-devicons" },
-  enabled = false,
+  enabled = true,
   keys = {
     {
       "-",
@@ -48,7 +83,7 @@ return {
   },
   opts = {
     view = {
-      side = "left",
+      side = "right",
       width = 60
     },
     actions = {
@@ -88,7 +123,8 @@ return {
       vim.keymap.set("n", "<C-v>", require('nvim-tree.api').node.open.vertical, opts("Open: Vertical Split"))
       vim.keymap.set("n", "<C-x>", require('nvim-tree.api').node.open.horizontal, opts("Open: Horizontal Split"))
       vim.keymap.set("n", "<BS>", require('nvim-tree.api').node.navigate.parent_close, opts("Close Directory"))
-      vim.keymap.set("n", "<CR>", require('nvim-tree.api').node.open.edit, opts("Open"))
+      vim.keymap.set("n", "<CR>", open_in_previous_window, opts("Open in previous window"))
+      vim.keymap.set("n", "<C-w>j", open_with_window_picker, opts("Open in window (picker)"))
       vim.keymap.set("n", "<Tab>", require('nvim-tree.api').node.open.preview, opts("Open Preview"))
       vim.keymap.set("n", ">", require('nvim-tree.api').node.navigate.sibling.next, opts("Next Sibling"))
       vim.keymap.set("n", "<", require('nvim-tree.api').node.navigate.sibling.prev, opts("Previous Sibling"))
@@ -113,6 +149,8 @@ return {
       vim.keymap.set("n", "f", require('nvim-tree.api').live_filter.start, opts("Live Filter: Start"))
       vim.keymap.set("n", "g?", require('nvim-tree.api').tree.toggle_help, opts("Help"))
       vim.keymap.set("n", "gy", require('nvim-tree.api').fs.copy.absolute_path, opts("Copy Absolute Path"))
+      vim.keymap.set("n", "<C-S-c>", require('nvim-tree.api').fs.copy.absolute_path, opts("Copy Absolute Path"))
+      vim.keymap.set("n", "<C-M-c>", require('nvim-tree.api').fs.copy.relative_path, opts("Copy Absolute Path"))
       vim.keymap.set("n", "ge", require('nvim-tree.api').fs.copy.basename, opts("Copy Basename"))
       vim.keymap.set("n", "H", require('nvim-tree.api').tree.toggle_hidden_filter, opts("Toggle Filter: Dotfiles"))
       vim.keymap.set("n", "I", require('nvim-tree.api').tree.toggle_gitignore_filter, opts("Toggle Filter: Git Ignore"))

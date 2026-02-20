@@ -15,6 +15,7 @@ if vim.g.vscode then
 else
   require('initvim')
   require('set')
+  require('window-tracking').setup()
   require('plugins')
   require('remap')
   require('commands')
