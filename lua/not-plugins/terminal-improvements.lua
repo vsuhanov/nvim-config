@@ -1,3 +1,21 @@
+local read_mode_terminals = {}
+
+local function set_terminal_read_mode(bufnr)
+  read_mode_terminals[bufnr] = true
+end
+
+local function unset_terminal_read_mode(bufnr)
+  read_mode_terminals[bufnr] = nil
+end
+
+local function toggle_terminal_read_mode(bufnr)
+  if read_mode_terminals[bufnr] then
+    unset_terminal_read_mode(bufnr)
+  else
+    set_terminal_read_mode(bufnr)
+  end
+end
+
 local function configure_terminal_buffer()
   vim.keymap.set('t', '<C-w>', '<C-\\><C-n><C-w>', { buffer = true })
   vim.keymap.set('t', '<C-o>', '<C-\\><C-n><C-o>', { buffer = true })
@@ -25,8 +43,19 @@ vim.api.nvim_create_autocmd('VimEnter', {
 
 vim.api.nvim_create_autocmd('BufEnter', {
   pattern = 'term://*',
-  command = 'startinsert'
+  callback = function(args)
+    if not read_mode_terminals[args.buf] then
+      vim.cmd('startinsert')
+    end
+  end
 })
+
+vim.api.nvim_create_user_command('TerminalReadMode', function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  toggle_terminal_read_mode(bufnr)
+  local status = read_mode_terminals[bufnr] and 'enabled' or 'disabled'
+  vim.notify('Terminal read-mode ' .. status, vim.log.levels.INFO)
+end, {})
 
 -- vim.api.nvim_create_autocmd("TermClose", {
 --   callback = function()

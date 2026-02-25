@@ -1,6 +1,16 @@
 local dap = require("dap")
 local dapui = require("dapui")
 local dap_python = require("dap-python")
+require('dap-go').setup({
+  dap_configurations = {
+    {
+      type = "go",
+      name = "Attach remote",
+      mode = "remote",
+      request = "attach",
+    },
+  },
+})
 
 require("dapui").setup({})
 require("nvim-dap-virtual-text").setup({
@@ -15,6 +25,23 @@ dap.configurations.lua = {
     request = 'attach',
     name = "Attach to running Neovim instance",
   }
+}
+
+dap.adapters.go = {
+  type = "server",
+  host = "127.0.0.1",
+  port = 38697,
+}
+
+dap.configurations.go = {
+  {
+    type = "go",
+    name = "Attach to running TUI (dlv dap)",
+    request = "attach",
+    mode = "remote",
+    host = "127.0.0.1",
+    port = 38697,
+  },
 }
 
 dap.adapters.nlua = function(callback, config)

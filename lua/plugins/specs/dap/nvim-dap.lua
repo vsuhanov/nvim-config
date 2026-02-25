@@ -4,6 +4,7 @@ return {
     "nvim-neotest/nvim-nio",
     "rcarriga/nvim-dap-ui",
     "mfussenegger/nvim-dap-python",
+    "leoluz/nvim-dap-go",
     "theHamsta/nvim-dap-virtual-text",
     "jbyuki/one-small-step-for-vimkind",
     "vsuhanov/persistent-breakpoints.nvim",
