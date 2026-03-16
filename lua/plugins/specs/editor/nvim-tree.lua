@@ -36,7 +36,12 @@ end
 local function open_in_previous_window()
   local api = require('nvim-tree.api')
   local node = api.tree.get_node_under_cursor()
-  if not node or node.nodes then return end
+  if not node then return end
+
+  if node.nodes then
+    api.node.open.edit()
+    return
+  end
 
   local stored_win = window_tracking.get_last_file_window()
 

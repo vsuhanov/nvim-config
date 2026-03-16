@@ -7,14 +7,17 @@ local function ai_cli_command()
   local buf_name = "AI_CLI"
   local ai_buf = nil
   local ai_win = nil
-  local current_tab = vim.fn.tabpagenr()
+  local current_tab = vim.api.nvim_get_current_tabpage()
 
-  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(current_tab)) do
-    local buf = vim.api.nvim_win_get_buf(win)
-    if vim.fn.bufname(buf) == buf_name then
-      ai_win = win
-      ai_buf = buf
-      break
+  local ok, wins = pcall(vim.api.nvim_tabpage_list_wins, current_tab)
+  if ok then
+    for _, win in ipairs(wins) do
+      local buf = vim.api.nvim_win_get_buf(win)
+      if vim.fn.bufname(buf) == buf_name then
+        ai_win = win
+        ai_buf = buf
+        break
+      end
     end
   end
 
