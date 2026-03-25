@@ -51,6 +51,14 @@ vim.api.nvim_create_user_command('ReloadConfig',
 -- test push
 
 
+local function pick_window_buf_path()
+  local ok, picker = pcall(require, 'window-picker')
+  if not ok then return nil end
+  local winid = picker.pick_window()
+  if not winid then return nil end
+  return vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(winid))
+end
+
 vim.api.nvim_create_user_command(
   'CopyBufferPath',
   function(opts)
@@ -60,6 +68,9 @@ vim.api.nvim_create_user_command(
       local state = manager.get_state_for_window()
       local node = state.tree:get_node()
       path = node.path
+    elseif vim.bo.buftype == 'terminal' then
+      path = pick_window_buf_path()
+      if not path then return end
     else
       path = vim.fn.expand('%:p')
     end
@@ -82,6 +93,10 @@ vim.api.nvim_create_user_command(
       local state = manager.get_state_for_window()
       local node = state.tree:get_node()
       path = vim.fn.fnamemodify(node.path, ':~:.')
+    elseif vim.bo.buftype == 'terminal' then
+      local abs_path = pick_window_buf_path()
+      if not abs_path then return end
+      path = vim.fn.fnamemodify(abs_path, ':~:.')
     else
       local abs_path = vim.fn.expand('%:p')
       path = vim.fn.fnamemodify(abs_path, ':~:.')

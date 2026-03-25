@@ -89,8 +89,21 @@ vim.keymap.set('n', 'C', '"cC', { noremap = true })
 
 vim.keymap.set('n', '<leader>6', '<C-^>', {})
 
-vim.keymap.set({ "n" }, "<C-S-c>", ":CopyBufferPath<CR>", {})
-vim.keymap.set({ "n" }, "<C-M-c>", ":CopyRelativePath<CR>", {})
+local function run_cmd_from_any_mode(cmd)
+  local mode = vim.api.nvim_get_mode().mode
+  if mode == "t" then
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, false, true), "n", false)
+    vim.schedule(function()
+      vim.cmd(cmd)
+      vim.cmd("startinsert")
+    end)
+  else
+    vim.cmd(cmd)
+  end
+end
+
+vim.keymap.set({ "n", "v", "t" }, "<C-S-c>", function() run_cmd_from_any_mode("CopyBufferPath") end, {})
+vim.keymap.set({ "n", "v", "t" }, "<C-M-c>", function() run_cmd_from_any_mode("CopyRelativePath") end, {})
 vim.keymap.set({ "n" }, "<BS>", "<C-w>p", {})
 vim.keymap.set({ "n" }, "<C-S-o>", ":bp<cr>", { silent = true })
 vim.keymap.set({ "n" }, "<C-S-i>", ":bn<cr>", { silent = true })
