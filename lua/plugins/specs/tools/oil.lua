@@ -1,7 +1,7 @@
 return {
   "stevearc/oil.nvim",
   keys = {
-    { "<leader>rf", ":Oil --float<cr>", desc = "Open oil file browser" },
+    { "<leader>rf", ":Oil<cr>", desc = "Open oil file browser" },
   },
   cmd = { "Oil" },
   opts = {

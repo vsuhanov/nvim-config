@@ -21,6 +21,14 @@ require("lazy").setup({
     { import = "plugins.specs.dap" },
     { import = "plugins.specs.database" },
     { import = "plugins.specs.misc" },
+    -- { 'kkharji/sqlite.lua' },
+    {
+      "vsuhanov/github-commenter.nvim",
+      dependencies = { 'kkharji/sqlite.lua' },
+      config = function()
+        require('github_commenter').setup()
+      end,
+    },
   },
   defaults = {
     lazy = false,

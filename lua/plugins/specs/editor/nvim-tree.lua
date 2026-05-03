@@ -96,6 +96,11 @@ return {
         quit_on_open = false,
       }
     },
+    filters = {
+      dotfiles = false,
+      custom = {},
+      exclude = { ".env", ".env.local", ".env.example" },
+    },
     update_focused_file = {
       enable = false,
       update_root = {
