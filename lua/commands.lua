@@ -157,3 +157,8 @@ end, {
   nargs = 1,
   complete = "file",
 })
+vim.api.nvim_create_user_command("SetTerminalTitle", function(opts)
+require('suhanov-project-api').set_terminal_title("#000 🪩 this is test")
+end, {})
+
+
