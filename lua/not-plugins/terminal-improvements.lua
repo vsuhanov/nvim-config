@@ -47,6 +47,13 @@ vim.api.nvim_create_autocmd('BufEnter', {
     if not read_mode_terminals[args.buf] then
       vim.cmd('startinsert')
     end
+    local name = vim.api.nvim_buf_get_name(args.buf)
+    if name:find('claude', 1, true) or name:find('AI_CLI', 1, true) then
+      local win = vim.api.nvim_get_current_win()
+      local w = vim.api.nvim_win_get_width(win)
+      vim.api.nvim_win_set_width(win, w + 1)
+      vim.api.nvim_win_set_width(win, w)
+    end
   end
 })
 
