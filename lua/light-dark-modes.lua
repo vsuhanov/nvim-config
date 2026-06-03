@@ -13,6 +13,10 @@ M.colors = {
   { bg = '#FFC107', fg = '#1A1A1A' }, -- Vibrant Amber
 }
 
+local function set_winbar()
+  vim.opt.winbar = "%=%{&buftype==#'terminal'?'term: '.get(b:,'term_title',''):expand('%:f')} "
+end
+
 -- Simple hash function for strings
 local function hash_string(str)
   local hash = 0
@@ -65,7 +69,7 @@ function M.setDarkMode()
   M.set_iterm_tab_color(color.bg)
 
   -- vim.api.nvim_set_hl(0, "Cursor", { fg = "#000000", bg = "#ff0000" }) -- Red cursor, black text
-  vim.opt.winbar = "%=%f "
+  set_winbar()
   require('region-highlight').setDarkMode()
 end
 
@@ -85,7 +89,7 @@ function M.setLightMode()
   M.set_iterm_tab_color(color.bg)
 
   -- vim.api.nvim_set_hl(0, "Cursor", { fg = "#000000", bg = "#111111" }) -- Red cursor, black text
-  vim.opt.winbar = "%=%f "
+  set_winbar()
   require('region-highlight').setLightMode()
 end
 
