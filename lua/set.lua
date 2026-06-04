@@ -55,5 +55,3 @@ vim.opt.guicursor = {
 vim.o.exrc = true
 vim.o.secure = false  -- Prevents unsafe commands in local config files
 
-local api = require('suhanov-project-api')
-api.set_default_terminal_title()

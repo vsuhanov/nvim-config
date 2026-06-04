@@ -27,6 +27,7 @@ else
   require('lsp')
   require('not-plugins.terminal-improvements')
   require('not-plugins.todo-floating-window')
+  require('not-plugins.project-config')
   require('ai-cli')
   require('tabline')
   -- Setup quickfix/loclist magic
