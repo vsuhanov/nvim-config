@@ -17,6 +17,7 @@ local function toggle_terminal_read_mode(bufnr)
 end
 
 local function configure_terminal_buffer()
+  vim.keymap.set('v', 'a', '<Esc>a', { buffer = true })
   vim.keymap.set('t', '<C-w>', '<C-\\><C-n><C-w>', { buffer = true })
   vim.keymap.set('t', '<C-o>', '<C-\\><C-n><C-o>', { buffer = true })
   -- FIX: this hotkey breaks interaction in terminal because TAB == C-i wtf...

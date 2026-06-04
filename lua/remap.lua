@@ -115,3 +115,6 @@ vim.keymap.set({ "n" }, "<leader>wj", function()
   local window = require('window-picker').pick_window()
   print(window)
 end, {})
+
+keymap("n", "q", "<nop>", opts)
+keymap("n", "Q", "q", opts)
