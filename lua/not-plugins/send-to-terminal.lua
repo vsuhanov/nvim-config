@@ -180,6 +180,6 @@ local function send_to_terminal_capture()
   send_to_win(target_win, text .. ' > ' .. filepath .. ' 2>&1')
 end
 
-vim.keymap.set({ 'n', 'v' }, '<leader>ts', function() send_to_terminal(false) end, { desc = 'Send to terminal' })
-vim.keymap.set({ 'n', 'v' }, '<leader>tS', function() send_to_terminal(true) end, { desc = 'Send to terminal and focus' })
-vim.keymap.set({ 'n', 'v' }, '<leader>tC', send_to_terminal_capture, { desc = 'Send to terminal with output capture' })
+vim.keymap.set({ 'n', 'v' }, '<leader>tS', function() send_to_terminal(false) end, { desc = 'Send to terminal' })
+vim.keymap.set({ 'n', 'v' }, '<leader>ts', function() send_to_terminal(true) end, { desc = 'Send to terminal and focus' })
+vim.keymap.set({ 'n', 'v' }, '<leader>tf', send_to_terminal_capture, { desc = 'Send to terminal with output capture' })
