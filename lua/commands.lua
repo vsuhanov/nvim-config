@@ -151,12 +151,16 @@ end, {})
 
 
 vim.api.nvim_create_user_command("E", function(opts)
-  if vim.fn.isdirectory(opts.args) == 1 then
+  if opts.args == "" then
+    vim.cmd("edit")
+  elseif vim.fn.isdirectory(opts.args) == 1 then
     require("oil").open(opts.args)
   else
     vim.cmd("edit " .. vim.fn.fnameescape(opts.args))
   end
-end, { nargs = 1, complete = "file" })
+end, { nargs = "?", complete = "file" })
+
+vim.cmd([[cnoreabbrev <expr> e (getcmdtype() ==# ':' && getcmdpos() == 2) ? 'E' : 'e']])
 
 vim.api.nvim_create_user_command("LazyGitEdit", function(opts)
   vim.cmd("close")

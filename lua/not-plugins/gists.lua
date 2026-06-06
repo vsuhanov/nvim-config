@@ -13,20 +13,10 @@ local function save_config()
   vim.fn.writefile({ vim.fn.json_encode(config) }, config_path)
 end
 
-local function get_token()
-  if not config.selected_account then return nil end
-  local token = vim.trim(vim.fn.system("gh auth token -u " .. vim.fn.shellescape(config.selected_account)))
-  return token ~= "" and token or nil
-end
 
 local function gh_api(method, path, body)
-  local token = get_token()
-  if not token then
-    vim.notify("No GH account selected. Run :GistAccount", vim.log.levels.ERROR)
-    return nil
-  end
   local tmp
-  local cmd = string.format("GH_TOKEN=%s gh api --method %s %s", token, method, path)
+  local cmd = string.format("env -u GITHUB_TOKEN gh api --method %s %s 2>/dev/null", method, path)
   if body then
     tmp = os.tmpname()
     vim.fn.writefile({ vim.fn.json_encode(body) }, tmp)
@@ -83,7 +73,7 @@ vim.api.nvim_create_autocmd("BufWriteCmd", {
 vim.api.nvim_create_user_command("GistAccount", function()
   local output = vim.fn.system("gh auth status 2>&1")
   local accounts = {}
-  for name in output:gmatch("account (%S+)") do
+  for name in output:gmatch("as (%S+)") do
     table.insert(accounts, name)
   end
   if #accounts == 0 then
@@ -132,7 +122,8 @@ vim.api.nvim_create_user_command("CreateGist", function(opts)
       files = { [filename] = { content = content } },
     })
     if not result or not result.id then
-      vim.notify("Failed to create gist", vim.log.levels.ERROR)
+      local msg = (result and result.message) and result.message or "check token has gist scope: gh auth refresh -s gist"
+      vim.notify("Failed to create gist: " .. msg, vim.log.levels.ERROR)
       return
     end
     open_gist_buffer(result.id, filename, content)
@@ -158,11 +149,12 @@ local function gists_picker(opts)
 
   pickers.new(opts, {
     prompt_title = "Gists",
+    sorting_strategy = "ascending",
     finder = finders.new_table({
       results = gists,
       entry_maker = function(gist)
         local filename = next(gist.files)
-        local desc = (gist.description and gist.description ~= "") and gist.description or filename
+        local desc = (type(gist.description) == "string" and gist.description ~= "") and gist.description or filename
         local display = desc .. "  " .. gist.updated_at:sub(1, 10)
         return {
           value = gist,
@@ -175,14 +167,41 @@ local function gists_picker(opts)
     previewer = previewers.new_buffer_previewer({
       title = "Gist Content",
       define_preview = function(self, entry)
-        local gist = gh_api("GET", "/gists/" .. entry.value.id)
-        if not gist then return end
-        local filename = next(gist.files)
-        local file = gist.files[filename]
-        local preview_lines = vim.split(file.content or "", "\n", { plain = true })
-        vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, preview_lines)
-        local ft = get_filetype(filename)
-        if ft ~= "" then vim.bo[self.state.bufnr].filetype = ft end
+        local bufnr = self.state.bufnr
+        local token = (self.state.preview_token or 0) + 1
+        self.state.preview_token = token
+        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "Loading..." })
+        local stdout = vim.uv.new_pipe()
+        local chunks = {}
+        vim.uv.spawn("env", {
+          args = { "-u", "GITHUB_TOKEN", "gh", "api", "--method", "GET", "/gists/" .. entry.value.id },
+          stdio = { nil, stdout, nil },
+        }, function()
+          stdout:close()
+        end)
+        vim.uv.read_start(stdout, function(err, chunk)
+          if chunk then
+            table.insert(chunks, chunk)
+          else
+            local raw = table.concat(chunks)
+            vim.schedule(function()
+              if not vim.api.nvim_buf_is_valid(bufnr) then return end
+              if self.state.preview_token ~= token then return end
+              local ok, gist = pcall(vim.fn.json_decode, raw)
+              if not ok or not gist then
+                vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "Failed to load" })
+                return
+              end
+              local filename = next(gist.files)
+              local file = gist.files[filename]
+              local lines = vim.split(type(file.content) == "string" and file.content or "", "\n", { plain = true })
+              if #lines == 0 then lines = { "" } end
+              vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
+              local ft = get_filetype(filename)
+              if ft ~= "" then vim.bo[bufnr].filetype = ft end
+            end)
+          end
+        end)
       end,
     }),
     attach_mappings = function(prompt_bufnr)
