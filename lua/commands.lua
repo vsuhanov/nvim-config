@@ -150,6 +150,14 @@ vim.api.nvim_create_user_command("MoveBufToPrevTabSplit", function()
 end, {})
 
 
+vim.api.nvim_create_user_command("E", function(opts)
+  if vim.fn.isdirectory(opts.args) == 1 then
+    require("oil").open(opts.args)
+  else
+    vim.cmd("edit " .. vim.fn.fnameescape(opts.args))
+  end
+end, { nargs = 1, complete = "file" })
+
 vim.api.nvim_create_user_command("LazyGitEdit", function(opts)
   vim.cmd("close")
   vim.cmd("edit " .. vim.fn.fnameescape(opts.args))

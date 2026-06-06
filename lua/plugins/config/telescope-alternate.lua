@@ -6,6 +6,16 @@ vim.g.telescope_alternate = {
       { '[1]', 'Same Dir' },
     },
     },
+    { '(.*/src/main/java/)(.*/)(.*)%.java', {
+      { '[1]src/test/java/[2][3]Test.java', 'Test' },
+      { '[1]src/integration-test/java/[2][3]IntegrationTest.java', 'Integration Test' },
+    } },
+    { '(.*/src/test/java/)(.*/)(.*)Test%.java', {
+      { '[1]src/main/java/[2][3].java', 'Main' },
+    } },
+    { '(.*/src/integration%-test/java/)(.*/)(.*)IntegrationTest%.java', {
+      { '[1]src/main/java/[2][3].java', 'Main' },
+    } },
     { '(.*)/(.*?).ts', {
       -- { 'src/[1]/[2].service.ts',    'Service' },
       -- { 'src/[1]/[2].guard.ts',      'Guard' },
