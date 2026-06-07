@@ -1,19 +1,3 @@
-local config_path = vim.fn.stdpath("data") .. "/gists-config.json"
-local config = {}
-
-do
-  local ok, content = pcall(vim.fn.readfile, config_path)
-  if ok and #content > 0 then
-    local dok, data = pcall(vim.fn.json_decode, table.concat(content, "\n"))
-    if dok and type(data) == "table" then config = data end
-  end
-end
-
-local function save_config()
-  vim.fn.writefile({ vim.fn.json_encode(config) }, config_path)
-end
-
-
 local function gh_api(method, path, body)
   local tmp
   local cmd = string.format("env -u GITHUB_TOKEN gh api --method %s %s 2>/dev/null", method, path)
@@ -71,9 +55,9 @@ vim.api.nvim_create_autocmd("BufWriteCmd", {
 })
 
 vim.api.nvim_create_user_command("GistAccount", function()
-  local output = vim.fn.system("gh auth status 2>&1")
+  local output = vim.fn.system("unset GITHUB_TOKEN && gh auth status 2>&1")
   local accounts = {}
-  for name in output:gmatch("as (%S+)") do
+  for name in output:gmatch("account (%S+)") do
     table.insert(accounts, name)
   end
   if #accounts == 0 then
@@ -96,9 +80,8 @@ vim.api.nvim_create_user_command("GistAccount", function()
   }, {
     lines = lines,
     on_submit = function(item)
-      config.selected_account = item.account
-      save_config()
-      vim.notify("GitHub account set to: " .. item.account)
+      vim.fn.system("gh auth switch -u " .. vim.fn.shellescape(item.account))
+      vim.notify("Switched to GitHub account: " .. item.account)
     end,
   })
   menu:mount()
@@ -173,9 +156,16 @@ local function gists_picker(opts)
         vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "Loading..." })
         local stdout = vim.uv.new_pipe()
         local chunks = {}
-        vim.uv.spawn("env", {
-          args = { "-u", "GITHUB_TOKEN", "gh", "api", "--method", "GET", "/gists/" .. entry.value.id },
+        local env = vim.uv.os_environ()
+        env.GITHUB_TOKEN = nil
+        vim.uv.spawn("gh", {
+          args = { "api", "--method", "GET", "/gists/" .. entry.value.id },
           stdio = { nil, stdout, nil },
+          env = (function()
+            local t = {}
+            for k, v in pairs(env) do table.insert(t, k .. "=" .. v) end
+            return t
+          end)(),
         }, function()
           stdout:close()
         end)
