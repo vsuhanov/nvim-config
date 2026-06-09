@@ -1,9 +1,11 @@
-local function get_text_to_send()
-  local mode = vim.fn.mode()
-  if mode == 'v' or mode == 'V' or mode == '\22' then
-    local start_line = vim.fn.line("'<")
-    local end_line = vim.fn.line("'>")
-    local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+local function get_text_to_send(visual)
+  if visual then
+    local start_pos = vim.fn.getpos('v')
+    local end_pos = vim.fn.getpos('.')
+    local mode = vim.fn.mode()
+    local lines = vim.fn.getregion(start_pos, end_pos, { type = mode })
+    vim.cmd('noau normal! \27')
+    local end_line = math.max(start_pos[2], end_pos[2])
     return table.concat(lines, '\n'), end_line
   else
     local current_line = vim.fn.line('.')
@@ -119,8 +121,8 @@ local function open_live_file_buffer(filepath)
   })
 end
 
-local function send_to_terminal(focus)
-  local text = get_text_to_send()
+local function send_to_terminal(focus, visual)
+  local text = get_text_to_send(visual)
   local target_win = pick_idle_terminal()
   if not target_win then return end
 
@@ -130,8 +132,8 @@ local function send_to_terminal(focus)
   end
 end
 
-local function send_to_terminal_capture()
-  local text, end_line = get_text_to_send()
+local function send_to_terminal_capture(visual)
+  local text, end_line = get_text_to_send(visual)
   local source_buf = vim.api.nvim_get_current_buf()
   local source_win = vim.api.nvim_get_current_win()
 
@@ -180,6 +182,9 @@ local function send_to_terminal_capture()
   send_to_win(target_win, text .. ' > ' .. filepath .. ' 2>&1')
 end
 
-vim.keymap.set({ 'n', 'v' }, '<leader>tS', function() send_to_terminal(false) end, { desc = 'Send to terminal' })
-vim.keymap.set({ 'n', 'v' }, '<leader>ts', function() send_to_terminal(true) end, { desc = 'Send to terminal and focus' })
-vim.keymap.set({ 'n', 'v' }, '<leader>tf', send_to_terminal_capture, { desc = 'Send to terminal with output capture' })
+vim.keymap.set('n', '<leader>tS', function() send_to_terminal(false) end, { desc = 'Send to terminal' })
+vim.keymap.set('v', '<leader>tS', function() send_to_terminal(false, true) end, { desc = 'Send to terminal' })
+vim.keymap.set('n', '<leader>ts', function() send_to_terminal(true) end, { desc = 'Send to terminal and focus' })
+vim.keymap.set('v', '<leader>ts', function() send_to_terminal(true, true) end, { desc = 'Send to terminal and focus' })
+vim.keymap.set('n', '<leader>tf', function() send_to_terminal_capture() end, { desc = 'Send to terminal with output capture' })
+vim.keymap.set('v', '<leader>tf', function() send_to_terminal_capture(true) end, { desc = 'Send to terminal with output capture' })
