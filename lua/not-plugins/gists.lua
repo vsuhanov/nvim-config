@@ -27,9 +27,17 @@ local function get_filetype(filename)
 end
 
 local function open_gist_buffer(gist_id, filename, content)
-  vim.cmd("enew")
-  local buf = vim.api.nvim_get_current_buf()
-  vim.api.nvim_buf_set_name(buf, "gist://" .. gist_id .. "/" .. filename)
+  local bufname = "gist://" .. gist_id .. "/" .. filename
+  local existing = vim.fn.bufnr(bufname)
+  local buf
+  if existing ~= -1 then
+    buf = existing
+    vim.api.nvim_set_current_buf(buf)
+  else
+    vim.cmd("enew")
+    buf = vim.api.nvim_get_current_buf()
+    vim.api.nvim_buf_set_name(buf, bufname)
+  end
   local lines = vim.split(content, "\n", { plain = true })
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
   vim.bo[buf].buftype = ""
@@ -194,7 +202,7 @@ local function gists_picker(opts)
         end)
       end,
     }),
-    attach_mappings = function(prompt_bufnr)
+    attach_mappings = function(prompt_bufnr, map)
       actions.select_default:replace(function()
         actions.close(prompt_bufnr)
         local entry = action_state.get_selected_entry()
@@ -204,6 +212,18 @@ local function gists_picker(opts)
         local file = gist.files[filename]
         open_gist_buffer(gist.id, filename, file.content or "")
       end)
+      local open_url = function()
+        local entry = action_state.get_selected_entry()
+        vim.fn.system("open " .. vim.fn.shellescape(entry.value.html_url))
+      end
+      local copy_url = function()
+        local entry = action_state.get_selected_entry()
+        vim.fn.setreg("+", entry.value.html_url)
+        vim.notify("Copied: " .. entry.value.html_url)
+      end
+      map("i", "<C-o>", open_url)
+      map("n", "<C-o>", open_url)
+      map("n", "y", copy_url)
       return true
     end,
   }):find()
