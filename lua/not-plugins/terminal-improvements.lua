@@ -43,7 +43,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
 })
 
 local  delta = 1
-vim.api.nvim_create_autocmd('BufEnter', {
+vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained' }, {
   pattern = 'term://*',
   callback = function(args)
     if not read_mode_terminals[args.buf] then

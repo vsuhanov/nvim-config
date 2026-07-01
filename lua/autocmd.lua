@@ -31,6 +31,12 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   end,
 })
 
+vim.api.nvim_create_autocmd("FocusGained", {
+  callback = function()
+    vim.cmd('wincmd =')
+  end,
+})
+
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     local arg = vim.fn.argv(0)
