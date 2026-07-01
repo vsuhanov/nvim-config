@@ -21,7 +21,7 @@ require("lazy").setup({
     { import = "plugins.specs.dap" },
     { import = "plugins.specs.database" },
     { import = "plugins.specs.misc" },
-    -- { 'kkharji/sqlite.lua' },
+    { 'kkharji/sqlite.lua' },
     {
       "vsuhanov/github-commenter.nvim",
       dependencies = { 'kkharji/sqlite.lua' },
