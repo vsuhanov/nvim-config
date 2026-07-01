@@ -42,6 +42,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
   end
 })
 
+local  delta = 1
 vim.api.nvim_create_autocmd('BufEnter', {
   pattern = 'term://*',
   callback = function(args)
@@ -49,8 +50,8 @@ vim.api.nvim_create_autocmd('BufEnter', {
       vim.cmd('startinsert')
       local win = vim.api.nvim_get_current_win()
       local w = vim.api.nvim_win_get_width(win)
-      vim.api.nvim_win_set_width(win, w + 1)
-      vim.api.nvim_win_set_width(win, w)
+      vim.api.nvim_win_set_width(win, w + delta)
+      delta = delta * -1
     end
   end
 })
