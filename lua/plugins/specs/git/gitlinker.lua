@@ -1,8 +1,9 @@
 return {
   "linrongbin16/gitlinker.nvim",
   keys = {
-    { "<leader>gl", function() require('gitlinker').open() end,       desc = "Open git link" },
-    { "<leader>gL", function() require('gitlinker').open_blame() end, desc = "Open git blame" },
+    { "<leader>gl", function() require('gitlinker').link({ action = require('gitlinker.actions').system }) end,                                  mode = { "n", "v" }, desc = "Open git link in browser" },
+    { "<leader>gL", function() require('gitlinker').link({ router_type = "blame", action = require('gitlinker.actions').system }) end,           mode = { "n", "v" }, desc = "Open git blame in browser" },
+    { "<leader>gy", function() require('gitlinker').link() end,                                                                                  mode = { "n", "v" }, desc = "Copy git link to clipboard" },
   },
   opts = {
     router = {
