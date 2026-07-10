@@ -44,8 +44,9 @@ vim.api.nvim_create_autocmd('VimEnter', {
 
 local  delta = 1
 vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained' }, {
-  pattern = 'term://*',
   callback = function(args)
+    if vim.bo[args.buf].buftype ~= 'terminal' then return end
+    -- print("resizing terminal window")
     if not read_mode_terminals[args.buf] then
       vim.cmd('startinsert')
       local win = vim.api.nvim_get_current_win()
