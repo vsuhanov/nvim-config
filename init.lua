@@ -31,6 +31,7 @@ else
   require('not-plugins.send-to-terminal')
   require('not-plugins.gists')
   require('not-plugins.gh-issues')
+  require('not-plugins.block-hl')
   require('ai-cli')
   require('tabline')
   -- Setup quickfix/loclist magic
