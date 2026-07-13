@@ -15,8 +15,6 @@ local ts_like_query = [[
   arguments: (arguments (_ body: (statement_block)))
   (#any-of? @_method "forEach" "map" "filter" "flatMap" "reduce" "reduceRight" "some" "every" "find" "findIndex" "findLast")) @block.loop)
 (function_declaration) @block.func
-(function_expression) @block.func
-(arrow_function) @block.func
 (method_definition) @block.func
 ]]
 
@@ -29,7 +27,6 @@ local queries = {
 (while_statement) @block.loop
 (repeat_statement) @block.loop
 (function_declaration) @block.func
-(function_definition) @block.func
 ]],
   javascript = ts_like_query,
   typescript = ts_like_query,
@@ -47,7 +44,6 @@ local queries = {
   (#any-of? @_method "forEach" "forEachOrdered" "map" "filter" "flatMap" "peek")) @block.loop)
 (method_declaration) @block.func
 (constructor_declaration) @block.func
-(lambda_expression) @block.func
 ]],
 }
 
@@ -142,17 +138,7 @@ local function refresh(bufnr)
   local marks = {}
   for id, node in query:iter_captures(root, bufnr) do
     local name = query.captures[id]
-    local skip = false
-    if name == "_method" then
-      skip = true
-    elseif name == "block.func" then
-      local parent = node:parent()
-      local pt = parent and parent:type()
-      if pt == "arguments" or pt == "argument_list" then
-        skip = true
-      end
-    end
-    if not skip then
+    if name ~= "_method" then
       local sr, sc, er, ec = node:range()
       if node:type() == "else_statement" then
         local parent = node:parent()
