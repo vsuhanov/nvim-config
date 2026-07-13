@@ -33,6 +33,14 @@ function M.get_cwd_color_index()
   return (hash % #M.colors) + 1
 end
 
+local function bold_calls()
+  for _, g in ipairs({ "@function.call", "@function.method.call" }) do
+    local h = vim.api.nvim_get_hl(0, { name = g, link = false })
+    h.bold = true
+    vim.api.nvim_set_hl(0, g, h)
+  end
+end
+
 local function resolve_color()
   local override = require('not-plugins.project-config').get_color()
   if override then return { bg = override, fg = '#FFFFFF' } end
@@ -48,6 +56,7 @@ function M.setDarkMode()
   vim.api.nvim_set_hl(0, '@comment', { fg = "#ff9900" })
   vim.api.nvim_set_hl(0, 'Visual', { bg = '#2e4a6a', fg = 'NONE' })
   vim.api.nvim_set_hl(0, 'LocalHighlight', { bg = '#4a2a3a', fg = 'NONE' })
+  bold_calls()
   require('iterm-utils').set_tab_color(color.bg)
   set_winbar()
   require('region-highlight').setDarkMode()
@@ -63,6 +72,7 @@ function M.setLightMode()
   vim.api.nvim_set_hl(0, '@comment', { fg = "#8c3800" })
   vim.api.nvim_set_hl(0, 'Visual', { bg = '#c8d4dc', fg = 'NONE' })
   vim.api.nvim_set_hl(0, 'LocalHighlight', { bg = '#f2dde4', fg = 'NONE' })
+  bold_calls()
   require('iterm-utils').set_tab_color(color.bg)
   set_winbar()
   require('region-highlight').setLightMode()
