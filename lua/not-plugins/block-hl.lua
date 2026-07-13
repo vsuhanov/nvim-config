@@ -149,10 +149,8 @@ local function refresh(bufnr)
       end
       if name == "block.func" then
         sc = 0
-        local last_line = vim.api.nvim_buf_get_lines(bufnr, er, er + 1, false)[1]
-        if last_line then
-          ec = #last_line
-        end
+        er = er + 1
+        ec = 0
       end
       table.insert(marks, { name = name, sr = sr, sc = sc, er = er, ec = ec })
     end
@@ -200,6 +198,7 @@ local function refresh(bufnr)
       end_col = m.ec,
       hl_group = group,
       hl_eol = true,
+      strict = false,
       priority = 10 + m.depth,
     })
   end
