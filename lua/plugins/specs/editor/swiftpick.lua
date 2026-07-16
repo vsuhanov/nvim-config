@@ -7,6 +7,8 @@ return {
     { "<leader>ee",  function() require("swiftpick.actions").open_picker() end,                                    desc = "SwiftPick open picker" },
   },
   config = function()
-    require("swiftpick").setup()
+    require("swiftpick").setup({
+          use_global_context_by_default = true,
+    })
   end
 }
