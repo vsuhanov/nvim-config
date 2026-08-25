@@ -43,6 +43,23 @@ vim.api.nvim_create_user_command('Ga', git_add_current_file_command, {})
 vim.api.nvim_create_user_command('Gc', git_commit_command, { nargs = "*" })
 vim.api.nvim_create_user_command('Gf', git_commit_current_file, { nargs = "*" })
 vim.api.nvim_create_user_command('Gpu', git_push_or_commit_current_file_and_push, { nargs = "*" })
+
+-- Open a telescope picker with all files changed in the current branch vs a base branch.
+-- :GitBranchFiles             → uses $GIT_BASE_BRANCH or origin/main
+-- :GitBranchFiles origin/dev  → explicit base branch
+vim.api.nvim_create_user_command('GitBranchFiles', function(opts)
+  local base_branch = opts.args ~= "" and opts.args or nil
+  require('plugins.config.telescope-git-branch-files').git_branch_files({ base_branch = base_branch })
+end, {
+  nargs = "?",
+  desc  = "Telescope: files changed in current branch vs base",
+  complete = function()
+    -- Suggest common base branch names
+    local lines = vim.fn.systemlist("git branch -r --format='%(refname:short)' 2>/dev/null")
+    if vim.v.shell_error ~= 0 then return {} end
+    return lines
+  end,
+})
 -- open directory of the current file
 vim.api.nvim_create_user_command('Dir', function() vim.cmd(":e %:p:h") end, {})
 -- reload the config

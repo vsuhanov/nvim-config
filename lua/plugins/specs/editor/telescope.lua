@@ -45,7 +45,6 @@ local function open_in_picked_window(prompt_bufnr)
 end
 return {
   "nvim-telescope/telescope.nvim",
-  tag = "0.1.4",
   dependencies = { "nvim-lua/plenary.nvim" },
   keys = {
     { "<leader>wo", function() require('telescope.builtin').find_files() end,                                                    desc = "Find files", mode = "n" },
@@ -67,11 +66,31 @@ return {
     { "<leader>w]", function() require('telescope.builtin').jumplist() end,                                                      desc = "Jumplist" },
     { "<leader>hh", function() require('telescope.builtin').treesitter() end,                                                    desc = "Treesitter",     mode = "n" },
     { "<leader>hh", function() telescope_with_selection(function(opts) require('telescope.builtin').treesitter(opts) end)() end, desc = "Treesitter",     mode = "v" },
-    { "<leader>b",  function() require('telescope.builtin').lsp_definitions() end,                                               desc = "LSP definitions" },
+    {
+      "<leader>b",
+      function()
+        local clients = vim.lsp.get_clients({ bufnr = 0 })
+        local has_def = vim.iter(clients):any(function(c)
+          return c.server_capabilities.definitionProvider
+        end)
+        if has_def then
+          require('telescope.builtin').lsp_definitions()
+        else
+          vim.notify("definitionProvider not ready, using loclist fallback", vim.log.levels.WARN)
+          vim.lsp.buf.definition({ loclist = true })
+        end
+      end,
+      desc = "LSP definitions"
+    },
     {
       "<leader>B",
       function()
-        vim.cmd('vs'); require('telescope.builtin').lsp_definitions()
+        vim.cmd('vs')
+        local ok, err = pcall(require('telescope.builtin').lsp_definitions)
+        if not ok then
+          vim.notify("lsp_definitions failed: " .. tostring(err) .. "\nFalling back to vim.lsp.buf.definition", vim.log.levels.WARN)
+          vim.lsp.buf.definition({ loclist = true })
+        end
       end,
       desc = "LSP def split"
     },
@@ -82,6 +101,7 @@ return {
     { "<leader>fb",  function() require('telescope.builtin').git_branches() end,       desc = "Git branches" },
     { "<leader>gc",  function() require('telescope.builtin').git_commits() end,        desc = "Git commits" },
     { "<leader>gbc", function() require('telescope.builtin').git_bcommits() end,       desc = "Buffer commits" },
+    { "<leader>gbf", function() require('plugins.config.telescope-git-branch-files').git_branch_files() end, desc = "Branch changed files" },
     { "<leader>gbl", function() require('telescope.builtin').git_bcommits_range() end, desc = "Commits range",  mode = "n" },
     {
       "<leader>gbl",
@@ -95,7 +115,7 @@ return {
       mode = "v"
     },
   },
-  cmd = { "Telescope", "TelescopeLazy" },
+  cmd = { "Telescope", "TelescopeLazy", "GitBranchFiles" },
   opts = {
     defaults = {
       path_dispay = { shorten = { len = 3, exclude = { 2, -1 } } },
