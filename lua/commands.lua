@@ -168,12 +168,15 @@ end, {})
 
 
 vim.api.nvim_create_user_command("E", function(opts)
-  if opts.args == "" then
+  local arg = opts.args
+  -- Strip surrounding single or double quotes (from pasting quoted paths)
+  arg = arg:match("^['\"](.+)['\"]$") or arg
+  if arg == "" then
     vim.cmd("edit")
-  elseif vim.fn.isdirectory(opts.args) == 1 then
-    require("oil").open(opts.args)
+  elseif vim.fn.isdirectory(arg) == 1 then
+    require("oil").open(arg)
   else
-    vim.cmd("edit " .. vim.fn.fnameescape(opts.args))
+    vim.cmd("edit " .. vim.fn.fnameescape(arg))
   end
 end, { nargs = "?", complete = "file" })
 
