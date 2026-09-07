@@ -15,6 +15,7 @@ if vim.g.vscode then
 else
   require('initvim')
   require('set')
+  require('not-plugins.session').autoload()
   require('window-tracking').setup()
   require('plugins')
   require('remap')

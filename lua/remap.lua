@@ -116,5 +116,5 @@ vim.keymap.set({ "n" }, "<leader>wj", function()
   print(window)
 end, {})
 
-keymap("n", "q", "<nop>", opts)
-keymap("n", "Q", "q", opts)
+-- keymap("n", "q", "<nop>", opts)
+-- keymap("n", "<leader>Q", "q", opts)
