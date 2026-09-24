@@ -118,3 +118,10 @@ end, {})
 
 -- keymap("n", "q", "<nop>", opts)
 -- keymap("n", "<leader>Q", "q", opts)
+
+-- gX: open URL/path under cursor in background (macOS open -g)
+vim.keymap.set('n', 'gX', function()
+  local target = vim.fn.expand('<cfile>')
+  if target == '' then return end
+  vim.ui.open(target, { cmd = { 'open', '-g' } })
+end, { silent = true, desc = 'Open under cursor in background (macOS)' })

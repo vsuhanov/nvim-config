@@ -1,4 +1,4 @@
-local picker_config = { fname_width = 60, path_display = { shorten = { len = 3, exclude = { 2, -1 } } } }
+local picker_config = { fname_width = 60, path_display = { "filename_first", shorten = { len = 2, exclude = { -1, -2 } } } }
 
 local function telescope_with_selection(telescope_func)
   return function()
@@ -118,7 +118,7 @@ return {
   cmd = { "Telescope", "TelescopeLazy", "GitBranchFiles" },
   opts = {
     defaults = {
-      path_dispay = { shorten = { len = 3, exclude = { 2, -1 } } },
+      path_display = { "filename_first", shorten = { len = 2, exclude = { -1, -2 } } },
       dynamic_preview_title = true,
       -- Default configuration for telescope goes here:
       -- config_key = value,
@@ -151,6 +151,7 @@ return {
       lsp_implementations = picker_config,
       jumplist            = picker_config,
       find_files          = {
+        path_display = { "filename_first", shorten = { len = 2, exclude = { -1, -2 } } },
         find_command = {
           "fd",
           "--type", "f",

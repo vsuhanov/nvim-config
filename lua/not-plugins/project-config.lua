@@ -3,13 +3,17 @@ local M = {}
 local store_path = vim.fn.stdpath("data") .. "/project-config.json"
 local store = {}
 
-do
+local function load_store()
+  local result = {}
   local ok, content = pcall(vim.fn.readfile, store_path)
   if ok and #content > 0 then
     local dok, data = pcall(vim.fn.json_decode, table.concat(content, "\n"))
-    if dok and type(data) == "table" then store = data end
+    if dok and type(data) == "table" then result = data end
   end
+  return result
 end
+
+store = load_store()
 
 local function get_entry()
   return store[vim.fn.getcwd()] or {}
@@ -25,7 +29,23 @@ function M.set_entry(key, value)
 end
 
 function M.save()
-  vim.fn.writefile({ vim.fn.json_encode(store) }, store_path)
+  -- Re-read from disk so we don't clobber entries written by other nvim
+  -- instances. Each instance is only authoritative for its own cwd entry.
+  local cwd = vim.fn.getcwd()
+  local disk = load_store()
+  disk[cwd] = store[cwd]
+  store = disk
+
+  -- Atomic write: write to a temp file then rename over the target so a crash
+  -- mid-write can't truncate the whole store.
+  local tmp_path = store_path .. ".tmp"
+  vim.fn.writefile({ vim.fn.json_encode(store) }, tmp_path)
+  local ok = os.rename(tmp_path, store_path)
+  if not ok then
+    -- Fallback to a direct write if rename fails (e.g. cross-device).
+    vim.fn.writefile({ vim.fn.json_encode(store) }, store_path)
+    pcall(os.remove, tmp_path)
+  end
 end
 
 local function apply_color(color)
@@ -51,6 +71,10 @@ local function nui_input(title, default, on_submit)
   })
   input:mount()
 end
+
+vim.api.nvim_create_user_command("OpenProjectConfig", function()
+  vim.cmd("edit " .. vim.fn.fnameescape(store_path))
+end, {})
 
 vim.api.nvim_create_user_command("EditTerminalTitle", function()
   nui_input("Terminal Title", M.get_title(), function(value)
