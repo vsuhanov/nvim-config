@@ -1,3 +1,4 @@
+local gitignore_excludes = require('plugins.config.gitignore-excludes')
 local picker_config = { fname_width = 60, path_display = { "filename_first", shorten = { len = 2, exclude = { -1, -2 } } } }
 
 local function telescope_with_selection(telescope_func)
@@ -152,18 +153,25 @@ return {
       jumplist            = picker_config,
       find_files          = {
         path_display = { "filename_first", shorten = { len = 2, exclude = { -1, -2 } } },
-        find_command = {
-          "fd",
-          "--type", "f",
-          "--hidden",
-          "--follow",
-          "--exclude", "target",       -- Maven build dir
-          "--exclude", "build",        -- Gradle build dir
-          "--exclude", ".gradle",      -- Gradle cache
-          "--exclude", "node_modules", -- If you have JS tooling
-          "--exclude", ".git",
-          "--exclude", "*.class",      -- Compiled Java files
-        },
+        find_command = function()
+          local command = {
+            "fd",
+            "--type", "f",
+            "--hidden",
+            "--no-ignore-vcs",
+            "--follow",
+            "--exclude", "target",       -- Maven build dir
+            "--exclude", "build",        -- Gradle build dir
+            "--exclude", ".gradle",      -- Gradle cache
+            "--exclude", "node_modules", -- If you have JS tooling
+            "--exclude", ".git",
+            "--exclude", "*.class",      -- Compiled Java files
+          }
+          for _, pattern in ipairs(gitignore_excludes.patterns(vim.uv.cwd())) do
+            vim.list_extend(command, { "--exclude", pattern })
+          end
+          return command
+        end,
       },
       -- Default configuration for builtin pickers goes here:
       -- picker_name = {

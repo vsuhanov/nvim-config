@@ -76,10 +76,16 @@ local function pick_window_buf_path()
   return vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(winid))
 end
 
+local function current_terminal_chan()
+  if vim.bo.buftype ~= 'terminal' then return nil end
+  return vim.bo.channel
+end
+
 vim.api.nvim_create_user_command(
   'CopyBufferPath',
   function(opts)
     local path
+    local terminal_chan = current_terminal_chan()
     if vim.api.nvim_get_option_value('filetype', {}) == 'neo-tree' then
       local manager = require("neo-tree.sources.manager")
       local state = manager.get_state_for_window()
@@ -96,6 +102,7 @@ vim.api.nvim_create_user_command(
       path = path .. ':' .. line_number
     end
     vim.fn.setreg('+', path)
+    if terminal_chan then vim.fn.chansend(terminal_chan, path) end
     print('Copied: ' .. path)
   end,
   { nargs = '?', complete = function() return { 'withLineNumber' } end }
@@ -105,6 +112,7 @@ vim.api.nvim_create_user_command(
   'CopyRelativePath',
   function(opts)
     local path
+    local terminal_chan = current_terminal_chan()
     if vim.api.nvim_get_option_value('filetype', {}) == 'neo-tree' then
       local manager = require("neo-tree.sources.manager")
       local state = manager.get_state_for_window()
@@ -124,6 +132,7 @@ vim.api.nvim_create_user_command(
       path = path .. ':' .. line_number
     end
     vim.fn.setreg('+', path)
+    if terminal_chan then vim.fn.chansend(terminal_chan, path) end
     print('Copied: ' .. path)
   end,
   { nargs = '?', complete = function() return { 'withLineNumber' } end }

@@ -40,6 +40,7 @@ else
 
   -- Setup git branch highlighting
   require('git-branch-highlight').setup()
+  require('url-highlight').setup()
 
   -- ignore errors: local-config may not exist
   pcall(function()

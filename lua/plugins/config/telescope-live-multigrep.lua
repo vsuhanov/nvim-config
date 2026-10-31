@@ -3,6 +3,7 @@ local finders = require "telescope.finders"
 local make_entry = require "telescope.make_entry"
 local conf = require "telescope.config".values
 local sorters = require('telescope.sorters')
+local gitignore_excludes = require "plugins.config.gitignore-excludes"
 local process_glob_pattern = function(pattern)
   if pattern:sub(1, 1) == "/" then
     return "**/*" .. pattern:sub(2) .. "*/**"
@@ -21,7 +22,10 @@ local live_multigrep = function(opts)
         return nil
       end
       local groups = vim.split(prompt, "   ")
-      local args = { "rg", "--glob-case-insensitive" }
+      local args = { "rg", "--glob-case-insensitive", "--hidden", "--no-ignore-vcs", "-g", "!.git", "-g", "!node_modules", "-g", "!target", "-g", "!build", "-g", "!.gradle", "-g", "!*.class" }
+      for _, pattern in ipairs(gitignore_excludes.patterns(opts.cwd)) do
+        vim.list_extend(args, { "-g", "!" .. pattern })
+      end
 
       for _, group in ipairs(groups) do
         local pieces = vim.split(group, "  ")

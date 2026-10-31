@@ -57,6 +57,7 @@ return {
   },
   keys = {
     { "<leader>nn", function() vim.cmd("Scratch") end },
+    { "<leader>nn", ":Scratch<CR>", mode = "x" },
     { "<leader>nf", function() vim.cmd("ScratchWithName") end },
     { "<leader>no", function() require("scratch").scratchOpen() end }
   }

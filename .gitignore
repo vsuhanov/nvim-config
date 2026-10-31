@@ -1,3 +1,5 @@
 .DS_Store
 lua/local-config.lua
 *.log
+
+.env
