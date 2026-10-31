@@ -44,17 +44,39 @@ M.edit_terminal_title = function()
   input:mount()
 end
 
+local function emoji_for(path)
+  local hash = 0
+  for i = 1, #path do
+    hash = (hash + string.byte(path, i)) % (#EMOJIS)
+  end
+  return EMOJIS[hash + 1]
+end
+
+local function prettify(name)
+  return (name:gsub("[-_]+", " "):gsub("%f[%w]%l", string.upper))
+end
+
+local function git_title(cwd, root)
+  local parent = vim.fn.fnamemodify(root, ":h")
+  local name = vim.fn.fnamemodify(root, ":t")
+  local title = string.format("%s%s %s", emoji_for(parent), emoji_for(root), prettify(name))
+  if cwd ~= root then
+    title = string.format("%s / %s", title, vim.fn.fnamemodify(cwd, ":t"))
+  end
+  return title
+end
+
 M.set_default_terminal_title = function()
-  local cwd = vim.fn.getcwd()
+  local cwd = vim.fs.normalize(vim.fn.getcwd())
+
+  local root = vim.fs.root(cwd, ".git")
+  if root then
+    M.set_terminal_title(git_title(cwd, vim.fs.normalize(root)))
+    return
+  end
 
   -- Calculate hash from cwd
-  local hash = 0
-  for i = 1, #cwd do
-    hash = (hash + string.byte(cwd, i)) % (#EMOJIS)
-  end
-  hash = hash + 1 -- Convert to 1-based index
-
-  local emoji = EMOJIS[hash]
+  local emoji = emoji_for(cwd)
 
   -- Extract parent and current directory names
   local current_dir = vim.fn.fnamemodify(cwd, ":t")
