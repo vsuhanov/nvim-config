@@ -214,7 +214,7 @@ local function gists_picker(opts)
       end)
       local open_url = function()
         local entry = action_state.get_selected_entry()
-        vim.fn.system("open " .. vim.fn.shellescape(entry.value.html_url))
+        require("utils").open_external(entry.value.html_url)
       end
       local copy_url = function()
         local entry = action_state.get_selected_entry()

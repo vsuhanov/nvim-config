@@ -15,6 +15,7 @@ if vim.g.vscode then
 else
   require('initvim')
   require('set')
+  require('linux')
   require('not-plugins.session').autoload()
   require('window-tracking').setup()
   require('plugins')
@@ -35,6 +36,9 @@ else
   require('not-plugins.block-hl')
   require('ai-cli')
   require('tabline')
+  if vim.fn.has('mac') == 0 then
+    require('light-dark-modes').follow_terminal_background()
+  end
   -- Setup quickfix/loclist magic
   require('quickfix-magic').setup()
 

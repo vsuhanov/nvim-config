@@ -1,9 +1,10 @@
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+local jdtls_launcher = '/Users/vitaly/projects/jdt-language-server/plugins/org.eclipse.equinox.launcher_1.6.700.v20231214-2017.jar'
 
 local config = {
   cmd = {
     -- 💀
-    '/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home/bin/java', -- or ''
+    vim.fn.has('mac') == 1 and '/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home/bin/java' or 'java', -- or ''
     -- depends on if `java` is in your $PATH env variable and if it points to the right version.
 
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
@@ -19,7 +20,7 @@ local config = {
     '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
 
     -- 💀
-    '-jar', '/Users/vitaly/projects/jdt-language-server/plugins/org.eclipse.equinox.launcher_1.6.700.v20231214-2017.jar',
+    '-jar', jdtls_launcher,
     -- 💀
     '-configuration', '/Users/vitaly/projects/jdt-language-server/config_mac',
 
@@ -42,6 +43,8 @@ local config = {
 }
 -- require('jdtls').start_or_attach(config)
 local function jdtls_setup(event)
+  -- Skip on machines without the jdt.ls install (e.g. the Ubuntu server)
+  if vim.fn.filereadable(jdtls_launcher) == 0 then return end
   local jdtls = require('jdtls')
   jdtls.start_or_attach(config)
 end

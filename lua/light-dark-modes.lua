@@ -78,6 +78,32 @@ function M.setLightMode()
   require('region-highlight').setLightMode()
 end
 
+-- Linux/SSH: there's no desktop appearance to read, so follow the terminal's
+-- background instead. nvim asks the terminal for its background colour (OSC 11)
+-- and sets 'background' from the answer (iTerm2 supports this).
+function M.follow_terminal_background()
+  local function apply()
+    if vim.o.background == 'light' then
+      M.setLightMode()
+    else
+      M.setDarkMode()
+    end
+  end
+  vim.api.nvim_create_autocmd('OptionSet', {
+    pattern = 'background',
+    callback = apply,
+  })
+  -- :RefreshBackground asks the terminal for its background again (e.g. after
+  -- switching the iTerm2 profile between light and dark) without restarting nvim.
+  vim.api.nvim_create_user_command('RefreshBackground', function()
+    vim.api.nvim_ui_send('\27]11;?\27\\') -- OSC 11 query; the reply sets 'background'
+    vim.defer_fn(function()
+      vim.notify("background: " .. vim.o.background)
+    end, 300)
+  end, { desc = 'Re-read terminal background and switch light/dark scheme' })
+  vim.schedule(apply)
+end
+
 -- M.setDarkMode()
 -- M.setLightMode()
 

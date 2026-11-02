@@ -111,7 +111,7 @@ return {
       local function reveal_in_finder()
         local node = require('nvim-tree.api').tree.get_node_under_cursor()
         if node then
-          vim.fn.system('open -R "' .. node.absolute_path .. '"')
+          require('utils').reveal_in_file_manager(node.absolute_path)
         end
       end
       local function open_in_intellij()

@@ -29,7 +29,7 @@ end
 local function reveal_in_finder(state)
   local node = state.tree:get_node()
   if node then
-    vim.fn.system('open -R "' .. node.path .. '"')
+    require('utils').reveal_in_file_manager(node.path)
   end
 end
 

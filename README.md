@@ -1,6 +1,6 @@
 # Make lazygit work
 
-edit ~/Library/Application Support/lazygit/config.yml
+edit `~/Library/Application Support/lazygit/config.yml` (macOS) or `~/.config/lazygit/config.yml` (Linux)
 
 ```yaml
 os:
