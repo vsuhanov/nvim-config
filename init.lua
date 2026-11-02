@@ -34,6 +34,7 @@ else
   require('not-plugins.gists')
   require('not-plugins.gh-issues')
   require('not-plugins.block-hl')
+  require('not-plugins.iterm-socket')
   require('ai-cli')
   require('tabline')
   if vim.fn.has('mac') == 0 then
